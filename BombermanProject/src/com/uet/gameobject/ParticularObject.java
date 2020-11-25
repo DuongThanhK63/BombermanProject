@@ -9,10 +9,10 @@ public abstract class ParticularObject extends GameObject{
     public static final int LEAGUE_TEAM = 1;
     public static final int ENEMY_TEAM = 2;
 
-    public static final int LEFT_DIR = 0;
-    public static final int RIGHT_DIR = 1;
-    public static final int UP_DIR = 0;
-    public static final int DOWN_DIR = 1;
+    public static final int LEFT_DIR = 1;
+    public static final int RIGHT_DIR = 2;
+    public static final int UP_DIR = 3;
+    public static final int DOWN_DIR = 4;
 
     public static final int ALIVE = 0;
     public static final int GETDAMGE = 1;
@@ -170,6 +170,8 @@ public abstract class ParticularObject extends GameObject{
                     state = ALIVE;
                 }
                 break;
+            case DEATH:
+                break;
         }
     }
 
@@ -188,7 +190,8 @@ public abstract class ParticularObject extends GameObject{
 
     public void drawBoundForCollisionWithMap(Graphics2D g2d){
         Rectangle rect = getBoundForCollisionWithMap();
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(Color.WHITE);
+        g2d.drawRect(rect.x - (int) getGameWorld().camera.getPositionX(),rect.y - (int) getGameWorld().camera.getPositionY(),rect.width,rect.height);
     }
 
     public void drawBoundForCollisionWithEnemy(Graphics2D g2d){

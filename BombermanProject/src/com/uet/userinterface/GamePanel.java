@@ -6,7 +6,10 @@
 package com.uet.userinterface;
 
 import com.uet.effect.Animation;
+import com.uet.effect.CacheDataLoader;
 import com.uet.effect.FrameImage;
+import com.uet.gameobject.GameWorld;
+import com.uet.gameobject.PhysicalMap;
 import com.uet.gameobject.Player;
 
 import java.awt.Color;
@@ -37,22 +40,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private BufferedImage bufImage;
     private Graphics2D bufGraphics2D;
 
+    public GameWorld gameWorld;
 
-    Player player = new Player(10,10,16,16);
-    
     FrameImage frame1, frame2, frame3;
-    
-    
+
     Animation animation;
-    
-    
-    
+
     
     public GamePanel() {
-        inputManager = new InputManager(this);
-
+        gameWorld = new GameWorld();
+        inputManager = new InputManager(gameWorld);
         bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH ,GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
 
 //        try {
 //            BufferedImage image = ImageIO.read(new File("data/bomb.png"));
@@ -95,10 +93,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     public void updateGame(){
-        player.update();
+        gameWorld.Update();
     }
 
-    public void renderGame(){
+    public void renderGame() {
         if(bufImage == null){
             bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT,BufferedImage.TYPE_INT_ARGB);
         }
@@ -110,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if(bufGraphics2D != null){
             bufGraphics2D.setColor(Color.getColor("PinK", 0xffff00ff));
             bufGraphics2D.fillRect(0, 0, GameFrame.SCREEN_WIDTH, GameFrame.SCREEN_HEIGHT);
-            player.drawPlayer(bufGraphics2D);
+            gameWorld.Render(bufGraphics2D);
         }
     }
 

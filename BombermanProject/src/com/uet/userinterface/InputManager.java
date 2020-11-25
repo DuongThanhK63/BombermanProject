@@ -5,6 +5,7 @@
  */
 package com.uet.userinterface;
 
+import com.uet.gameobject.GameWorld;
 import com.uet.gameobject.Player;
 
 import java.awt.event.KeyEvent;
@@ -15,38 +16,35 @@ import java.awt.event.KeyEvent;
  */
 public class InputManager {
 
-    private GamePanel gamePanel;
-    public InputManager(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+    private GameWorld gameWorld;
+    public InputManager(GameWorld gameWorld){
+
+        this.gameWorld = gameWorld;
     }
     
     public void processKeyPressed(int keyCode) {
         
         switch(keyCode){
             case KeyEvent.VK_W:
-                gamePanel.player.setDirection(Player.dir_up);
-                gamePanel.player.setSpeedY(-1);
+                gameWorld.player.setDirection(gameWorld.player.UP_DIR);
+                gameWorld.player.moving();
                 break;
             
             case KeyEvent.VK_S:
-                gamePanel.player.setDirection(Player.dir_down);
-                gamePanel.player.setSpeedY(1);
+                gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
+                gameWorld.player.moving();
                 break;
             
             case KeyEvent.VK_A:
-                gamePanel.player.setDirection(Player.dir_left);
-                gamePanel.player.setSpeedX(-1);
+                gameWorld.player.setDirection(gameWorld.player.LEFT_DIR);
+                gameWorld.player.moving();
                 break;
             
             case KeyEvent.VK_D:
-                gamePanel.player.setDirection(Player.dir_right);
-                gamePanel.player.setSpeedX(1);
+                gameWorld.player.setDirection(gameWorld.player.RIGHT_DIR);
+                gameWorld.player.moving();
                 break;
             case KeyEvent.VK_SPACE:
-                
-                break;
-            
-            case KeyEvent.VK_ENTER:
                 
                 break;
         }
@@ -56,25 +54,25 @@ public class InputManager {
         
         switch(keyCode){
             case KeyEvent.VK_W:
-                gamePanel.player.setSpeedY(0);
+                gameWorld.player.setDirection(gameWorld.player.UP_DIR);
+                gameWorld.player.stopMoving();
                 break;
             
             case KeyEvent.VK_S:
-                gamePanel.player.setSpeedY(0);
+                gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
+                gameWorld.player.stopMoving();
                 break;
             
             case KeyEvent.VK_A:
-                gamePanel.player.setSpeedX(0);
+                gameWorld.player.setDirection(gameWorld.player.LEFT_DIR);
+                gameWorld.player.stopMoving();
                 break;
             
             case KeyEvent.VK_D:
-                gamePanel.player.setSpeedX(0);
+                gameWorld.player.setDirection(gameWorld.player.RIGHT_DIR);
+                gameWorld.player.stopMoving();
                 break;
             case KeyEvent.VK_SPACE:
-                
-                break;
-            
-            case KeyEvent.VK_ENTER:
                 
                 break;
         }

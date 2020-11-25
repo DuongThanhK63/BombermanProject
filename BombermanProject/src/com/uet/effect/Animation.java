@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.uet.effect;
 
 import java.awt.Graphics2D;
@@ -18,55 +13,55 @@ import java.util.ArrayList;
  */
 public class Animation {
     private String name;
-    
+
     private boolean isRepeated;
-    
+
     private ArrayList<FrameImage> frameImages;
     private int currentFrame;
-    
+
     private ArrayList<Boolean> ignoreFrames;
-    
+
     private ArrayList<Double> delayFrames;
     private long beginTime;
-    
+
     private boolean drawRectFrame;
-    
-    
+
+
     public Animation() {
         delayFrames = new ArrayList<Double>();
         beginTime = 0;
         currentFrame = 0;
-        
+
         ignoreFrames = new ArrayList<Boolean>();
-        
+
         frameImages = new ArrayList<FrameImage>();
-        
+
         drawRectFrame = false;
-        
+
         isRepeated = true;
-        
+
     }
-    
+
     public Animation(Animation animation) {
         beginTime = animation.beginTime;
         currentFrame = animation.currentFrame;
         drawRectFrame = animation.drawRectFrame;
         isRepeated = animation.drawRectFrame;
-        
+
         ignoreFrames = new ArrayList<Boolean>();
         for(boolean b : animation.ignoreFrames){
             ignoreFrames.add(b);
         }
-        
+
         frameImages = new ArrayList<FrameImage>();
         for(FrameImage f : animation.frameImages){
             frameImages.add(f);
         }
-        
+
         delayFrames = new ArrayList<Double>();
         for(Double d : animation.delayFrames){
             delayFrames.add(d);
-        }       
+        }
     }
 
     public String getName() {
@@ -136,44 +131,44 @@ public class Animation {
     public void setDrawRectFrame(boolean drawRectFrame) {
         this.drawRectFrame = drawRectFrame;
     }
-    
-    
+
+
     public boolean isIgnoreFrame(int id) {
         return ignoreFrames.get(id);
     }
-    
+
     public void setIgnoreFrame(int id) {
         if(id >= 0 && id < ignoreFrames.size()){
             ignoreFrames.set(id, true);
         }
     }
-    
+
     public void unIgnoreFrame(int id) {
         if(id >= 0 && id < ignoreFrames.size()){
             ignoreFrames.set(id, false);
         }
     }
 
-    
+
     public void reset() {
         currentFrame = 0;
         beginTime = 0;
-        
+
         for(int i = 0; i < ignoreFrames.size(); i++){
             ignoreFrames.set(i, false);
         }
     }
-    
+
     public void add(FrameImage frameImage, double timeToNextFrame) {
         ignoreFrames.add(false);
         frameImages.add(frameImage);
         delayFrames.add(new Double(timeToNextFrame));
     }
-    
+
     public BufferedImage getCurrentImage() {
         return frameImages.get(currentFrame).getImage();
     }
-    
+
     public void Update(long currentTime) {
         if(beginTime == 0){
             beginTime = currentTime;
@@ -184,7 +179,7 @@ public class Animation {
             }
         }
     }
-    
+
     public void nextFrame() {
         if(currentFrame >= frameImages.size() - 1){
             if(isRepeated){
@@ -193,12 +188,12 @@ public class Animation {
         }else{
             currentFrame ++;
         }
-        
+
         if(ignoreFrames.get(currentFrame)){
             nextFrame();
         }
     }
-    
+
     public boolean isLastFrame() {
         if(currentFrame == frameImages.size() - 1){
             return true;
@@ -206,40 +201,40 @@ public class Animation {
             return false;
         }
     }
-    
+
     public void flipAllImage() {
         for(int i = 0; i < frameImages.size(); i++){
-            
+
             BufferedImage image = frameImages.get(i).getImage();
-            
+
             AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
             tx.translate(-image.getWidth(), 0);
-            
+
             AffineTransformOp op = new AffineTransformOp(tx,
                     AffineTransformOp.TYPE_BILINEAR);
-            
+
             image = op.filter(image, null);
-            
+
             frameImages.get(i).setImage(image);
-            
+
         }
     }
-    
-    
+
+
     public void draw(int x, int y, Graphics2D g2) {
         BufferedImage image = getCurrentImage();
-        
-        g2.drawImage(image, x - image.getWidth()/2, 
+
+        g2.drawImage(image, x - image.getWidth()/2,
                 y - image.getHeight()/2, null);
-        
+
         if(drawRectFrame){
-            g2.drawRect(x - image.getWidth()/2, 
-                y - image.getHeight()/2, image.getWidth(), 
-                image.getHeight());
+            g2.drawRect(x - image.getWidth()/2,
+                    y - image.getHeight()/2, image.getWidth(),
+                    image.getHeight());
         }
     }
-    
-     
-    
-    
+
+
+
+
 }
