@@ -1,0 +1,23 @@
+22
+manup manup1 200000000 manup2 200000000 manup3 200000000
+manright manright1 200000000 manright2 200000000 manright3 200000000
+mandown mandown1 200000000 mandown2 200000000 mandown3 200000000
+manleft manleft1 200000000 manleft2 200000000 manuleft3 200000000
+mandie mandie1 200000000 mandie2 200000000 mandie3 200000000
+balloomleft balloomleft1 200000000 balloomleft2 200000000 balloomleft3 200000000
+balloomdie balloomdie 200000000 bossdie1 200000000 bossdie2 200000000 bossdie3 200000000
+balloomright balloomright1 200000000 balloomright2 200000000 balloomright3 200000000
+onealleft onealleft1 200000000 onealleft2 200000000 onealleft3 200000000
+onealdie onealdie 200000000 bossdie1 200000000 bossdie2 200000000 bossdie3 200000000
+onealright onealright1 200000000 onealright2 200000000 onealright3 200000000
+bomdie bombig 200000000 bommedium 200000000 bomsmall 200000000
+firecentre firecentre1 200000000 firecentre2 200000000 firecentre3 200000000
+fireup1 fireup11 200000000 fireup12 200000000 fireup13 200000000
+fireup2 fireup21 200000000 fireup22 200000000 fireup23 200000000  
+firedown1 firedown11 200000000 firedown12 200000000 firedown13 200000000
+firedown2 firedown21 200000000 firedown22 200000000 firedown23 200000000
+fireleft1 fireleft11 200000000 fireleft12 200000000 fireleft13 200000000
+fireleft2 fireleft21 200000000 fireleft22 200000000 fireleft23 200000000
+firedright1 firedright11 200000000 firedright12 200000000 firedright13 200000000
+firefiredright2 firedright21 200000000 firedright22 200000000 firedright23 200000000
+brickdie brickdie1 200000000 brickdie2 200000000 brickdie3 200000000

@@ -13,24 +13,27 @@ public class FrameImage {
     private String name;
     private BufferedImage image;
 
-    public FrameImage() {
-        image = null;
-        name = null;
-    }
-
     public FrameImage(String name, BufferedImage image) {
         this.image = image;
         this.name = name;
     }
 
-    public FrameImage(FrameImage frameImage) {
-        image = new BufferedImage(frameImage.getImageWidth(),
-                frameImage.getImageHeight(), frameImage.getImage().getType());
+    public FrameImage() {
+        image = null;
+        this.name = null;
+    }
 
-        Graphics g = image.getGraphics();
-        g.drawImage(frameImage.getImage(), 0, 0, null);
+    public FrameImage(FrameImage frameImage) {
+
+        if(frameImage != null) {
+            image = new BufferedImage(frameImage.getImageWidth(),
+                    frameImage.getImageHeight(), frameImage.getImage().getType());
+            Graphics g = image.getGraphics();
+            g.drawImage(frameImage.getImage(), 0, 0, null);
+        }
 
     }
+
 
     public String getName() {
         return name;
@@ -59,5 +62,7 @@ public class FrameImage {
     public void draw(Graphics2D g2, int x, int y) {
         g2.drawImage(image, x - image.getWidth()/2, y - image.getHeight()/2, null);
     }
+
+
 
 }

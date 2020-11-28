@@ -46,7 +46,7 @@ public class Animation {
         beginTime = animation.beginTime;
         currentFrame = animation.currentFrame;
         drawRectFrame = animation.drawRectFrame;
-        isRepeated = animation.drawRectFrame;
+        isRepeated = animation.isRepeated;
 
         ignoreFrames = new ArrayList<Boolean>();
         for(boolean b : animation.ignoreFrames){

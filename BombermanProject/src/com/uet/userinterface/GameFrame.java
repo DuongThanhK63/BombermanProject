@@ -5,8 +5,11 @@
  */
 package com.uet.userinterface;
 
+import com.uet.effect.CacheDataLoader;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 import javax.swing.JFrame;
 
 /**
@@ -23,6 +26,11 @@ public class GameFrame extends JFrame{
         
         Toolkit toolkit = this.getToolkit();
         Dimension dimension = toolkit.getScreenSize();
+        try {
+            CacheDataLoader.getInstance().loadData();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         this.setBounds((dimension.width - SCREEN_WIDTH) / 2,
                 (dimension.height - SCREEN_HEIGHT) / 2, 
                  SCREEN_WIDTH, SCREEN_HEIGHT);

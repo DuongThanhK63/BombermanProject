@@ -8,6 +8,7 @@ package com.uet.userinterface;
 import com.uet.gameobject.GameWorld;
 import com.uet.gameobject.Player;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
@@ -17,6 +18,8 @@ import java.awt.event.KeyEvent;
 public class InputManager {
 
     private GameWorld gameWorld;
+    private Graphics2D graphics2D;
+
     public InputManager(GameWorld gameWorld){
 
         this.gameWorld = gameWorld;
@@ -45,7 +48,7 @@ public class InputManager {
                 gameWorld.player.moving();
                 break;
             case KeyEvent.VK_SPACE:
-                
+                gameWorld.player.attack();
                 break;
         }
     }
@@ -73,7 +76,6 @@ public class InputManager {
                 gameWorld.player.stopMoving();
                 break;
             case KeyEvent.VK_SPACE:
-                
                 break;
         }
     }

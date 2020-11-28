@@ -22,16 +22,22 @@ public class CacheDataLoader {
 
     private String framefile = "data/frame.txt";
     private String animationfile = "data/animation.txt";
-    private String physmapfile = "data/phys_map.txt";
+    private String physmapfile1 = "data/phys_maplv1.txt";
+    private String physmapfile2 = "data/phys_maplv2.txt";
 
     private int[][] phys_map;
 
     public int[][] getPhysicalmap() {
-        loadPhysMap();
+//        loadPhysMap();
         return instance.phys_map;
     }
 
     private CacheDataLoader() {
+    }
+
+    public Animation getAnimation(String name) {
+        Animation animation = new Animation(instance.animations.get(name));
+        return animation;
     }
 
     public static CacheDataLoader getInstance() {
@@ -47,10 +53,10 @@ public class CacheDataLoader {
         loadPhysMap();
         LoadFrame();
         LoadAnimation();
-
     }
 
     public void LoadFrame() throws IOException {
+
         frameImages = new Hashtable<String, FrameImage>();
 
         FileReader fr = new FileReader(framefile);
@@ -58,50 +64,37 @@ public class CacheDataLoader {
 
         String line = null;
 
-        if(br.readLine() == null){
-            System.out.println("Khong co du lieu");
-            throw new IOException();
-        }else{
+        fr = new FileReader(framefile);
+        br = new BufferedReader(fr);
 
-            fr = new FileReader(framefile);
-            br = new BufferedReader(fr);
+        String path = "data/bomb.png";
 
-            while((line = br.readLine()).equals(""));
-            int n = Integer.parseInt(line);
+        line = br.readLine();
+        int n = Integer.parseInt(line);
+        System.out.println("" + n);
 
-            for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++){
 
-                FrameImage frame = new FrameImage();
-                while((line = br.readLine()).equals(""));
-                frame.setName(line);
+            FrameImage frame = new FrameImage();
+            line = br.readLine();
 
-                while((line = br.readLine()).equals(""));
-                String[] str = line.split(" ");
-                String path = str[1];
+            String[] str = line.split(" ");
 
-                while((line = br.readLine()).equals(""));
-                str = line.split(" ");
-                int x = Integer.parseInt(str[1]);
+            frame.setName(str[0]);
+            System.out.println("" + str[0]);
+            int x = Integer.parseInt(str[1]);
 
-                while((line = br.readLine()).equals(""));
-                str = line.split(" ");
-                int y = Integer.parseInt(str[1]);
+            int y = Integer.parseInt(str[2]);
 
-                while((line = br.readLine()).equals(""));
-                str = line.split(" ");
-                int w = Integer.parseInt(str[1]);
+            int w = Integer.parseInt(str[3]);
 
-                while((line = br.readLine()).equals(""));
-                str = line.split(" ");
-                int h = Integer.parseInt(str[1]);
+            int h = Integer.parseInt(str[4]);
 
-                BufferedImage imageData = ImageIO.read(new File(path));
-                BufferedImage image = imageData.getSubimage(x, y, w, h);
-                frame.setImage(image);
+            BufferedImage imageData = ImageIO.read(new File(path));
+            BufferedImage image = imageData.getSubimage(x, y, w, h);
+            frame.setImage(image);
 
-                instance.frameImages.put(frame.getName(), frame);
-
-            }
+            instance.frameImages.put(frame.getName(), frame);
 
         }
 
@@ -114,42 +107,44 @@ public class CacheDataLoader {
         return frameImage;
     }
 
-    public void LoadAnimation() throws IOException {
+
+    public void LoadAnimation() throws IOException { ;
         animations = new Hashtable<String, Animation>();
 
-        FileReader fr = new FileReader(framefile);
+        FileReader fr = new FileReader(animationfile);
         BufferedReader br = new BufferedReader(fr);
 
         String line = null;
 
-        if(br.readLine() == null){
-            System.out.println("Khong co du lieu");
+        if(br.readLine()==null) {
+            System.out.println("No data");
             throw new IOException();
-        }else{
+        } else{
 
-            fr = new FileReader(framefile);
+            fr = new FileReader(animationfile);
             br = new BufferedReader(fr);
 
-            while((line = br.readLine()).equals(""));
-            int n = Integer.parseInt(line);
+            line = br.readLine();
 
-            for(int i = 0; i < n; i++){
+            int m = Integer.parseInt(line);
+
+            for(int i = 0; i < m; i++){
 
                 Animation animation = new Animation();
-                while((line = br.readLine()).equals(""));
-                animation.setName(line);
 
-                while((line = br.readLine()).equals(""));
-                String[] str = line.split(" ");
+               line = br.readLine();
+               String[] str = line.split(" ");
+                animation.setName(str[0]);
+               for(int j = 1; j < str.length; j += 2){
 
-                for(int j = 0; j < str.length; j += 2){
-                    animation.add(getFrameImage(str[j]), Double.parseDouble(str[j + 1]));
-
-                    instance.animations.put(animation.getName(), animation);
-                }
-
+//                   FrameImage frameImage = new FrameImage();
+//                   frameImage = instance.frameImages.get(str[j]);
+                   animation.add(getFrameImage(str[j]), Double.parseDouble(str[j + 1]));
+//                   System.out.println(animation.getName());
+                   instance.animations.put(animation.getName(),animation);
+               }
+//                instance.animations.put(animation.getName(),animation);
             }
-
         }
         br.close();
 
@@ -158,7 +153,7 @@ public class CacheDataLoader {
     public void loadPhysMap() {
 
         try{
-            FileReader fr = new FileReader(physmapfile);
+            FileReader fr = new FileReader(physmapfile2);
             BufferedReader br = new BufferedReader(fr);
 
             String line = null;
