@@ -2,7 +2,7 @@
 manup manup1 200000000 manup2 200000000 manup3 200000000
 manright manright1 200000000 manright2 200000000 manright3 200000000
 mandown mandown1 200000000 mandown2 200000000 mandown3 200000000
-manleft manleft1 200000000 manleft2 200000000 manuleft3 200000000
+manleft manleft1 200000000 manleft2 200000000 manleft3 200000000
 mandie mandie1 200000000 mandie2 200000000 mandie3 200000000
 balloomleft balloomleft1 200000000 balloomleft2 200000000 balloomleft3 200000000
 balloomdie balloomdie 200000000 bossdie1 200000000 bossdie2 200000000 bossdie3 200000000

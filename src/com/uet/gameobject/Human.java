@@ -19,6 +19,27 @@ public abstract class Human extends ParticularObject{
             setPositionX(getPositionX() + getSpeedX());
             setPositionY(getPositionY() + getSpeedY());
 
+            if(getDirection() == LEFT_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
+                setPositionX(recLeftWall.x + recLeftWall.getWidth() + getWidth() / 2);
+            }
+            if(getDirection() == RIGHT_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
+                setPositionX(recRightWall.x - getWidth() / 2);
+            }
+            if(getDirection() == UP_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
+                setPositionY(recTopWall.y + recTopWall.getHeight() + getHeight() / 2);
+            }
+            if(getDirection() == DOWN_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null) {
+                Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
+                setPositionY(recDownWall.y - getHeight() / 2);
+            }
+
         }
     }
 

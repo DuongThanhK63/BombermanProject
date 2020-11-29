@@ -19,4 +19,5 @@ public abstract class Bomb extends ParticularObject {
         setPositionY(getPositionY());
 //        ParticularObject object = getGameWorld().
     }
+
 }

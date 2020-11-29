@@ -17,7 +17,7 @@ public class GameWorld {
 
     public GameWorld(){
 
-        player = new Player(75,75,this);
+        player = new Player(90,90,this);
         physicalMap = new PhysicalMap(0,0, this);
         camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,GameFrame.SCREEN_HEIGHT,this);
         bomb = new BombManager(this);
@@ -35,6 +35,7 @@ public class GameWorld {
         physicalMap.draw(g2);
         player.draw(g2);
         bomb.draw(g2);
+
     }
 
 }

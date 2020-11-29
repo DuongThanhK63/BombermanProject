@@ -62,11 +62,12 @@ public class InputManager {
                 break;
             
             case KeyEvent.VK_S:
-                gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
-                gameWorld.player.stopMoving();
+                    gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
+                    gameWorld.player.stopMoving();
                 break;
             
             case KeyEvent.VK_A:
+//                gameWorld.player.setCanMove(false);
                 gameWorld.player.setDirection(gameWorld.player.LEFT_DIR);
                 gameWorld.player.stopMoving();
                 break;

@@ -16,7 +16,7 @@ public class PhysicalMap extends GameObject{
 
     public PhysicalMap(double positionX, double positionY, GameWorld gameWorld) {
         super(positionX, positionY, gameWorld);
-        this.tileSize = 50;
+        this.tileSize = 60;
         phys_map = CacheDataLoader.getInstance().getPhysicalmap();
     }
 
@@ -28,7 +28,7 @@ public class PhysicalMap extends GameObject{
 //    public void Update() {
 //
 //    }
-public Rectangle haveCollisionWithTop(Rectangle rect){
+public Rectangle haveCollisionWithTopWall(Rectangle rect){
 
     int posX1 = rect.x/tileSize;
     posX1 -= 2;
@@ -55,7 +55,7 @@ public Rectangle haveCollisionWithTop(Rectangle rect){
 }
 
 
-    public Rectangle haveCollisionWithLand(Rectangle rect){
+    public Rectangle haveCollisionWithDownWall(Rectangle rect){
 
         int posX1 = rect.x/tileSize;
         posX1 -= 2;

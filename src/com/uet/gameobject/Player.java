@@ -8,7 +8,7 @@ import java.awt.*;
 public class Player extends Human{
 
 
-    public static final int tileSize = 50;
+    public static final int tileSize = 60;
 
     private Animation runLeftAnim = new Animation();
     private Animation runDownAnim = new Animation();
@@ -60,60 +60,58 @@ public class Player extends Human{
     @Override
     public void draw(Graphics2D g2d) {
 
-//        switch (getState()){
-//            case ALIVE:
-//            case IMMORTAL:
-//               if(getState() == IMMORTAL && (System.nanoTime()/10000000) % 2 != 1){
-//                   System.out.println("Flash..");
-//               } else {
-        if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
-            runRightAnim.Update(System.nanoTime());
-            runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
-        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
-            runLeftAnim.Update(System.nanoTime());
-            runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            if (runLeftAnim.getCurrentFrame() == 1) runLeftAnim.setIgnoreFrame(0);
-        }
-        if (getSpeedY() < 0 && getDirection() == UP_DIR) {
-            runUpAnim.Update(System.nanoTime());
-            runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            if(runUpAnim.getCurrentFrame() == 1) runUpAnim.setIgnoreFrame(0);
-        } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
-            runDownAnim.Update(System.nanoTime());
-            runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
-        } else {
-            if (getDirection() == RIGHT_DIR) {
-                runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            } else if (getDirection() == LEFT_DIR) {
-                runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            } else if (getDirection() == UP_DIR) {
-                runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            } else {
-                runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+        switch (getState()) {
+            case ALIVE:
+            case IMMORTAL:
+                if (getState() == IMMORTAL && (System.nanoTime() / 10000000) % 2 != 1) {
+                    System.out.println("Flash..");
+                } else {
+                    if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
+                        runRightAnim.Update(System.nanoTime());
+                        runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
+                    } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
+                        runLeftAnim.Update(System.nanoTime());
+                        runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        if (runLeftAnim.getCurrentFrame() == 1) runLeftAnim.setIgnoreFrame(0);
+                    }
+                    if (getSpeedY() < 0 && getDirection() == UP_DIR) {
+                        runUpAnim.Update(System.nanoTime());
+                        runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        if (runUpAnim.getCurrentFrame() == 1) runUpAnim.setIgnoreFrame(0);
+                    } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
+                        runDownAnim.Update(System.nanoTime());
+                        runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
+                    } else {
+                        if (getDirection() == RIGHT_DIR) {
+                            runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        } else if (getDirection() == LEFT_DIR) {
+                            runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        } else if (getDirection() == UP_DIR) {
+                            runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
+                        } else {
+                            runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
 //                        runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-            }
+                        }
+                    }
+                    break;
+                }
+            case DEATH:
+                break;
         }
-//                break;
-//               }
-//            case GETDAMGE:
-//                break;
-
-//        drawBoundForCollisionWithMap(g2d);
-//    }
     }
     @Override
     public void moving() {
-        if(getDirection() == LEFT_DIR){
-            setSpeedX(-1);
-        } else if(getDirection() == RIGHT_DIR){
-            setSpeedX(1);
-        } else if(getDirection() == UP_DIR){
-            setSpeedY(-1);
-        } else if(getDirection() == DOWN_DIR){
-            setSpeedY(1);
-        }
+            if(getDirection() == LEFT_DIR){
+                setSpeedX(-1);
+            } else if(getDirection() == RIGHT_DIR){
+                setSpeedX(1);
+            } else if(getDirection() == UP_DIR){
+                setSpeedY(-1);
+            } else if(getDirection() == DOWN_DIR){
+                setSpeedY(1);
+            }
     }
 
     @Override
@@ -142,7 +140,7 @@ public class Player extends Human{
 
 
             }
-            bomb.attack();
+//            bomb.attack();
             isAttacking = true;
             lastAttackTime = System.nanoTime();
         }
@@ -152,4 +150,5 @@ public class Player extends Human{
     public void getDamageCallBack() {
 
     }
+
 }
