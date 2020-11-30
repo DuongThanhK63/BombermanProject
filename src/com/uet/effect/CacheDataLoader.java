@@ -28,7 +28,6 @@ public class CacheDataLoader {
     private int[][] phys_map;
 
     public int[][] getPhysicalmap() {
-//        loadPhysMap();
         return instance.phys_map;
     }
 
@@ -136,14 +135,9 @@ public class CacheDataLoader {
                String[] str = line.split(" ");
                 animation.setName(str[0]);
                for(int j = 1; j < str.length; j += 2){
-
-//                   FrameImage frameImage = new FrameImage();
-//                   frameImage = instance.frameImages.get(str[j]);
                    animation.add(getFrameImage(str[j]), Double.parseDouble(str[j + 1]));
-//                   System.out.println(animation.getName());
                    instance.animations.put(animation.getName(),animation);
                }
-//                instance.animations.put(animation.getName(),animation);
             }
         }
         br.close();
@@ -153,7 +147,7 @@ public class CacheDataLoader {
     public void loadPhysMap() {
 
         try{
-            FileReader fr = new FileReader(physmapfile2);
+            FileReader fr = new FileReader(physmapfile1);
             BufferedReader br = new BufferedReader(fr);
 
             String line = null;

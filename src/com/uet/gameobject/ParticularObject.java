@@ -181,8 +181,7 @@ public abstract class ParticularObject extends GameObject{
 
     public boolean isObjectOutOfCameraView(){
         if(getPositionX() - getGameWorld().camera.getPositionX() > getGameWorld().camera.getWidthView() ||
-        getPositionX() - getGameWorld().camera.getPositionX() < -75 || getPositionY() - getGameWorld().camera.getPositionY()
-         > getGameWorld().camera.getHeightView() || getPositionY() - getGameWorld().camera.getPositionY() < -75){
+        getPositionX() - getGameWorld().camera.getPositionX() < -75 ){
             return true;
         } else {
             return false;
@@ -201,7 +200,7 @@ public abstract class ParticularObject extends GameObject{
     public void drawBoundForCollisionWithMap(Graphics2D g2d){
         Rectangle rect = getBoundForCollisionWithMap();
         g2d.setColor(Color.WHITE);
-        g2d.drawRect(rect.x - (int) getGameWorld().camera.getPositionX(),rect.y - (int) getGameWorld().camera.getPositionY(),rect.width,rect.height);
+        g2d.drawRect(rect.x - (int) getGameWorld().camera.getPositionX(),rect.y,rect.width,rect.height);
     }
 
     public void drawBoundForCollisionWithEnemy(Graphics2D g2d){

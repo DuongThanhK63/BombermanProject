@@ -1,4 +1,4 @@
-22
+26
 manup manup1 200000000 manup2 200000000 manup3 200000000
 manright manright1 200000000 manright2 200000000 manright3 200000000
 mandown mandown1 200000000 mandown2 200000000 mandown3 200000000
@@ -21,3 +21,9 @@ fireleft2 fireleft21 200000000 fireleft22 200000000 fireleft23 200000000
 firedright1 firedright11 200000000 firedright12 200000000 firedright13 200000000
 firefiredright2 firedright21 200000000 firedright22 200000000 firedright23 200000000
 brickdie brickdie1 200000000 brickdie2 200000000 brickdie3 200000000
+wall wall 200000000
+brick brick 200000000
+portal portal 200000000
+bombitem bombitem 200000000
+flameitem flameitem 200000000
+speeditem speeditem 200000000

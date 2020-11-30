@@ -4,10 +4,12 @@ import com.uet.effect.Animation;
 import com.uet.effect.CacheDataLoader;
 
 import java.awt.*;
+import java.util.Iterator;
 
 public class BombAttack extends Bomb{
 
     private Animation bombAnim = new Animation();
+    private int numOfBomb = 1;
     public static int timeToExplosion = 2000 * 10000000;
     public static int disappearTime = 2 * 1000000;
 
@@ -20,7 +22,7 @@ public class BombAttack extends Bomb{
     public void draw(Graphics2D g2d) {
         bombAnim.Update(System.nanoTime());
         bombAnim.draw((int)getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX(),
-                (int)getGameWorld().player.getPositionY() - (int)getGameWorld().camera.getPositionY(),g2d);
+                (int)getGameWorld().player.getPositionY(),g2d);
 
     }
 
@@ -35,5 +37,8 @@ public class BombAttack extends Bomb{
         return getBoundForCollisionWithMap();
     }
 
+    public int getNumOfBomb() {
+        return numOfBomb;
+    }
 
 }

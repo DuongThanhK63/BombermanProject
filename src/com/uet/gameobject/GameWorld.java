@@ -19,7 +19,7 @@ public class GameWorld {
 
         player = new Player(90,90,this);
         physicalMap = new PhysicalMap(0,0, this);
-        camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,GameFrame.SCREEN_HEIGHT / 2,this);
+        camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,this);
         bomb = new BombManager(this);
     }
 
