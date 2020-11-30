@@ -83,7 +83,8 @@ public class Player extends Human{
                         runDownAnim.Update(System.nanoTime());
                         runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
                         if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
-                    } else {
+                    }
+                    if(getSpeedY() == 0 && getSpeedX() == 0){
                         if (getDirection() == RIGHT_DIR) {
                             runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
                         } else if (getDirection() == LEFT_DIR) {
@@ -92,7 +93,6 @@ public class Player extends Human{
                             runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
                         } else {
                             runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
-//                        runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY() - (int) getGameWorld().camera.getPositionY(), g2d);
                         }
                     }
                     break;

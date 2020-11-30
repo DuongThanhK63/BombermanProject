@@ -18,9 +18,9 @@ public class BombAttack extends Bomb{
 
     @Override
     public void draw(Graphics2D g2d) {
+        bombAnim.Update(System.nanoTime());
         bombAnim.draw((int)getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX(),
                 (int)getGameWorld().player.getPositionY() - (int)getGameWorld().camera.getPositionY(),g2d);
-//        drawBoundForCollisionWithMap(g2d);
 
     }
 

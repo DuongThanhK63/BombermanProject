@@ -29,35 +29,22 @@ public class Camera extends GameObject{
 
             Player mainCharacter = getGameWorld().player;
 
-            if(mainCharacter.getPositionX() - getPositionX() > 180){
-                setPositionX(mainCharacter.getPositionX() - 180);
-                if(getPositionX() < 0) setPositionX(0);
-                if(getPositionX() > GameFrame.SCREEN_WIDTH + 90) setPositionX(GameFrame.SCREEN_WIDTH + 90);
-//                if(getPositionY() < 0) setPositionY(0);
-//                if(getPositionY() > GameFrame.SCREEN_HEIGHT + 75) setPositionY(GameFrame.SCREEN_HEIGHT + 75);
-            }
-            if(mainCharacter.getPositionX() - getPositionX() < 90){
+            if(mainCharacter.getPositionX() - getPositionX() > 240){
+                setPositionX(mainCharacter.getPositionX() - 240);
+                if(getPositionX() > (GameFrame.SCREEN_WIDTH + 90) * 18 / 31) setPositionX((GameFrame.SCREEN_WIDTH + 90) * 18 / 31);
+            } else if( mainCharacter.getPositionX() + getPositionX() < 90){
                 setPositionX(mainCharacter.getPositionX() - 90);
                 if(getPositionX() < 0) setPositionX(0);
-//                if(getPositionX() > GameFrame.SCREEN_WIDTH) setPositionX(GameFrame.SCREEN_WIDTH);
-//                System.out.println(getPositionX());
-//                if(getPositionY() < 0) setPositionY(0);
-//                if(getPositionY() > GameFrame.SCREEN_HEIGHT) setPositionY(GameFrame.SCREEN_HEIGHT);
             }
 
-            if(mainCharacter.getPositionY() - getPositionY() > 180){
-                setPositionY(mainCharacter.getPositionY() - 180);
-//                if(getPositionX() < 0) setPositionX(0);
-//                if(getPositionX() > GameFrame.SCREEN_WIDTH) setPositionX(GameFrame.SCREEN_WIDTH);
-                if(getPositionY() < 0) setPositionY(0);
-                if(getPositionY() > GameFrame.SCREEN_HEIGHT / 2 + 90) setPositionY(GameFrame.SCREEN_HEIGHT / 2 + 90);
+            if(mainCharacter.getPositionY() - getPositionY() > 150){
+                setPositionY(mainCharacter.getPositionY() - 150);
+
+                if(getPositionY() > (GameFrame.SCREEN_HEIGHT + 90) * 3 / 13) setPositionY((GameFrame.SCREEN_HEIGHT +90)* 3 / 13);
             }
-            if(mainCharacter.getPositionY() - getPositionY() < 90){
+            else if(mainCharacter.getPositionY() - getPositionY() < 90){
                 setPositionY(mainCharacter.getPositionY() - 90);
-//                if(getPositionX() < 0) setPositionX(0);
-//                if(getPositionX() > GameFrame.SCREEN_WIDTH) setPositionX(GameFrame.SCREEN_WIDTH);
-                if(getPositionY() < 0) setPositionY(0);
-                if(getPositionY() > GameFrame.SCREEN_HEIGHT / 2 + 90) setPositionY(GameFrame.SCREEN_HEIGHT / 2 + 90);
+                if(getPositionX() < 0) setPositionX(0);
             }
 
         }
