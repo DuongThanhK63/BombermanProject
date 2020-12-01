@@ -30,7 +30,7 @@ public class Camera extends GameObject{
 
             if(mainCharacter.getPositionX() - getPositionX() > 240){
                 setPositionX(mainCharacter.getPositionX() - 240);
-                if(getPositionX() > (GameFrame.SCREEN_WIDTH - 120)) setPositionX(GameFrame.SCREEN_WIDTH - 120);
+                if(getPositionX() > (GameFrame.SCREEN_WIDTH - 430)) setPositionX(GameFrame.SCREEN_WIDTH - 430);
             } else if( mainCharacter.getPositionX() - getPositionX() < 240){
                 setPositionX(mainCharacter.getPositionX() - 240);
                 if(getPositionX() < 0) setPositionX(0);

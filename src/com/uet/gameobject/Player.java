@@ -8,7 +8,7 @@ import java.awt.*;
 public class Player extends Human{
 
 
-    public static final int tileSize = 60;
+    public static final int tileSize = 50;
 
     private Animation runLeftAnim = new Animation();
     private Animation runDownAnim = new Animation();
