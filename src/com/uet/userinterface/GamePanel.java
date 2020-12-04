@@ -6,11 +6,8 @@
 package com.uet.userinterface;
 
 import com.uet.effect.Animation;
-import com.uet.effect.CacheDataLoader;
 import com.uet.effect.FrameImage;
 import com.uet.gameobject.GameWorld;
-import com.uet.gameobject.PhysicalMap;
-import com.uet.gameobject.Player;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,11 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+
 import javax.swing.JPanel;
 
 /**
@@ -51,45 +44,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         gameWorld = new GameWorld();
         inputManager = new InputManager(gameWorld);
         bufImage = new BufferedImage(GameFrame.SCREEN_WIDTH ,GameFrame.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
-//        try {
-//            BufferedImage image = ImageIO.read(new File("data/bomb.png"));
-//            BufferedImage image1 = image.getSubimage(1,
-//                    1, 56, 55);
-//
-//            frame1 = new FrameImage("frame1", image1);
-//
-//            BufferedImage image2 = image.getSubimage(56,
-//                    1, 56, 55);
-//
-//            frame2 = new FrameImage("frame2", image2);
-//
-//            BufferedImage image3 = image.getSubimage(120,
-//                    1, 56, 55);
-//
-//            frame3 = new FrameImage("frame3", image3);
-//
-//            animation = new Animation();
-//            animation.add(frame1, 200*1000000);
-//            animation.add(frame2, 200*1000000);
-//            animation.add(frame3, 200*1000000);
-//
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//
     }
 
     @Override
     public void paint(Graphics g) {
         g.drawImage(bufImage, 0, 0, this);
-
-//        Graphics2D g2 = (Graphics2D) g;
-//        
-//        animation.Update(System.nanoTime());
-//        
-//        animation.draw(50, 50, g2);
-
     }
 
     public void updateGame(){
