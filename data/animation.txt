@@ -18,8 +18,8 @@ firedown1 firedown11 200000000 firedown12 200000000 firedown13 200000000
 firedown2 firedown21 200000000 firedown22 200000000 firedown23 200000000
 fireleft1 fireleft11 200000000 fireleft12 200000000 fireleft13 200000000
 fireleft2 fireleft21 200000000 fireleft22 200000000 fireleft23 200000000
-firedright1 firedright11 200000000 firedright12 200000000 firedright13 200000000
-firefiredright2 firedright21 200000000 firedright22 200000000 firedright23 200000000
+fireright1 fireright11 200000000 fireright12 200000000 fireright13 200000000
+fireright2 fireright21 200000000 fireright22 200000000 fireright23 200000000
 brickdie brickdie1 200000000 brickdie2 200000000 brickdie3 200000000
 wall wall 200000000
 brick brick 200000000
