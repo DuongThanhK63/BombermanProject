@@ -53,6 +53,15 @@ public abstract class Human extends ParticularObject{
         return null;
     }
 
+    @Override
+    public Rectangle getBoundForCollisionWithMap() {
+        Rectangle bound = new Rectangle();
+        bound.x = (int)(getPositionX() - getWidth() / 2);
+        bound.y = (int)(getPositionY() - getHeight() / 2);
+        bound.width = (int)getWidth();
+        bound.height = (int)getHeight();
+        return bound;
+    }
 
     public abstract void moving();
     public abstract void stopMoving();

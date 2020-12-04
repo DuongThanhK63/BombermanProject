@@ -10,8 +10,7 @@ public class GameWorld {
 
     public Player player;
     public PhysicalMap physicalMap;
-    public BombManager bomb;
-    Animation animation = new Animation();
+    public ParticularObjectManager bombList;
 
     public Camera camera;
 
@@ -20,21 +19,21 @@ public class GameWorld {
         player = new Player(75,75,this);
         physicalMap = new PhysicalMap(0,0, this);
         camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,this);
-        bomb = new BombManager(this);
+        bombList = new BombManager(this);
     }
 
     public void Update(){
 
         player.Update();
         camera.Update();
-        bomb.UpdateObject();
+        bombList.UpdateObject();
     }
 
     public void Render(Graphics2D g2){
 
         physicalMap.draw(g2);
         player.draw(g2);
-        bomb.draw(g2);
+        bombList.draw(g2);
 
     }
 

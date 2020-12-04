@@ -10,6 +10,10 @@ public class ParticularObjectManager {
     protected List<ParticularObject> particularObjects;
     private GameWorld gameWorld;
 
+    public List<ParticularObject> getParticularObjects() {
+        return particularObjects;
+    }
+
     public ParticularObjectManager(GameWorld gameWorld){
         particularObjects = Collections.synchronizedList(new LinkedList<ParticularObject>());
         this.gameWorld = gameWorld;

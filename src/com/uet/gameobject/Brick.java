@@ -12,7 +12,7 @@ public class Brick extends ParticularObject {
 
     public Brick(double positionX, double positionY, GameWorld gameWorld, double width, double height) {
         super(positionX, positionY, gameWorld, width, height);
-        this.tileSize = 60;
+        this.tileSize = 50;
         brickAnim = CacheDataLoader.getInstance().getAnimation("brick");
     }
 
@@ -26,6 +26,10 @@ public class Brick extends ParticularObject {
 
     @Override
     public void attack() {
+
+    }
+
+    public void die(){
 
     }
 

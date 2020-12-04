@@ -199,7 +199,7 @@ public abstract class ParticularObject extends GameObject{
 
     public void drawBoundForCollisionWithMap(Graphics2D g2d){
         Rectangle rect = getBoundForCollisionWithMap();
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.RED);
         g2d.drawRect(rect.x - (int) getGameWorld().camera.getPositionX(),rect.y,rect.width,rect.height);
     }
 

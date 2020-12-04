@@ -15,7 +15,7 @@ public class PhysicalMap extends GameObject{
 
     public PhysicalMap(double positionX, double positionY, GameWorld gameWorld) {
         super(positionX, positionY, gameWorld);
-        this.tileSize = 50;
+        this.tileSize = 48;
         phys_map = CacheDataLoader.getInstance().getPhysicalmap();
 
     }
@@ -24,35 +24,35 @@ public class PhysicalMap extends GameObject{
         return tileSize;
     }
 
-//        @Override
+    //        @Override
 //    public void Update() {
 //
 //    }
-public Rectangle haveCollisionWithTopWall(Rectangle rect){
+    public Rectangle haveCollisionWithTopWall(Rectangle rect){
 
-    int posX1 = rect.x/tileSize;
-    posX1 -= 2;
-    int posX2 = (rect.x + rect.width)/tileSize;
-    posX2 += 2;
+        int posX1 = rect.x/tileSize;
+        posX1 -= 2;
+        int posX2 = (rect.x + rect.width)/tileSize;
+        posX2 += 2;
 
-    //int posY = (rect.y + rect.height)/tileSize;
-    int posY = rect.y/tileSize;
+        //int posY = (rect.y + rect.height)/tileSize;
+        int posY = rect.y/tileSize;
 
-    if(posX1 < 0) posX1 = 0;
+        if(posX1 < 0) posX1 = 0;
 
-    if(posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
+        if(posX2 >= phys_map[0].length) posX2 = phys_map[0].length - 1;
 
-    for(int y = posY; y >= 0; y--){
-        for(int x = posX1; x <= posX2; x++){
-            if(phys_map[y][x] == 1){
-                Rectangle r = new Rectangle((int) x + x * tileSize, (int) y + y * tileSize, tileSize, tileSize);
-                if(rect.intersects(r))
-                    return r;
+        for(int y = posY; y >= 0; y--){
+            for(int x = posX1; x <= posX2; x++){
+                if(phys_map[y][x] != 0){
+                    Rectangle r = new Rectangle((int) getPositionX() + x * tileSize, (int) getPositionY() + y * tileSize, tileSize, tileSize);
+                    if(rect.intersects(r))
+                        return r;
+                }
             }
         }
+        return null;
     }
-    return null;
-}
 
 
     public Rectangle haveCollisionWithDownWall(Rectangle rect){
@@ -70,8 +70,8 @@ public Rectangle haveCollisionWithTopWall(Rectangle rect){
         for(int y = posY; y < phys_map.length;y++){
             for(int x = posX1; x <= posX2; x++){
 
-                if(phys_map[y][x] == 1){
-                    Rectangle r = new Rectangle((int) x + x * tileSize, (int) y + y * tileSize, tileSize, tileSize);
+                if(phys_map[y][x] != 0){
+                    Rectangle r = new Rectangle((int) getPositionX() + x * tileSize, (int) getPositionY() + y * tileSize, tileSize, tileSize);
                     if(rect.intersects(r))
                         return r;
                 }
@@ -97,8 +97,8 @@ public Rectangle haveCollisionWithTopWall(Rectangle rect){
 
         for(int x = posX1; x <= posX2; x++){
             for(int y = posY1; y <= posY2;y++){
-                if(phys_map[y][x] == 1){
-                    Rectangle r = new Rectangle((int) x + x * tileSize, (int) y + y * tileSize, tileSize, tileSize);
+                if(phys_map[y][x] != 0){
+                    Rectangle r = new Rectangle((int) getPositionX() + x * tileSize, (int) getPositionY() + y * tileSize, tileSize, tileSize);
                     if(r.y < rect.y + rect.height - 1 && rect.intersects(r))
                         return r;
                 }
@@ -125,8 +125,8 @@ public Rectangle haveCollisionWithTopWall(Rectangle rect){
 
         for(int x = posX1; x >= posX2; x--){
             for(int y = posY1; y <= posY2; y++){
-                if(phys_map[y][x] == 1){
-                    Rectangle r = new Rectangle((int) x + x * tileSize, (int) y + y * tileSize, tileSize, tileSize);
+                if(phys_map[y][x] != 0){
+                    Rectangle r = new Rectangle((int) getPositionX() + x * tileSize, (int) getPositionY() + y * tileSize, tileSize, tileSize);
                     if(r.y < rect.y + rect.height - 1 && rect.intersects(r))
                         return r;
                 }
@@ -145,7 +145,7 @@ public Rectangle haveCollisionWithTopWall(Rectangle rect){
                 switch (phys_map[i][j]) {
                     case 1:
                         g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
-                            (int) getPositionY() + i * tileSize , tileSize, tileSize);
+                                (int) getPositionY() + i * tileSize , tileSize, tileSize);
                         g2.drawImage(CacheDataLoader.getInstance().getFrameImage("wall").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
                                 (int) getPositionY() + i * tileSize, null);
                         break;

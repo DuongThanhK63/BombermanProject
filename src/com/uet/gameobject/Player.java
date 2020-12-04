@@ -3,24 +3,27 @@ package com.uet.gameobject;
 import com.uet.effect.Animation;
 import com.uet.effect.CacheDataLoader;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 
 public class Player extends Human{
-
-
-    public static final int tileSize = 50;
 
     private Animation runLeftAnim = new Animation();
     private Animation runDownAnim = new Animation();
     private Animation runRightAnim = new Animation();
     private Animation runUpAnim = new Animation();
-
+    private Animation dieAnim = new Animation();
+    public int numOfBomb = 1;
+    AffineTransform tx1 = new AffineTransform();
 
     private long lastAttackTime;
     private boolean isAttacking = false;
 
     public Player(double positionX, double positionY, GameWorld gameWorld) {
-        super(positionX, positionY, gameWorld, 40, 40, 20);
+        super(positionX, positionY, gameWorld, 35, 35, 20);
 
         setTeamType(LEAGUE_TEAM);
 
@@ -31,6 +34,8 @@ public class Player extends Human{
 
         runUpAnim = CacheDataLoader.getInstance().getAnimation("manup");
         runDownAnim = CacheDataLoader.getInstance().getAnimation("mandown");
+
+        dieAnim = CacheDataLoader.getInstance().getAnimation("mandie");
 
 
     }
@@ -49,17 +54,17 @@ public class Player extends Human{
     public Rectangle getBoundForCollisionWithEnemy() {
         Rectangle rect = getBoundForCollisionWithMap();
 
-        rect.x = (int)getPositionX() - 22;
-        rect.y = (int)getPositionY() - 40;
-        rect.width = 44;
-        rect.height = 80;
+        rect.x = (int)getPositionX() - 10;
+        rect.y = (int)getPositionY() - 10;
+        rect.width = 40;
+        rect.height = 40;
 
         return rect;
     }
 
     @Override
     public void draw(Graphics2D g2d) {
-
+        drawBoundForCollisionWithMap(g2d);
         switch (getState()) {
             case ALIVE:
             case IMMORTAL:
@@ -67,19 +72,23 @@ public class Player extends Human{
                     System.out.println("Flash..");
                 } else {
                     if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
+                        System.out.println(runRightAnim.getCurrentImage().getWidth());
                         runRightAnim.Update(System.nanoTime());
                         runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
                     } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
+                        runLeftAnim.resizeImage(runLeftAnim.getCurrentImage(), 50);
                         runLeftAnim.Update(System.nanoTime());
                         runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runLeftAnim.getCurrentFrame() == 1) runLeftAnim.setIgnoreFrame(0);
                     }
                     if (getSpeedY() < 0 && getDirection() == UP_DIR) {
+                        runUpAnim.resizeImage(runUpAnim.getCurrentImage(),50);
                         runUpAnim.Update(System.nanoTime());
                         runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runUpAnim.getCurrentFrame() == 1) runUpAnim.setIgnoreFrame(0);
                     } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
+                        runDownAnim.resizeImage(runDownAnim.getCurrentImage(),50);
                         runDownAnim.Update(System.nanoTime());
                         runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
@@ -98,6 +107,9 @@ public class Player extends Human{
                     break;
                 }
             case DEATH:
+                dieAnim.Update(System.nanoTime());
+                dieAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                if (dieAnim.getCurrentFrame() == 1) dieAnim.setIgnoreFrame(0);
                 break;
         }
     }
@@ -112,7 +124,6 @@ public class Player extends Human{
             } else if(getDirection() == DOWN_DIR){
                 setSpeedY(2);
             }
-
     }
 
     @Override
@@ -127,24 +138,28 @@ public class Player extends Human{
 
     @Override
     public void attack() {
+        double x = getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX();
+        double y = getGameWorld().player.getPositionY();
         if(!isAttacking){
-            double x = getGameWorld().player.getPositionX();
-            double y = getGameWorld().player.getPositionY();
-            placeBomb(x,y);
+            BombAttack bomb = new BombAttack(x,y,getGameWorld());
+            getGameWorld().bombList.addObject(bomb);
+            bomb.attack();
 
-            }
-//            bomb.attack();
+            System.out.println(bomb.timeToExplosion);
+            System.out.println(bomb.getState());
+        }
             isAttacking = true;
             lastAttackTime = System.nanoTime();
     }
 
-    public void placeBomb(double x, double y){
-        BombAttack bomb = new BombAttack(x,y,getGameWorld());
-        getGameWorld().bomb.addObject(bomb);
-    }
     @Override
     public void getDamageCallBack() {
 
     }
+
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
 
 }
