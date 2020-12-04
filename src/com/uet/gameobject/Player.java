@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.util.concurrent.ExecutorService;
 
 public class Player extends Human{
 
@@ -77,18 +78,15 @@ public class Player extends Human{
                         runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
                     } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
-                        runLeftAnim.resizeImage(runLeftAnim.getCurrentImage(), 50);
                         runLeftAnim.Update(System.nanoTime());
                         runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runLeftAnim.getCurrentFrame() == 1) runLeftAnim.setIgnoreFrame(0);
                     }
                     if (getSpeedY() < 0 && getDirection() == UP_DIR) {
-                        runUpAnim.resizeImage(runUpAnim.getCurrentImage(),50);
                         runUpAnim.Update(System.nanoTime());
                         runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runUpAnim.getCurrentFrame() == 1) runUpAnim.setIgnoreFrame(0);
                     } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
-                        runDownAnim.resizeImage(runDownAnim.getCurrentImage(),50);
                         runDownAnim.Update(System.nanoTime());
                         runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
@@ -144,9 +142,6 @@ public class Player extends Human{
             BombAttack bomb = new BombAttack(x,y,getGameWorld());
             getGameWorld().bombList.addObject(bomb);
             bomb.attack();
-
-            System.out.println(bomb.timeToExplosion);
-            System.out.println(bomb.getState());
         }
             isAttacking = true;
             lastAttackTime = System.nanoTime();

@@ -49,7 +49,26 @@ public class BombAttack extends Bomb{
                 bombAnim.draw((int)getPositionX() - (int)getGameWorld().camera.getPositionX(),
                         (int)getPositionY(),g2d);
                 break;
-            case DEATH:
+            case FEY:
+//                TimerTask timerTask = new TimerTask() {
+//                    @Override
+//                    public void run() {
+                Explosion explosion = new Explosion(getPositionX(),getPositionY(), getGameWorld(),50,50);
+                explosion.draw(g2d);
+//                    }
+//                };
+//                long delay = 2000L;
+//                Timer timer = new Timer("Timer");
+//                timer.schedule(timerTask, delay);
+                TimerTask timerTask1 = new TimerTask() {
+                @Override
+                public void run() {
+                    setState(DEATH);
+                }
+            };
+                long delay1 = 2000L;
+                Timer timer = new Timer("Timer");
+                timer.schedule(timerTask1, delay1);
                 break;
         }
 
@@ -61,7 +80,7 @@ public class BombAttack extends Bomb{
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                setState(DEATH);
+                setState(FEY);
             }
         };
         long delay = 2000L;

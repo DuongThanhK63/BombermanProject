@@ -8,6 +8,7 @@ public abstract class ParticularObject extends GameObject{
 
     public static final int LEAGUE_TEAM = 1;
     public static final int ENEMY_TEAM = 2;
+    public static final int BOMB_TEAM = 3;
 
     public static final int LEFT_DIR = 0;
     public static final int RIGHT_DIR = 1;
@@ -18,6 +19,7 @@ public abstract class ParticularObject extends GameObject{
     public static final int GETDAMGE = 1;
     public static final int DEATH = 2;
     public static final int IMMORTAL = 3;
+    public static final int FEY = 4;
     private int state = ALIVE;
 
     private double width;

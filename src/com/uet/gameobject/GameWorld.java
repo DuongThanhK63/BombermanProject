@@ -34,7 +34,6 @@ public class GameWorld {
         physicalMap.draw(g2);
         player.draw(g2);
         bombList.draw(g2);
-
     }
 
 }

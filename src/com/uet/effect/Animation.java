@@ -235,37 +235,5 @@ public class Animation {
         }
     }
 
-    public Icon load( int k, int m) {
-        BufferedImage frameImage = getCurrentImage();
-        int x = k;
-        int y = m;
-        int ix = frameImage.getWidth();
-        int iy = frameImage.getHeight();
-        int dx = 0, dy = 0;
-
-        if (x / y > ix / iy) {
-            dy = y;
-            dx = dy * ix / iy;
-        } else {
-            dx = x;
-            dy = dx * iy / ix;
-        }
-
-        return new ImageIcon(frameImage.getScaledInstance(dx, dy,
-                frameImage.SCALE_SMOOTH));
-
-    }
-
-    public void resizeImage(BufferedImage bi, int percent) {
-        for(int i = 0; i < frameImages.size(); i++){
-            bi = frameImages.get(i).getImage();
-            double scale = percent / 100.0;
-            AffineTransform resize = AffineTransform.getScaleInstance(scale, scale);
-            AffineTransformOp op = new AffineTransformOp (
-                    resize,
-                    AffineTransformOp.TYPE_BICUBIC);
-            bi = op.filter(bi, null);
-        }
-    }
 
 }
