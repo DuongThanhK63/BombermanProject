@@ -24,7 +24,7 @@ public class Player extends Human{
     private boolean isAttacking = false;
 
     public Player(double positionX, double positionY, GameWorld gameWorld) {
-        super(positionX, positionY, gameWorld, 35, 35, 20);
+        super(positionX, positionY, gameWorld, 48, 48, 20);
 
         setTeamType(LEAGUE_TEAM);
 
@@ -57,8 +57,8 @@ public class Player extends Human{
 
         rect.x = (int)getPositionX() - 10;
         rect.y = (int)getPositionY() - 10;
-        rect.width = 40;
-        rect.height = 40;
+        rect.width = 48;
+        rect.height = 48;
 
         return rect;
     }
