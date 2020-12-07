@@ -52,36 +52,36 @@ public class Balloom extends Enemy{
     @Override
     public void Update() {
         super.Update();
-        //moving();
+        moving();
 
-//        if(movingType[movingIndex].equals("RIGHT")){
-//            setDirection(RIGHT_DIR);
-//            if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) == null){
-//                setSpeedX(-2);
-//            }
-//        }
-//        if(movingType[movingIndex].equals("LEFT")){
-//            setDirection(LEFT_DIR);
-//            if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) == null){
-//                setSpeedX(2);
-//            }
-//        }
-//        if(movingType[movingIndex].equals("UP")){
-//            setDirection(UP_DIR);
-//            if(getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) == null){
-//                setSpeedY(-2);
-//            }
-//        }
-//        if(movingType[movingIndex].equals("DOWN")){
-//            setDirection(DOWN_DIR);
-//            if(getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) == null){
-//                setSpeedY(2);
-//            }
-//        }
-//
-//        setPositionX(getSpeedX() + getSpeedX());
-//        setPositionY(getSpeedY() + getSpeedY());
-//
+        if(movingType[movingIndex].equals("RIGHT")){
+            setDirection(RIGHT_DIR);
+            if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
+                setSpeedX(-2);
+            }
+        }
+        if(movingType[movingIndex].equals("LEFT")){
+            setDirection(LEFT_DIR);
+            if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
+                setSpeedX(2);
+            }
+        }
+        if(movingType[movingIndex].equals("UP")){
+            setDirection(UP_DIR);
+            if(getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+                setSpeedY(-2);
+            }
+        }
+        if(movingType[movingIndex].equals("DOWN")){
+            setDirection(DOWN_DIR);
+            if(getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
+                setSpeedY(2);
+            }
+        }
+
+        setPositionX(getSpeedX() + getSpeedX());
+        setPositionY(getSpeedY() + getSpeedY());
+
 
     }
 
@@ -121,7 +121,7 @@ public class Balloom extends Enemy{
                         g2d.drawRect((int) getPositionX() + j * tileSize - (int) getGameWorld().camera.getPositionX(),
                                 (int) getPositionY() + i * tileSize , tileSize, tileSize);
                         BalloomRight.draw((int) getPositionX()  + j * tileSize + 24 - (int) getGameWorld().camera.getPositionX(),
-                                    (int) getPositionY() + i * tileSize +24 , g2d);
+                                    (int) getPositionY() + i * tileSize + 24 , g2d);
                             //if (BalloomRight.getCurrentFrame() == 1) BalloomRight.setIgnoreFrame(0);
                            // moving();
 //                        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
