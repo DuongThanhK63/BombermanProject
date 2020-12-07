@@ -20,6 +20,11 @@ public class PhysicalMap extends GameObject{
 
     }
 
+    public PhysicalMap(GameWorld gameWorld){
+        super(gameWorld);
+        phys_map = CacheDataLoader.getInstance().getPhysicalmap();
+    }
+
     public int getTileSize() {
         return tileSize;
     }
@@ -179,6 +184,8 @@ public class PhysicalMap extends GameObject{
                         g2.drawImage(CacheDataLoader.getInstance().getFrameImage("speeditem").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
                                 (int) getPositionY() + i * tileSize, null);
                         break;
+
+
 //                if (phys_map[i][j] != 0) g2.fillRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
 //                                (int) getPositionY() + i * tileSize - (int) camera.getPositionY(), tileSize, tileSize);
                 }

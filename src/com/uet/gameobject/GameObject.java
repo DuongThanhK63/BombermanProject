@@ -1,14 +1,22 @@
 package com.uet.gameobject;
 
+import com.uet.effect.CacheDataLoader;
+
 public abstract class GameObject {
 
     private double positionX, positionY;
     private GameWorld gameWorld;
+    private int [][] phys_map;
 
     public GameObject(double positionX, double positionY, GameWorld gameWorld) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.gameWorld = gameWorld;
+    }
+
+    public GameObject(GameWorld gameWorld){
+        this.gameWorld = gameWorld;
+        this.phys_map = CacheDataLoader.getInstance().getPhysicalmap();
     }
 
     public double getPositionX() {

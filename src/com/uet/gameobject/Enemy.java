@@ -7,10 +7,12 @@ public abstract class Enemy extends ParticularObject{
 
 
 
-    public Enemy(double positionX, double positionY, GameWorld gameWorld, double width, double height) {
-        super(positionX, positionY, gameWorld, width, height);
+    public Enemy( GameWorld gameWorld, double width, double height) {
+        super(gameWorld, width, height);
         setState(ALIVE);
     }
+
+
 
     @Override
     public void Update() {

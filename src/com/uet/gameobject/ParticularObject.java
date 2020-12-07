@@ -44,6 +44,9 @@ public abstract class ParticularObject extends GameObject{
         setWidth(width);
         setHeight(height);
     }
+    public ParticularObject(GameWorld gameWorld, double width, double height){
+        super(gameWorld);
+    }
 
     public double getWidth() {
         return width;

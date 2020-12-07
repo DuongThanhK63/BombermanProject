@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class GameWorld {
 
+    private int [][] phys_map;
     public Player player;
     public PhysicalMap physicalMap;
     public ParticularObjectManager bombList;
@@ -15,10 +16,14 @@ public class GameWorld {
 
     public Camera camera;
 
+
+
+
+
     public GameWorld(){
 
         player = new Player(48,75,this);
-        balloom = new Balloom(120, 75, this);
+        balloom = new Balloom(this);
         physicalMap = new PhysicalMap(0,0, this);
         camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,this);
         bombList = new BombManager(this);
