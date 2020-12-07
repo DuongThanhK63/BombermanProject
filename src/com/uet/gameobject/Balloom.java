@@ -69,18 +69,18 @@ public class Balloom extends Enemy{
         if(movingType[movingIndex].equals("UP")){
             setDirection(UP_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
-                setSpeedY(-2);
+                setSpeedY(2);
             }
         }
         if(movingType[movingIndex].equals("DOWN")){
             setDirection(DOWN_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
-                setSpeedY(2);
+                setSpeedY(-2);
             }
         }
 
-        setPositionX(getSpeedX() + getSpeedX());
-        setPositionY(getSpeedY() + getSpeedY());
+        setPositionX(getPositionX() + getSpeedX());
+        setPositionY(getPositionY() + getSpeedY());
 
 
     }
@@ -114,32 +114,32 @@ public class Balloom extends Enemy{
                         //if (getState() == ALIVE && (System.nanoTime() / 10000000) % 2 != 1) {
                         //    System.out.println("Flash..");
                         //       } else {
-                        //if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
-                        int a = (int) getPositionX()  + j * tileSize - (int) getGameWorld().camera.getPositionX();
+                        if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
+                        int a = (int) getPositionX()  - (int) getGameWorld().camera.getPositionX();
                             System.out.println(a);
                             BalloomRight.Update(System.nanoTime());
-                        g2d.drawRect((int) getPositionX() + j * tileSize - (int) getGameWorld().camera.getPositionX(),
-                                (int) getPositionY() + i * tileSize , tileSize, tileSize);
-                        BalloomRight.draw((int) getPositionX()  + j * tileSize + 24 - (int) getGameWorld().camera.getPositionX(),
-                                    (int) getPositionY() + i * tileSize + 24 , g2d);
-                            //if (BalloomRight.getCurrentFrame() == 1) BalloomRight.setIgnoreFrame(0);
-                           // moving();
-//                        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
-//                            BalloomLeft.Update(System.nanoTime());
-//                            BalloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomLeft.getCurrentFrame() == 1) BalloomLeft.setIgnoreFrame(0);
-//                          //  moving();
-//                        }
-//                        if (getSpeedY() < 0 && getDirection() == UP_DIR) {
-//                            BalloomUp.Update(System.nanoTime());
-//                            BalloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomUp.getCurrentFrame() == 1) BalloomUp.setIgnoreFrame(0);
-//                           // moving();
-//                        } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
-//                            BalloomDown.Update(System.nanoTime());
-//                            BalloomDown.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomDown.getCurrentFrame() == 1) BalloomDown.setIgnoreFrame(0);
-                           // moving();
+                        g2d.drawRect((int) getPositionX() - (int) getGameWorld().camera.getPositionX(),
+                                (int) getPositionY()  , tileSize, tileSize);
+                        BalloomRight.draw((int) getPositionX()  - (int) getGameWorld().camera.getPositionX(),
+                                    (int) getPositionY() , g2d);
+                            if (BalloomRight.getCurrentFrame() == 1) BalloomRight.setIgnoreFrame(0);
+
+                        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
+                            BalloomLeft.Update(System.nanoTime());
+                            BalloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            if (BalloomLeft.getCurrentFrame() == 1) BalloomLeft.setIgnoreFrame(0);
+
+                        }
+                        if (getSpeedY() < 0 && getDirection() == UP_DIR) {
+                            BalloomUp.Update(System.nanoTime());
+                            BalloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            if (BalloomUp.getCurrentFrame() == 1) BalloomUp.setIgnoreFrame(0);
+
+                        } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
+                            BalloomDown.Update(System.nanoTime());
+                            BalloomDown.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            if (BalloomDown.getCurrentFrame() == 1) BalloomDown.setIgnoreFrame(0);
+
                         }
 //                    if(getSpeedY() == 0 && getSpeedX() == 0){
 //                        if (getDirection() == RIGHT_DIR) {
@@ -161,7 +161,7 @@ public class Balloom extends Enemy{
 //                break;
 
                 }
-         //   }
+            }
         }
 
 
