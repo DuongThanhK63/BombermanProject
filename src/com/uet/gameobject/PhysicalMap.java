@@ -15,7 +15,7 @@ public class PhysicalMap extends GameObject{
 
     public PhysicalMap(double positionX, double positionY, GameWorld gameWorld) {
         super(positionX, positionY, gameWorld);
-        this.tileSize = 48;
+        this.tileSize = 32;
         phys_map = CacheDataLoader.getInstance().getPhysicalmap();
 
     }
@@ -143,45 +143,44 @@ public class PhysicalMap extends GameObject{
 
     public void draw(Graphics2D g2){
 
-        Camera camera = getGameWorld().camera;
         g2.setColor(Color.GRAY);
         for(int i = 0;i< phys_map.length;i++) {
             for (int j = 0; j < phys_map[0].length; j++) {
                 switch (phys_map[i][j]) {
                     case 1:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize ,
                                 (int) getPositionY() + i * tileSize , tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("wall").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("wall").getImage(), (int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
                     case 2:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize ,
                                 (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("brick").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("brick").getImage(), (int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
                     case 3:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize ,
                                 (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("portal").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("portal").getImage(), (int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
                     case 4:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize ,
                                 (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bombitem").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bombitem").getImage(), (int) getPositionX() + j * tileSize ,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
                     case 5:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
-                                (int) getPositionY() + i * tileSize - (int) camera.getPositionY(), tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("flameitem").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize,
+                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("flameitem").getImage(), (int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
                     case 6:
-                        g2.drawRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawRect((int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("speeditem").getImage(), (int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
+                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("speeditem").getImage(), (int) getPositionX() + j * tileSize,
                                 (int) getPositionY() + i * tileSize, null);
                         break;
 

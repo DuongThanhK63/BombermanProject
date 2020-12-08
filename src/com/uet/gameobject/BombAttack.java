@@ -21,7 +21,7 @@ public class BombAttack extends Bomb{
     public int disappearTime = 2;
 
     public BombAttack(double positionX, double positionY, GameWorld gameWorld) {
-        super(positionX, positionY, gameWorld, 30, 30, 10);
+        super(positionX, positionY, gameWorld, 32, 32, 10);
         bombAnim = CacheDataLoader.getInstance().getAnimation("bomdie");
         centreExplosionAnim = CacheDataLoader.getInstance().getAnimation("firecentre");
 
@@ -46,14 +46,14 @@ public class BombAttack extends Bomb{
         switch (getState()){
             case ALIVE:
                 bombAnim.Update(System.nanoTime());
-                bombAnim.draw((int)getPositionX() - (int)getGameWorld().camera.getPositionX(),
+                bombAnim.draw((int)getPositionX(),
                         (int)getPositionY(),g2d);
                 break;
             case FEY:
 //                TimerTask timerTask = new TimerTask() {
 //                    @Override
 //                    public void run() {
-                Explosion explosion = new Explosion(getPositionX(),getPositionY(), getGameWorld(),50,50);
+                Explosion explosion = new Explosion(getPositionX(),getPositionY(), getGameWorld(),32,32);
                 explosion.draw(g2d);
 //                    }
 //                };

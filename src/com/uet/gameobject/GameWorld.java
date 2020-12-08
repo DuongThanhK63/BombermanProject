@@ -14,13 +14,11 @@ public class GameWorld {
     public ParticularObjectManager bombList;
     public ParticularObjectManager particularObjectManager;
     ParticularObject balloom;
-    public Camera camera;
 
     public GameWorld(){
 
-        player = new Player(48,75,this);
+        player = new Player(32,48,this);
         physicalMap = new PhysicalMap(0,0, this);
-        camera = new Camera(0,0, GameFrame.SCREEN_WIDTH,this);
         bombList = new BombManager(this);
         particularObjectManager = new ParticularObjectManager(this);
         particularObjectManager.addObject(player);
@@ -28,9 +26,9 @@ public class GameWorld {
     }
 
     private void initEnemies() {
-        balloom = new Balloom(96,75,this);
-        balloom.setDirection(ParticularObject.LEFT_DIR);
-        balloom.setTeamType(ParticularObject.ENEMY_TEAM);
+        balloom = new Balloom(160, 186,this);
+//        balloom.setDirection(ParticularObject.LEFT_DIR);
+//        balloom.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(balloom);
 
     }
@@ -40,7 +38,6 @@ public class GameWorld {
 
         particularObjectManager.UpdateObject();
         balloom.Update();
-        camera.Update();
         bombList.UpdateObject();
     }
 

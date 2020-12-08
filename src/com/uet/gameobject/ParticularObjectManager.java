@@ -59,7 +59,7 @@ public class ParticularObjectManager {
         synchronized (particularObjects){
             for(int i = 0; i < particularObjects.size(); i++){
                 ParticularObject object = particularObjects.get(i);
-                if(!object.isObjectOutOfCameraView()) object.Update();
+                object.Update();
                 if(object.getState() == ParticularObject.DEATH){
                     particularObjects.remove(i);
                 }
@@ -70,9 +70,9 @@ public class ParticularObjectManager {
     public void draw(Graphics2D g2){
         synchronized (particularObjects){
             for(ParticularObject object: particularObjects){
-                if(!object.isObjectOutOfCameraView()){
+
                     object.draw(g2);
-                }
+
             }
         }
     }

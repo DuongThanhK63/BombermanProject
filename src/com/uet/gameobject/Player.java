@@ -20,7 +20,7 @@ public class Player extends Human{
     private boolean isAttacking = false;
 
     public Player(double positionX, double positionY, GameWorld gameWorld) {
-        super(positionX, positionY, gameWorld, 48, 48, 10);
+        super(positionX, positionY, gameWorld, 32, 32, 10);
 
         setTeamType(LEAGUE_TEAM);
         setDamage(0);
@@ -67,38 +67,38 @@ public class Player extends Human{
 
                     if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
                         runRightAnim.Update(System.nanoTime());
-                        runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        runRightAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
                     } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
                         runLeftAnim.Update(System.nanoTime());
-                        runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        runLeftAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         if (runLeftAnim.getCurrentFrame() == 1) runLeftAnim.setIgnoreFrame(0);
                     }
                     if (getSpeedY() < 0 && getDirection() == UP_DIR) {
                         runUpAnim.Update(System.nanoTime());
-                        runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        runUpAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         if (runUpAnim.getCurrentFrame() == 1) runUpAnim.setIgnoreFrame(0);
                     } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
                         runDownAnim.Update(System.nanoTime());
-                        runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        runDownAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         if (runDownAnim.getCurrentFrame() == 1) runDownAnim.setIgnoreFrame(0);
                     }
                     if(getSpeedY() == 0 && getSpeedX() == 0){
                         if (getDirection() == RIGHT_DIR) {
-                            runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            runRightAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         } else if (getDirection() == LEFT_DIR) {
-                            runLeftAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            runLeftAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         } else if (getDirection() == UP_DIR) {
-                            runUpAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            runUpAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                         } else {
-                            runDownAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                            runDownAnim.draw((int) (getPositionX() ), (int) getPositionY(), g2d);
                         }
                     }
                     break;
 
             case FEY:
                 dieAnim.Update(System.nanoTime());
-                dieAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                dieAnim.draw((int) (getPositionX()), (int) getPositionY(), g2d);
                 if (dieAnim.getCurrentFrame() == 1) dieAnim.setIgnoreFrame(0);
                break;
 
@@ -130,7 +130,7 @@ public class Player extends Human{
 
     @Override
     public void attack() {
-        double x = getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX();
+        double x = getGameWorld().player.getPositionX();
         double y = getGameWorld().player.getPositionY();
         if(!isAttacking){
             BombAttack bomb = new BombAttack(x,y,getGameWorld());

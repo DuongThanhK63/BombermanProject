@@ -20,8 +20,8 @@ public class Brick extends ParticularObject {
     @Override
     public void draw(Graphics2D g2d) {
 
-        brickAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()),
-                (int)(getPositionY() - getGameWorld().camera.getPositionY()), g2d);
+        brickAnim.draw((int) (getPositionX() ),
+                (int)(getPositionY()), g2d);
      }
 
     @Override

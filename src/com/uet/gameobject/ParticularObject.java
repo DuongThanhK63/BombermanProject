@@ -47,6 +47,7 @@ public abstract class ParticularObject extends GameObject{
         setHeight(height);
     }
     public ParticularObject(GameWorld gameWorld, double width, double height){
+
         super(gameWorld);
     }
 
@@ -212,14 +213,6 @@ public abstract class ParticularObject extends GameObject{
 
     public abstract void attack();
 
-    public boolean isObjectOutOfCameraView(){
-        if(getPositionX() - getGameWorld().camera.getPositionX() > getGameWorld().camera.getWidthView() ||
-        getPositionX() - getGameWorld().camera.getPositionX() < -75 ){
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public Rectangle getBoundForCollisionWithMap(){
         Rectangle bound = new Rectangle();
@@ -233,7 +226,7 @@ public abstract class ParticularObject extends GameObject{
     public void drawBoundForCollisionWithMap(Graphics2D g2d){
         Rectangle rect = getBoundForCollisionWithMap();
         g2d.setColor(Color.RED);
-        g2d.drawRect(rect.x - (int) getGameWorld().camera.getPositionX(),rect.y,rect.width,rect.height);
+        g2d.drawRect(rect.x,rect.y,rect.width,rect.height);
     }
 
     public void drawBoundForCollisionWithEnemy(Graphics2D g2d){

@@ -28,7 +28,7 @@ public class Explosion extends ParticularObject{
 
     @Override
     public void draw(Graphics2D g2d) {
-        int a = (int)this.bombAttack.getPositionX() - (int)getGameWorld().camera.getPositionX();
+        int a = (int)this.bombAttack.getPositionX();
         int b = (int)this.bombAttack.getPositionY();
         centreAnim.Update(System.nanoTime());
         centreAnim.draw(a,b,g2d);

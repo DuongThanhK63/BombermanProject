@@ -14,7 +14,6 @@ public class BalloomManager extends ParticularObjectManager{
     }
 
     public void draw(Graphics2D g2){
-        Camera camera = getGameWorld().camera;
         g2.setColor(Color.GRAY);
         for(int i = 0;i< phys_map.length;i++) {
             for (int j = 0; j < phys_map[0].length; j++) {
@@ -36,7 +35,7 @@ public class BalloomManager extends ParticularObjectManager{
         synchronized (particularObjects){
             for(int i = 0; i < particularObjects.size(); i++){
                 ParticularObject object = particularObjects.get(i);
-                if(object.isObjectOutOfCameraView() || object.getState() == ParticularObject.DEATH){
+                if(object.getState() == ParticularObject.DEATH){
                     particularObjects.remove(i);
                 }
             }
