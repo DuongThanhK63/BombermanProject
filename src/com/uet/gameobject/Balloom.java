@@ -12,31 +12,28 @@ public class Balloom extends Enemy{
     private int [][] phys_map = CacheDataLoader.getInstance().getPhysicalmap();
     private int tileSize;
 
-    private Animation BalloomLeft = new Animation();
-    private Animation BalloomDown = new Animation();
-    private Animation BalloomRight = new Animation();
-    private Animation BalloomUp = new Animation();
-    private Animation BalloomDie = new Animation();
+    private Animation balloomLeft = new Animation();
+    private Animation balloomDown = new Animation();
+    private Animation balloomRight = new Animation();
+    private Animation balloomUp = new Animation();
+    private Animation balloomDie = new Animation();
 
     private Hashtable<String, Long> timeMoving = new Hashtable<String, Long>();
     private String[] movingType = new String[4];
     private int movingIndex = 0;
     private long lastMovingTime;
 
-    public Balloom(GameWorld gameWorld) {
-        super(gameWorld, 48, 48);
+    public Balloom(double positionX, double positionY, GameWorld gameWorld) {
+        super(positionX,positionY,gameWorld,48,48);
         this.tileSize = 48;
+        setBlood(10);
+        setDamage(10);
 
-        setTeamType(ENEMY_TEAM);
-        setState(ALIVE);
-
-        BalloomRight = CacheDataLoader.getInstance().getAnimation("balloomright");
-        BalloomLeft = CacheDataLoader.getInstance().getAnimation("balloomleft");
-
-        BalloomUp = CacheDataLoader.getInstance().getAnimation("balloomright");
-        BalloomDown = CacheDataLoader.getInstance().getAnimation("balloomleft");
-
-        BalloomDie = CacheDataLoader.getInstance().getAnimation("balloomdie");
+        balloomRight = CacheDataLoader.getInstance().getAnimation("balloomright");
+        balloomLeft = CacheDataLoader.getInstance().getAnimation("balloomleft");
+        balloomUp = CacheDataLoader.getInstance().getAnimation("balloomright");
+        balloomDown = CacheDataLoader.getInstance().getAnimation("balloomleft");
+        balloomDie = CacheDataLoader.getInstance().getAnimation("balloomdie");
 
         movingType[0] = "RIGHT";
         movingType[1] = "LEFT";
@@ -52,7 +49,9 @@ public class Balloom extends Enemy{
     @Override
     public void Update() {
         super.Update();
-        moving();
+
+        setPositionX(getPositionX() + getSpeedX());
+        setPositionY(getPositionY() + getSpeedY());
 
         if(movingType[movingIndex].equals("RIGHT")){
             setDirection(RIGHT_DIR);
@@ -79,9 +78,7 @@ public class Balloom extends Enemy{
             }
         }
 
-        setPositionX(getSpeedX() + getSpeedX());
-        setPositionY(getSpeedY() + getSpeedY());
-
+        attack();
 
     }
 
@@ -100,118 +97,77 @@ public class Balloom extends Enemy{
     @Override
     public void draw(Graphics2D g2d) {
         drawBoundForCollisionWithMap(g2d);
+        switch (getState()) {
+            case ALIVE:
+                if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
+                    int a = (int) getPositionX() - (int) getGameWorld().camera.getPositionX();
+                    System.out.println(a);
+                    balloomRight.Update(System.nanoTime());
+                    g2d.drawRect((int) getPositionX() - (int) getGameWorld().camera.getPositionX(),
+                            (int) getPositionY(), tileSize, tileSize);
+                    balloomRight.draw((int) getPositionX() - (int) getGameWorld().camera.getPositionX(),
+                            (int) getPositionY(), g2d);
+                    if (balloomRight.getCurrentFrame() == 1) balloomRight.setIgnoreFrame(0);
 
+                } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
+                    balloomLeft.Update(System.nanoTime());
+                    balloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                    if (balloomLeft.getCurrentFrame() == 1) balloomLeft.setIgnoreFrame(0);
 
-        g2d.setColor(Color.GRAY);
-        Camera camera = getGameWorld().camera;
+                }
+                if (getSpeedY() < 0 && getDirection() == UP_DIR) {
+                    balloomUp.Update(System.nanoTime());
+                    balloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                    if (balloomUp.getCurrentFrame() == 1) balloomUp.setIgnoreFrame(0);
 
-        for (int i = 0; i < phys_map.length; i++) {
-            for (int j = 0; j < phys_map[0].length; j++) {
-                switch (phys_map[i][j]) {
-                    case 9:
-//        switch (getState()) {
-//            case ALIVE:
-                        //if (getState() == ALIVE && (System.nanoTime() / 10000000) % 2 != 1) {
-                        //    System.out.println("Flash..");
-                        //       } else {
-                        //if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
-                        int a = (int) getPositionX()  + j * tileSize - (int) getGameWorld().camera.getPositionX();
-                            System.out.println(a);
-                            BalloomRight.Update(System.nanoTime());
-                        g2d.drawRect((int) getPositionX() + j * tileSize - (int) getGameWorld().camera.getPositionX(),
-                                (int) getPositionY() + i * tileSize , tileSize, tileSize);
-                        BalloomRight.draw((int) getPositionX()  + j * tileSize + 24 - (int) getGameWorld().camera.getPositionX(),
-                                    (int) getPositionY() + i * tileSize + 24 , g2d);
-                            //if (BalloomRight.getCurrentFrame() == 1) BalloomRight.setIgnoreFrame(0);
-                           // moving();
-//                        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
-//                            BalloomLeft.Update(System.nanoTime());
-//                            BalloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomLeft.getCurrentFrame() == 1) BalloomLeft.setIgnoreFrame(0);
-//                          //  moving();
-//                        }
-//                        if (getSpeedY() < 0 && getDirection() == UP_DIR) {
-//                            BalloomUp.Update(System.nanoTime());
-//                            BalloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomUp.getCurrentFrame() == 1) BalloomUp.setIgnoreFrame(0);
-//                           // moving();
-//                        } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
-//                            BalloomDown.Update(System.nanoTime());
-//                            BalloomDown.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                            if (BalloomDown.getCurrentFrame() == 1) BalloomDown.setIgnoreFrame(0);
-                           // moving();
+                } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
+                    balloomDown.Update(System.nanoTime());
+                    balloomDown.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                    if (balloomDown.getCurrentFrame() == 1) balloomDown.setIgnoreFrame(0);
+                }
+                if(getSpeedY() == 0 && getSpeedX() == 0) {
+                        if (getDirection() == RIGHT_DIR) {
+                            balloomRight.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        } else if (getDirection() == LEFT_DIR) {
+                            balloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        } else if (getDirection() == UP_DIR) {
+                            balloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
+                        } else {
+                            balloomDie.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         }
-//                    if(getSpeedY() == 0 && getSpeedX() == 0){
-//                        if (getDirection() == RIGHT_DIR) {
-//                            BalloomRight.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else if (getDirection() == LEFT_DIR) {
-//                            BalloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else if (getDirection() == UP_DIR) {
-//                            BalloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else {
-//                            BalloomDie.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        }
-//                    }
-                  //  break;
-                        //}
+                    }
+                      break;
 //            case DEATH:
 //                BalloomDie.Update(System.nanoTime());
 //                BalloomDie.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
 //                // if (BalloomDie.getCurrentFrame() == 1) BalloomDie.setIgnoreFrame(0);
 //                break;
-
                 }
-         //   }
-        }
-
-
 
     }
 
     @Override
-    public void moving() {
-        if (System.currentTimeMillis() - lastMovingTime > timeMoving.get(movingType[movingIndex])) {
-            lastMovingTime = System.currentTimeMillis();
-
-            movingIndex++;
-            if (movingIndex >= movingType.length) {
-                movingIndex = 0;
-            }
-
-            switch (movingType[movingIndex]) {
-                case "RIGHT":
-                    setSpeedX(2);
-                    break;
-
-                case "LEFT":
-                    setSpeedX(-2);
-                    break;
-
-                case "UP":
-                    setSpeedY(-2);
-                    break;
-
-                case "DOWN":
-                    setSpeedY(2);
-                    break;
-            }
-
-
-        }
-    }
-
-        @Override
-        public void attack () {
-//        double x = getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX();
-//        double y = getGameWorld().player.getPositionY();
-//        if(!isAttacking){
-//            BombAttack bomb = new BombAttack(x,y,getGameWorld());
-//            getGameWorld().bombList.addObject(bomb);
-//            bomb.attack();
+    public void attack () {
+//        if (System.currentTimeMillis() - lastMovingTime > timeMoving.get(movingType[movingIndex])) {
+//            lastMovingTime = System.currentTimeMillis();
+//            movingIndex++;
+//            if (movingIndex >= movingType.length) {
+//                movingIndex = 0;
+//            }
+//            switch (movingType[movingIndex]) {
+//                case "RIGHT":
+//                    setSpeedX(1);
+//                    break;
+//                case "LEFT":
+//                    setSpeedX(-1);
+//                    break;
+//                case "UP":
+//                    setSpeedY(-1);
+//                    break;
+//                case "DOWN":
+//                    setSpeedY(1);
+//                    break;
+//            }
 //        }
-//        isAttacking = true;
-//        lastAttackTime = System.nanoTime();
-
-
-        }
     }
+}

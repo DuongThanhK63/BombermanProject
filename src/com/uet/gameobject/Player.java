@@ -5,30 +5,26 @@ import com.uet.effect.CacheDataLoader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.util.concurrent.ExecutorService;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Human{
 
-    private Animation runLeftAnim = new Animation();
-    private Animation runDownAnim = new Animation();
-    private Animation runRightAnim = new Animation();
-    private Animation runUpAnim = new Animation();
-    private Animation dieAnim = new Animation();
-    public int numOfBomb = 1;
-    AffineTransform tx1 = new AffineTransform();
+    private Animation runLeftAnim;
+    private Animation runDownAnim;
+    private Animation runRightAnim;
+    private Animation runUpAnim;
+    private Animation dieAnim;
 
     private long lastAttackTime;
     private boolean isAttacking = false;
 
     public Player(double positionX, double positionY, GameWorld gameWorld) {
-        super(positionX, positionY, gameWorld, 48, 48, 20);
+        super(positionX, positionY, gameWorld, 48, 48, 10);
 
         setTeamType(LEAGUE_TEAM);
-
-        setTimeImmortal(2000*1000000);
+        setDamage(0);
+        setLives(3);
 
         runRightAnim = CacheDataLoader.getInstance().getAnimation("manright");
         runLeftAnim = CacheDataLoader.getInstance().getAnimation("manleft");
@@ -68,12 +64,8 @@ public class Player extends Human{
         drawBoundForCollisionWithMap(g2d);
         switch (getState()) {
             case ALIVE:
-            case IMMORTAL:
-                if (getState() == IMMORTAL && (System.nanoTime() / 10000000) % 2 != 1) {
-                    System.out.println("Flash..");
-                } else {
+
                     if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
-                        System.out.println(runRightAnim.getCurrentImage().getWidth());
                         runRightAnim.Update(System.nanoTime());
                         runRightAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                         if (runRightAnim.getCurrentFrame() == 1) runRightAnim.setIgnoreFrame(0);
@@ -103,25 +95,27 @@ public class Player extends Human{
                         }
                     }
                     break;
-                }
-            case DEATH:
+
+            case FEY:
                 dieAnim.Update(System.nanoTime());
                 dieAnim.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
                 if (dieAnim.getCurrentFrame() == 1) dieAnim.setIgnoreFrame(0);
-                break;
+               break;
+
         }
     }
     @Override
     public void moving() {
-            if(getDirection() == LEFT_DIR){
-                setSpeedX(-2);
-            } else if(getDirection() == RIGHT_DIR){
-                setSpeedX(2);
-            } else if(getDirection() == UP_DIR){
-                setSpeedY(-2);
-            } else if(getDirection() == DOWN_DIR){
-                setSpeedY(2);
-            }
+
+        if(getDirection() == LEFT_DIR){
+            setSpeedX(-2);
+        } else if(getDirection() == RIGHT_DIR){
+            setSpeedX(2);
+        } else if(getDirection() == UP_DIR){
+            setSpeedY(-2);
+        } else if(getDirection() == DOWN_DIR){
+            setSpeedY(2);
+        }
     }
 
     @Override

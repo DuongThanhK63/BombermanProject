@@ -18,7 +18,6 @@ import java.awt.event.KeyEvent;
 public class InputManager {
 
     private GameWorld gameWorld;
-    private Graphics2D graphics2D;
 
     public InputManager(GameWorld gameWorld){
 
@@ -26,23 +25,23 @@ public class InputManager {
     }
     
     public void processKeyPressed(int keyCode) {
-        
+
         switch(keyCode){
             case KeyEvent.VK_W:
                 gameWorld.player.setDirection(gameWorld.player.UP_DIR);
                 gameWorld.player.moving();
                 break;
-            
+
             case KeyEvent.VK_S:
                 gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
                 gameWorld.player.moving();
                 break;
-            
+
             case KeyEvent.VK_A:
                 gameWorld.player.setDirection(gameWorld.player.LEFT_DIR);
                 gameWorld.player.moving();
                 break;
-            
+
             case KeyEvent.VK_D:
                 gameWorld.player.setDirection(gameWorld.player.RIGHT_DIR);
                 gameWorld.player.moving();
@@ -52,26 +51,26 @@ public class InputManager {
                 break;
         }
     }
-    
+
     public void processKeyReleased(int keyCode) {
-        
+
         switch(keyCode){
             case KeyEvent.VK_W:
                 gameWorld.player.setDirection(gameWorld.player.UP_DIR);
                 gameWorld.player.stopMoving();
                 break;
-            
+
             case KeyEvent.VK_S:
                     gameWorld.player.setDirection(gameWorld.player.DOWN_DIR);
                     gameWorld.player.stopMoving();
                 break;
-            
+
             case KeyEvent.VK_A:
 //                gameWorld.player.setCanMove(false);
                 gameWorld.player.setDirection(gameWorld.player.LEFT_DIR);
                 gameWorld.player.stopMoving();
                 break;
-            
+
             case KeyEvent.VK_D:
                 gameWorld.player.setDirection(gameWorld.player.RIGHT_DIR);
                 gameWorld.player.stopMoving();

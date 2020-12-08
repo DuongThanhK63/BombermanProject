@@ -14,7 +14,7 @@ public abstract class Human extends ParticularObject{
     public void Update() {
         super.Update();
 
-        if(getState() == ALIVE || getState() == IMMORTAL){
+        if(getState() == ALIVE){
 
             setPositionX(getPositionX() + getSpeedX());
             setPositionY(getPositionY() + getSpeedY());
@@ -39,6 +39,34 @@ public abstract class Human extends ParticularObject{
                 Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
                 setPositionY(recDownWall.y - getHeight() / 2);
             }
+//            if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null &&
+//                    getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
+//                setPositionX(recLeftWall.x + recLeftWall.getWidth() + getWidth() / 2);
+//                Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
+//                setPositionY(recDownWall.y - getHeight() / 2);
+//            }
+//            if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null &&
+//                    getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
+//                setPositionX(recLeftWall.x + recLeftWall.getWidth() + getWidth() / 2);
+//                Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
+//                setPositionY(recTopWall.y + recTopWall.getHeight() + getHeight() / 2);
+//            }
+//            if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null &&
+//                    getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
+//                setPositionX(recRightWall.x - getWidth() / 2);
+//                Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
+//                setPositionY(recDownWall.y - getHeight() / 2);
+//            }
+//            if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null &&
+//                    getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
+//                setPositionX(recRightWall.x - getWidth() / 2);
+//                Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
+//                setPositionY(recTopWall.y + recTopWall.getHeight() + getHeight() / 2);
+//            }
 
         }
     }

@@ -7,8 +7,8 @@ public abstract class Enemy extends ParticularObject{
 
 
 
-    public Enemy( GameWorld gameWorld, double width, double height) {
-        super(gameWorld, width, height);
+    public Enemy(double positionX, double positionY, GameWorld gameWorld, double width, double height) {
+        super(positionX,positionY,gameWorld,width,height);
         setState(ALIVE);
     }
 
@@ -63,34 +63,5 @@ public abstract class Enemy extends ParticularObject{
         return bound;
     }
 
-    public abstract void moving() ;
-    //{
-//        Random random = new Random();
-//        int codeMove = random.nextInt(4);
-//        while (getState() == ALIVE){
-//            switch(codeMove){
-//                case 1:
-//                    setDirection(RIGHT_DIR);
-//                    setSpeedX(2);
-//                    break;
-//
-//                case 0:
-//                    setDirection(LEFT_DIR);
-//                    setSpeedX(-2);
-//                    break;
-//
-//                case 2:
-//                    setDirection(UP_DIR);
-//                    setSpeedY(-2);
-//                    break;
-//
-//                case 3:
-//                    setDirection(DOWN_DIR);
-//                    setSpeedY(2);
-//                    break;
-//            }
-//        }
-
-   // }
 
 }

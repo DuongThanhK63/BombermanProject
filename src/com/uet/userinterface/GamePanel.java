@@ -35,10 +35,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     public GameWorld gameWorld;
 
-    FrameImage frame1, frame2, frame3;
-
-    Animation animation;
-
     
     public GamePanel() {
         gameWorld = new GameWorld();

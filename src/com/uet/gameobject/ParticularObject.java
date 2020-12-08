@@ -3,6 +3,8 @@ package com.uet.gameobject;
 import com.uet.effect.Animation;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public abstract class ParticularObject extends GameObject{
 
@@ -17,10 +19,11 @@ public abstract class ParticularObject extends GameObject{
 
     public static final int ALIVE = 0;
     public static final int GETDAMGE = 1;
-    public static final int DEATH = 2;
     public static final int IMMORTAL = 3;
+    public static final int DEATH = 2;
     public static final int FEY = 4;
     private int state = ALIVE;
+    private int lives;
 
     private double width;
     private double height;
@@ -34,7 +37,6 @@ public abstract class ParticularObject extends GameObject{
 
     private int teamType;
 
-    protected Animation deathAnimation, immortalAnimation;
 
     private long startTimeImmortal;
     private long timeImmortal;
@@ -46,6 +48,14 @@ public abstract class ParticularObject extends GameObject{
     }
     public ParticularObject(GameWorld gameWorld, double width, double height){
         super(gameWorld);
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     public double getWidth() {
@@ -150,31 +160,49 @@ public abstract class ParticularObject extends GameObject{
     public void Update() {
         switch (state){
             case ALIVE:
+                ParticularObject object = getGameWorld().particularObjectManager.getCollisionWithEnemyObject(this);
+                if(object != null){
+                    if(object.getDamage() > 0){
+                        getDame(object.getDamage());
+                        System.out.println(this.getLives());
+                    }
+                }
                 break;
             case GETDAMGE:
-                if(immortalAnimation == null){
-                    state = IMMORTAL;
-                    startTimeImmortal = System.nanoTime();
-                    if(getBlood() == 0){
-                        state = DEATH;
-                    }
+                if(this.getBlood() <= 0){
+                    setState(FEY);
                 } else {
-                    deathAnimation.Update(System.nanoTime());
-                    if(deathAnimation.isLastFrame()){
-                        deathAnimation.reset();
-                        state = IMMORTAL;
-                        if(getBlood() == 0){
-                            state = DEATH;
+                    setState(ALIVE);
+                }
+                break;
+            case FEY:
+                setLives(getLives() - 1);
+                if(getLives() > 0){
+                    setState(ALIVE);
+                } else {
+                    TimerTask timerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            setState(DEATH);
                         }
-                        startTimeImmortal = System.nanoTime();
-                    }
+                    };
+                    long delay = 1000L;
+                    Timer timer = new Timer("Timer");
+                    timer.schedule(timerTask, delay);
+
+                    break;
                 }
-                break;
-            case IMMORTAL:
-                if(System.nanoTime() - startTimeImmortal > timeImmortal){
-                    state = ALIVE;
-                }
-                break;
+//            case IMMORTAL:
+//                TimerTask timerTask = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        setState(FEY);
+//                    }
+//                };
+//                long delay = 2000L;
+//                Timer timer = new Timer("Timer");
+//                timer.schedule(timerTask, delay);
+//                break;
             case DEATH:
                 break;
         }
