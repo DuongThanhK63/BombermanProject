@@ -6,7 +6,7 @@ public abstract class GameObject {
 
     private double positionX, positionY;
     private GameWorld gameWorld;
-    private int [][] phys_map;
+    public final int tileSize = 32;
 
     public GameObject(double positionX, double positionY, GameWorld gameWorld) {
         this.positionX = positionX;
@@ -16,7 +16,6 @@ public abstract class GameObject {
 
     public GameObject(GameWorld gameWorld){
         this.gameWorld = gameWorld;
-        this.phys_map = CacheDataLoader.getInstance().getPhysicalmap();
     }
 
     public double getPositionX() {
@@ -52,4 +51,8 @@ public abstract class GameObject {
     }
 
     public abstract void Update();
+
+    public int getTileSize() {
+        return tileSize;
+    }
 }

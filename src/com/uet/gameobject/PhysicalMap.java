@@ -20,19 +20,6 @@ public class PhysicalMap extends GameObject{
 
     }
 
-    public PhysicalMap(GameWorld gameWorld){
-        super(gameWorld);
-        phys_map = CacheDataLoader.getInstance().getPhysicalmap();
-    }
-
-    public int getTileSize() {
-        return tileSize;
-    }
-
-    //        @Override
-//    public void Update() {
-//
-//    }
     public Rectangle haveCollisionWithTopWall(Rectangle rect){
 
         int posX1 = rect.x/tileSize;
@@ -139,57 +126,6 @@ public class PhysicalMap extends GameObject{
         }
         return null;
 
-    }
-
-    public void draw(Graphics2D g2){
-
-        g2.setColor(Color.GRAY);
-        for(int i = 0;i< phys_map.length;i++) {
-            for (int j = 0; j < phys_map[0].length; j++) {
-                switch (phys_map[i][j]) {
-                    case 1:
-                        g2.drawRect((int) getPositionX() + j * tileSize ,
-                                (int) getPositionY() + i * tileSize , tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("wall").getImage(), (int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-                    case 2:
-                        g2.drawRect((int) getPositionX() + j * tileSize ,
-                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("brick").getImage(), (int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-                    case 3:
-                        g2.drawRect((int) getPositionX() + j * tileSize ,
-                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("portal").getImage(), (int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-                    case 4:
-                        g2.drawRect((int) getPositionX() + j * tileSize ,
-                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("bombitem").getImage(), (int) getPositionX() + j * tileSize ,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-                    case 5:
-                        g2.drawRect((int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("flameitem").getImage(), (int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-                    case 6:
-                        g2.drawRect((int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, tileSize, tileSize);
-                        g2.drawImage(CacheDataLoader.getInstance().getFrameImage("speeditem").getImage(), (int) getPositionX() + j * tileSize,
-                                (int) getPositionY() + i * tileSize, null);
-                        break;
-
-
-//                if (phys_map[i][j] != 0) g2.fillRect((int) getPositionX() + j * tileSize - (int) camera.getPositionX(),
-//                                (int) getPositionY() + i * tileSize - (int) camera.getPositionY(), tileSize, tileSize);
-                }
-            }
-        }
     }
 
     @Override

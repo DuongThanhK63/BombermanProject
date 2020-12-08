@@ -53,8 +53,8 @@ public class Player extends Human{
 
         rect.x = (int)getPositionX() - 10;
         rect.y = (int)getPositionY() - 10;
-        rect.width = 48;
-        rect.height = 48;
+        rect.width = 32;
+        rect.height = 32;
 
         return rect;
     }
@@ -108,13 +108,13 @@ public class Player extends Human{
     public void moving() {
 
         if(getDirection() == LEFT_DIR){
-            setSpeedX(-2);
+            setSpeedX(-1);
         } else if(getDirection() == RIGHT_DIR){
-            setSpeedX(2);
+            setSpeedX(1);
         } else if(getDirection() == UP_DIR){
-            setSpeedY(-2);
+            setSpeedY(-1);
         } else if(getDirection() == DOWN_DIR){
-            setSpeedY(2);
+            setSpeedY(1);
         }
     }
 

@@ -218,8 +218,8 @@ public abstract class ParticularObject extends GameObject{
         Rectangle bound = new Rectangle();
         bound.x = (int)(getPositionX() - getWidth() / 2);
         bound.y = (int)(getPositionY() - getHeight() / 2);
-        bound.width = (int)getWidth();
-        bound.height = (int)getHeight();
+        bound.width = 30;
+        bound.height = 30;
         return bound;
     }
 

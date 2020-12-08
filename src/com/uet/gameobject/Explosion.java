@@ -33,13 +33,13 @@ public class Explosion extends ParticularObject{
         centreAnim.Update(System.nanoTime());
         centreAnim.draw(a,b,g2d);
         fireLeftAnim.Update(System.nanoTime());
-        fireLeftAnim.draw(a-50,b,g2d);
+        fireLeftAnim.draw(a-32,b,g2d);
         fireRightAnim.Update(System.nanoTime());
-        fireRightAnim.draw(a+50,b,g2d);
+        fireRightAnim.draw(a+32,b,g2d);
         fireUpAnim.Update(System.nanoTime());
-        fireUpAnim.draw(a,b-50,g2d);
+        fireUpAnim.draw(a,b-32,g2d);
         fireDownAnim.Update(System.nanoTime());
-        fireDownAnim.draw(a,b+50,g2d);
+        fireDownAnim.draw(a,b+32,g2d);
 
     }
 

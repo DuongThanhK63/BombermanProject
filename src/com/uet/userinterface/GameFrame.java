@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  * @author Admin
  */
 public class GameFrame extends JFrame{
-    public static final int SCREEN_WIDTH = 994;
+    public static final int SCREEN_WIDTH = 1012;
     public static final int SCREEN_HEIGHT = 455;
     
     GamePanel gamePanel;
