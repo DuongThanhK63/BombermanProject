@@ -54,7 +54,8 @@ public class BombAttack extends Bomb{
 //                    @Override
 //                    public void run() {
                 Explosion explosion = new Explosion(getPositionX(),getPositionY(), getGameWorld(),32,32);
-                explosion.draw(g2d);
+                getGameWorld().particularObjectManager.addObject(explosion);
+
 //                    }
 //                };
 //                long delay = 2000L;

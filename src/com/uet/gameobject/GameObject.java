@@ -23,10 +23,10 @@ public abstract class GameObject {
     }
 
     public void setPositionX(double positionX) {
-        if ( positionX < 0) {
-            this.positionX = 0;
-        } else if ( positionX > 32*31) {
-            this.positionX = 32*31;
+        if ( positionX < 32) {
+            this.positionX = 32;
+        } else if ( positionX > 32*30) {
+            this.positionX = 32*30;
         } else this.positionX = positionX;
     }
 
@@ -35,10 +35,10 @@ public abstract class GameObject {
     }
 
     public void setPositionY(double positionY) {
-        if ( positionY < 0) {
-            this.positionY = 0;
-        }else if ( positionY > 32*13) {
-            this.positionY = 32*13;
+        if ( positionY < 32) {
+            this.positionY = 32;
+        }else if ( positionY > 32*12) {
+            this.positionY = 32*12;
         } else this.positionY = positionY;
     }
 

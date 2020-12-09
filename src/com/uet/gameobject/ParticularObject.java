@@ -216,8 +216,8 @@ public abstract class ParticularObject extends GameObject{
 
     public Rectangle getBoundForCollisionWithMap(){
         Rectangle bound = new Rectangle();
-        bound.x = (int)(getPositionX() - getWidth() / 2);
-        bound.y = (int)(getPositionY() - getHeight() / 2);
+        bound.x = (int)(getPositionX());
+        bound.y = (int)(getPositionY());
         bound.width = 30;
         bound.height = 30;
         return bound;

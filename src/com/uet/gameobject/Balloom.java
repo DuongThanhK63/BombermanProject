@@ -46,49 +46,49 @@ public class Balloom extends Enemy{
         movingType[2] = "UP";
         movingType[3] = "DOWN";
 
-//        timeMoving.put("RIGHT", new Long(2000));
-//        timeMoving.put("LEFT", new Long(2000));
-//        timeMoving.put("UP", new Long(2000));
-//        timeMoving.put("DOWN", new Long(2000));
+        timeMoving.put("RIGHT", new Long(2000));
+        timeMoving.put("LEFT", new Long(2000));
+        timeMoving.put("UP", new Long(2000));
+        timeMoving.put("DOWN", new Long(2000));
     }
 
     @Override
     public void Update() {
         super.Update();
 
-        if (getPositionX()%32 == 0 && getPositionY() %32 == 26) {
+        if ((getPositionX()) % 32 == 0 && (getPositionY()) % 32 == 0) {
             moving();
         }
 
         if(movingType[movingIndex].equals("RIGHT")){
             setDirection(RIGHT_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
-                setSpeedX(-2);
+                setSpeedX(-1);
+                setPositionX(getPositionX() + getSpeedX());
             }
         }
         if(movingType[movingIndex].equals("LEFT")){
             setDirection(LEFT_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
-                setSpeedX(2);
+                setSpeedX(1);
+                setPositionX(getPositionX() + getSpeedX());
             }
         }
         if(movingType[movingIndex].equals("UP")){
             setDirection(UP_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
-                setSpeedY(2);
+                setSpeedY(1);
+                setPositionY(getPositionY() + getSpeedY());
             }
         }
         if(movingType[movingIndex].equals("DOWN")){
             setDirection(DOWN_DIR);
             if(getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
-                setSpeedY(-2);
+                setSpeedY(-1);
+                setPositionY(getPositionY() + getSpeedY());
             }
         }
 
-        setPositionX(getPositionX() + getSpeedX());
-        setPositionY(getPositionY() + getSpeedY());
-//        System.out.println(getPositionX() + "\t" + getPositionY());
-//
     }
 
     @Override
@@ -159,29 +159,39 @@ public class Balloom extends Enemy{
 
     @Override
     public void moving() {
-        Random random = new Random();
-        movingIndex = random.nextInt(4);
-        System.out.println(movingIndex);
-        switch (movingType[movingIndex]) {
-            case "RIGHT":
-                setSpeedX(1);
-                setSpeedY(0);
-                break;
 
-            case "LEFT":
-                setSpeedX(-1);
-                setSpeedY(0);
-                break;
+        if (System.currentTimeMillis() - lastMovingTime > timeMoving.get(movingType[movingIndex])) {
+            lastMovingTime = System.currentTimeMillis();
 
-            case "UP":
-                setSpeedY(-1);
-                setSpeedX(0);
-                break;
+            movingIndex++;
+            if (movingIndex >= movingType.length) {
+                movingIndex = 0;
 
-            case "DOWN":
-                setSpeedY(1);
-                setSpeedX(0);
-                break;
+//                Random random = new Random();
+//                movingIndex = random.nextInt(4);
+                System.out.println(movingIndex);
+                switch (movingType[movingIndex]) {
+                    case "RIGHT":
+                        setSpeedX(1);
+                        //setSpeedY(0);
+                        break;
+
+                    case "LEFT":
+                        setSpeedX(-1);
+                        //setSpeedY(0);
+                        break;
+
+                    case "UP":
+                        setSpeedY(-1);
+                        //setSpeedX(0);
+                        break;
+
+                    case "DOWN":
+                        setSpeedY(1);
+                        //setSpeedX(0);
+                        break;
+                }
+            }
         }
     }
 

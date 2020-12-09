@@ -18,7 +18,7 @@ public class GameWorld {
 
     public GameWorld(){
 
-        player = new Player(32,48,this);
+        player = new Player(32,32,this);
         physicalMap = new PhysicalMap(0,0, this);
         bombList = new BombManager(this);
         particularObjectManager = new ParticularObjectManager(this);
@@ -28,7 +28,7 @@ public class GameWorld {
     }
 
     private void initEnemies() {
-        balloom = new Balloom(160, 186,this);
+        balloom = new Balloom(160, 160,this);
         balloom.setDirection(ParticularObject.LEFT_DIR);
         balloom.setTeamType(ParticularObject.ENEMY_TEAM);
         particularObjectManager.addObject(balloom);
@@ -41,15 +41,15 @@ public class GameWorld {
             for (int j = 0; j < this.physicalMap.phys_map[0].length; j++) {
                 switch (this.physicalMap.phys_map[i][j]) {
                     case 1:
-                        Wall wall = new Wall(j * 32 + 16, i * 32 + 16, this, 32,32);
+                        Wall wall = new Wall(j * 32, i * 32, this, 32,32);
                         particularObjectManager.addObject(wall);
                         break;
                     case 2:
-                        Brick brick = new Brick(j * 32 + 16, i * 32 + 16, this, 32,32);
+                        Brick brick = new Brick(j * 32, i * 32, this, 32,32);
                         particularObjectManager.addObject(brick);
                         break;
                     case 3:
-                        Portal portal = new Portal(j * 32 + 16, i * 32 + 16, this, 32,32);
+                        Portal portal = new Portal(j * 32, i * 32, this, 32,32);
                         particularObjectManager.addObject(portal);
                         break;
                     case 4:

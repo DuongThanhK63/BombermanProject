@@ -225,13 +225,10 @@ public class Animation {
     public void draw(int x, int y, Graphics2D g2) {
         BufferedImage image = getCurrentImage();
 
-        g2.drawImage(image, x - image.getWidth()/2,
-                y - image.getHeight()/2, null);
+        g2.drawImage(image, x, y, null);
 
         if(drawRectFrame){
-            g2.drawRect(x - image.getWidth()/2,
-                    y - image.getHeight()/2, image.getWidth(),
-                    image.getHeight());
+            g2.drawRect(x, y, image.getWidth(), image.getHeight());
         }
     }
 

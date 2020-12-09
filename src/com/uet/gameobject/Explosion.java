@@ -5,17 +5,19 @@ import com.uet.effect.CacheDataLoader;
 
 import java.awt.*;
 
-public class Explosion extends ParticularObject{
+public class
+Explosion extends ParticularObject{
 
     private BombAttack bombAttack;
-    private Animation centreAnim;
-    private Animation fireLeftAnim, fireRightAnim,fireUpAnim,fireDownAnim;
+    private Animation fireLeftAnim, fireRightAnim,fireUpAnim,fireDownAnim, fireCenterYAnim,fireCenterXAnim;
+    private Explosion explosionLeft;
 
 
     public Explosion(double positionX, double positionY, GameWorld gameWorld, double width, double height) {
         super(positionX, positionY, gameWorld, width, height);
+        setTeamType(ENEMY_TEAM);
         this.bombAttack = new BombAttack(positionX, positionY, gameWorld);
-        centreAnim = CacheDataLoader.getInstance().getAnimation("firecentre");
+    //    centreAnim = CacheDataLoader.getInstance().getAnimation("firecentre");
         fireDownAnim = CacheDataLoader.getInstance().getAnimation("firedown1");
         fireLeftAnim = CacheDataLoader.getInstance().getAnimation("fireleft1");
         fireRightAnim = CacheDataLoader.getInstance().getAnimation("fireright1");
@@ -30,8 +32,8 @@ public class Explosion extends ParticularObject{
     public void draw(Graphics2D g2d) {
         int a = (int)this.bombAttack.getPositionX();
         int b = (int)this.bombAttack.getPositionY();
-        centreAnim.Update(System.nanoTime());
-        centreAnim.draw(a,b,g2d);
+        //centreAnim.Update(System.nanoTime());
+        //centreAnim.draw(a,b,g2d);
         fireLeftAnim.Update(System.nanoTime());
         fireLeftAnim.draw(a-32,b,g2d);
         fireRightAnim.Update(System.nanoTime());
@@ -55,6 +57,7 @@ public class Explosion extends ParticularObject{
 
     @Override
     public Rectangle getBoundForCollisionWithEnemy() {
-        return null;
+
+        return getBoundForCollisionWithMap();
     }
 }

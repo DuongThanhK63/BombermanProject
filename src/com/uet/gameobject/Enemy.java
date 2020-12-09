@@ -26,22 +26,22 @@ public abstract class Enemy extends ParticularObject{
             if(getDirection() == LEFT_DIR &&
                     getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
                 Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
-                setPositionX(recLeftWall.x + recLeftWall.getWidth() + getWidth() / 2);
+                setPositionX(recLeftWall.x + 32);
             }
             if(getDirection() == RIGHT_DIR &&
                     getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
                 Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
-                setPositionX(recRightWall.x - getWidth() / 2);
+                setPositionX(recRightWall.x - 32);
             }
             if(getDirection() == UP_DIR &&
                     getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
                 Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
-                setPositionY(recTopWall.y + recTopWall.getHeight() + getHeight() / 2);
+                setPositionY(recTopWall.y + 32);
             }
             if(getDirection() == DOWN_DIR &&
                     getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null) {
                 Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
-                setPositionY(recDownWall.y - getHeight() / 2);
+                setPositionY(recDownWall.y - 32);
             }
 
         }
@@ -56,8 +56,8 @@ public abstract class Enemy extends ParticularObject{
     @Override
     public Rectangle getBoundForCollisionWithMap() {
         Rectangle bound = new Rectangle();
-        bound.x = (int)(getPositionX() - getWidth() / 2);
-        bound.y = (int)(getPositionY() - getHeight() / 2);
+        bound.x = (int)(getPositionX());
+        bound.y = (int)(getPositionY());
         bound.width = (int)getWidth();
         bound.height = (int)getHeight();
         return bound;
