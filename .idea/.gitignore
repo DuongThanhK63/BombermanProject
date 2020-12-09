@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../:\New folder\BombermanProject\.idea/dataSources/
+/../../../../../:\download\boomberman-master\boomberman-master\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
