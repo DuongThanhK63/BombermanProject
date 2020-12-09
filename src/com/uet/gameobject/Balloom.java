@@ -25,7 +25,7 @@ public class Balloom extends Enemy{
     private long lastMovingTime;
 
     public Balloom(double posX, double posY, GameWorld gameWorld) {
-        super(gameWorld, 32, 32);
+        super(posX, posY, gameWorld, 32, 32);
         this.setPositionX(posX);
         this.setPositionY(posY);
         this.tileSize = 32;
@@ -40,53 +40,42 @@ public class Balloom extends Enemy{
         BalloomDown = CacheDataLoader.getInstance().getAnimation("balloomleft");
 
         BalloomDie = CacheDataLoader.getInstance().getAnimation("balloomdie");
+        ai = new AILow();
 
-        movingType[0] = "RIGHT";
-        movingType[1] = "LEFT";
-        movingType[2] = "UP";
-        movingType[3] = "DOWN";
 
-        timeMoving.put("RIGHT", new Long(2000));
-        timeMoving.put("LEFT", new Long(2000));
-        timeMoving.put("UP", new Long(2000));
-        timeMoving.put("DOWN", new Long(2000));
     }
+
+    int x = 0;
+    int a = 0;
 
     @Override
     public void Update() {
         super.Update();
-
-        if ((getPositionX()) % 32 == 0 && (getPositionY()) % 32 == 0) {
-            moving();
+        x ++;
+        while (!canmove(a)) {
+            a = ai.calculateDirection();
         }
-
-        if(movingType[movingIndex].equals("RIGHT")){
-            setDirection(RIGHT_DIR);
-            if(getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
-                setSpeedX(-1);
-                setPositionX(getPositionX() + getSpeedX());
-            }
-        }
-        if(movingType[movingIndex].equals("LEFT")){
-            setDirection(LEFT_DIR);
-            if(getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
+        switch (a) {
+            case 0:
                 setSpeedX(1);
+                setDirection(RIGHT_DIR);
                 setPositionX(getPositionX() + getSpeedX());
-            }
-        }
-        if(movingType[movingIndex].equals("UP")){
-            setDirection(UP_DIR);
-            if(getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+                break;
+            case 1:
+                setSpeedX(-1);
+                setDirection(LEFT_DIR);
+                setPositionX(getPositionX()  + getSpeedX());
+                break;
+
+            case 2:
                 setSpeedY(1);
-                setPositionY(getPositionY() + getSpeedY());
-            }
-        }
-        if(movingType[movingIndex].equals("DOWN")){
-            setDirection(DOWN_DIR);
-            if(getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null){
+                setPositionY(getPositionY()  + getSpeedY());
+                break;
+
+            case 3:
                 setSpeedY(-1);
-                setPositionY(getPositionY() + getSpeedY());
-            }
+                setPositionY(getPositionY()  + getSpeedY());
+                break;
         }
 
     }
@@ -105,8 +94,6 @@ public class Balloom extends Enemy{
 
     @Override
     public void draw(Graphics2D g2d) {
-        drawBoundForCollisionWithMap(g2d);
-
 
         g2d.setColor(Color.GRAY);
 //        switch (getState()) {
@@ -114,40 +101,26 @@ public class Balloom extends Enemy{
         //if (getState() == ALIVE && (System.nanoTime() / 10000000) % 2 != 1) {
         //    System.out.println("Flash..");
         //       } else {
-        if (getSpeedX() > 0 && getDirection() == RIGHT_DIR) {
+        if (getSpeedX() > 0) {
             BalloomRight.Update(System.nanoTime());
             BalloomRight.draw((int) getPositionX() , (int) getPositionY(), g2d);
             if (BalloomRight.getCurrentFrame() == 1) BalloomRight.setIgnoreFrame(0);
 
-        } else if (getSpeedX() < 0 && getDirection() == LEFT_DIR) {
+        } else if (getSpeedX() < 0) {
             BalloomLeft.Update(System.nanoTime());
             BalloomLeft.draw((int) (getPositionX()), (int) getPositionY(), g2d);
             if (BalloomLeft.getCurrentFrame() == 1) BalloomLeft.setIgnoreFrame(0);
 
-        } else if (getSpeedY() < 0 && getDirection() == UP_DIR) {
+        } else if (getSpeedY() < 0) {
             BalloomUp.Update(System.nanoTime());
             BalloomUp.draw((int) (getPositionX()), (int) getPositionY(), g2d);
             if (BalloomUp.getCurrentFrame() == 1) BalloomUp.setIgnoreFrame(0);
 
-        } else if (getSpeedY() > 0 && getDirection() == DOWN_DIR) {
+        } else if (getSpeedY() > 0) {
             BalloomDown.Update(System.nanoTime());
             BalloomDown.draw((int) (getPositionX()), (int) getPositionY(), g2d);
             if (BalloomDown.getCurrentFrame() == 1) BalloomDown.setIgnoreFrame(0);
 
-        }
-//                    if(getSpeedY() == 0 && getSpeedX() == 0){
-//                        if (getDirection() == RIGHT_DIR) {
-//                            BalloomRight.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else if (getDirection() == LEFT_DIR) {
-//                            BalloomLeft.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else if (getDirection() == UP_DIR) {
-//                            BalloomUp.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        } else {
-//                            BalloomDie.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
-//                        }
-//                    }
-        //  break;
-        //}
 //            case DEATH:
 //                BalloomDie.Update(System.nanoTime());
 //                BalloomDie.draw((int) (getPositionX() - getGameWorld().camera.getPositionX()), (int) getPositionY(), g2d);
@@ -157,46 +130,7 @@ public class Balloom extends Enemy{
     }
 
 
-    @Override
-    public void moving() {
-
-        if (System.currentTimeMillis() - lastMovingTime > timeMoving.get(movingType[movingIndex])) {
-            lastMovingTime = System.currentTimeMillis();
-
-            movingIndex++;
-            if (movingIndex >= movingType.length) {
-                movingIndex = 0;
-
-//                Random random = new Random();
-//                movingIndex = random.nextInt(4);
-                System.out.println(movingIndex);
-                switch (movingType[movingIndex]) {
-                    case "RIGHT":
-                        setSpeedX(1);
-                        //setSpeedY(0);
-                        break;
-
-                    case "LEFT":
-                        setSpeedX(-1);
-                        //setSpeedY(0);
-                        break;
-
-                    case "UP":
-                        setSpeedY(-1);
-                        //setSpeedX(0);
-                        break;
-
-                    case "DOWN":
-                        setSpeedY(1);
-                        //setSpeedX(0);
-                        break;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void attack () {
+  //  public void attack () {
 //        double x = getGameWorld().player.getPositionX() - (int)getGameWorld().camera.getPositionX();
 //        double y = getGameWorld().player.getPositionY();
 //        if(!isAttacking){
@@ -206,10 +140,28 @@ public class Balloom extends Enemy{
 //        }
 //        isAttacking = true;
 //        lastAttackTime = System.nanoTime();
-
-
     }
-
+    public boolean canmove(int direction) {
+        switch (direction) {
+            case 0://phai
+                if (getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null) {
+                    return false;
+                }
+            case 1://trai
+                if (getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null) {
+                    return false;
+                }
+            case 2://xuong
+                if (getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null) {
+                    return false;
+                }
+            case 3://len
+                if (getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null) {
+                    return false;
+                }
+        }
+        return true;
+    }
 
 
 }

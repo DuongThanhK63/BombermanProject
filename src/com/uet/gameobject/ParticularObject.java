@@ -46,9 +46,8 @@ public abstract class ParticularObject extends GameObject{
         setWidth(width);
         setHeight(height);
     }
-    public ParticularObject(GameWorld gameWorld, double width, double height){
-
-        super(gameWorld);
+    public ParticularObject(double posX, double posY, GameWorld gameWorld) {
+        super(posX, posY, gameWorld);
     }
 
     public int getLives() {
@@ -213,13 +212,13 @@ public abstract class ParticularObject extends GameObject{
 
     public abstract void attack();
 
-
+    @Override
     public Rectangle getBoundForCollisionWithMap(){
         Rectangle bound = new Rectangle();
         bound.x = (int)(getPositionX());
         bound.y = (int)(getPositionY());
-        bound.width = 30;
-        bound.height = 30;
+        bound.width = (int) getWidth();
+        bound.height = (int) getHeight();
         return bound;
     }
 

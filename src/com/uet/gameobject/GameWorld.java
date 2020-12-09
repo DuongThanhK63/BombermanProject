@@ -13,7 +13,7 @@ public class GameWorld {
     public PhysicalMap physicalMap;
     public ParticularObjectManager bombList;
     public ParticularObjectManager particularObjectManager;
-    public ParticularObject balloom;
+    public ParticularObject  balloom;
     private int numOfEnemy = 0;
 
     public GameWorld(){
@@ -57,7 +57,12 @@ public class GameWorld {
                     case 5:
                         break;
                     case 6:
-                        break;
+//                        balloom = new Balloom(160, 160,this);
+//                        balloom.setDirection(ParticularObject.LEFT_DIR);
+//                        balloom.setTeamType(ParticularObject.ENEMY_TEAM);
+//                        particularObjectManager.addObject(balloom);
+//                        numOfEnemy += 1;
+//                        break;
 
 
                 }

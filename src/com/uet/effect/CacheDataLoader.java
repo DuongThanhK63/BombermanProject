@@ -70,7 +70,7 @@ public class CacheDataLoader {
 
         line = br.readLine();
         int n = Integer.parseInt(line);
-        System.out.println("" + n);
+       // System.out.println("" + n);
 
         for(int i = 0; i < n; i++){
 
@@ -80,7 +80,7 @@ public class CacheDataLoader {
             String[] str = line.split(" ");
 
             frame.setName(str[0]);
-            System.out.println("" + str[0]);
+            //System.out.println("" + str[0]);
             int x = Integer.parseInt(str[1]);
 
             int y = Integer.parseInt(str[2]);
@@ -167,13 +167,13 @@ public class CacheDataLoader {
                     instance.phys_map[i][j] = Integer.parseInt(str[j]);
             }
 
-            for(int i = 0;i < numberOfRows;i++){
-
-                for(int j = 0;j<numberOfColumns;j++)
-                    System.out.print(" "+instance.phys_map[i][j]);
-
-                System.out.println();
-            }
+//            for(int i = 0;i < numberOfRows;i++){
+//
+//                for(int j = 0;j<numberOfColumns;j++)
+//                    System.out.print(" "+instance.phys_map[i][j]);
+//
+//                System.out.println();
+//            }
 
             br.close();
         } catch (IOException e){

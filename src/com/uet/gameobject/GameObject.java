@@ -2,6 +2,8 @@ package com.uet.gameobject;
 
 import com.uet.effect.CacheDataLoader;
 
+import java.awt.*;
+
 public abstract class GameObject {
 
     private double positionX, positionY;
@@ -55,4 +57,22 @@ public abstract class GameObject {
     public int getTileSize() {
         return tileSize;
     }
+
+    public Rectangle getBoundForCollisionWithMap(){
+        Rectangle bound = new Rectangle();
+        bound.x = (int) getPositionX();
+        bound.y = (int) getPositionY();
+        bound.width = 32;
+        bound.height = 32;
+        return bound;
+    }
+    public Rectangle getBoundForCollisionWithEnemy(){
+        Rectangle bound = new Rectangle();
+        bound.x = (int) getPositionX();
+        bound.y = (int) getPositionY();
+        bound.width = 32;
+        bound.height = 32;
+        return bound;
+    }
 }
+
