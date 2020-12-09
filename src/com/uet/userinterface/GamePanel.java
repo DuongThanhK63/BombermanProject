@@ -5,9 +5,7 @@
  */
 package com.uet.userinterface;
 
-import com.uet.effect.Animation;
-import com.uet.effect.FrameImage;
-import com.uet.gameobject.GameWorld;
+import com.uet.gameobject.managerobjects.GameWorld;
 
 import java.awt.Color;
 import java.awt.Graphics;

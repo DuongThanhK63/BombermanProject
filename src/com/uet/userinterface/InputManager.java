@@ -5,10 +5,8 @@
  */
 package com.uet.userinterface;
 
-import com.uet.gameobject.GameWorld;
-import com.uet.gameobject.Player;
+import com.uet.gameobject.managerobjects.GameWorld;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**

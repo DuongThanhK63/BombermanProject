@@ -1,0 +1,107 @@
+package com.uet.gameobject.enemy;
+
+import com.uet.gameobject.managerobjects.AI;
+import com.uet.gameobject.managerobjects.GameWorld;
+import com.uet.gameobject.managerobjects.ParticularObject;
+
+import java.awt.*;
+
+public  class Enemy extends ParticularObject {
+
+    protected AI ai;
+    public Enemy(double posX, double posY, GameWorld gameWorld, double width, double height) {
+        super(posX, posY, gameWorld);
+        setTeamType(ENEMY_TEAM);
+    }
+//    public Enemy(Image image) {
+//
+//    }
+
+    @Override
+    public void Update() {
+        if(getDirection() == LEFT_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
+                setPositionX(recLeftWall.x + 32);
+            }
+            if(getDirection() == RIGHT_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
+                setPositionX(recRightWall.x - 32);
+            }
+            if(getDirection() == UP_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+                Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
+                setPositionY(recTopWall.y + 32);
+            }
+            if(getDirection() == DOWN_DIR &&
+                    getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null) {
+                Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
+                setPositionY(recDownWall.y - 32);
+            }
+    }
+
+    public void draw(Graphics2D g2d) {};
+    public void attack(){};
+
+//
+//
+//
+//    public Enemy(GameWorld gameWorld, double width, double height) {
+//        super(gameWorld,width,height);
+//        setState(ALIVE);
+//    }
+//
+//
+//
+//    @Override
+//    public void Update() {
+//        super.Update();
+//
+//        if(getState() == ALIVE){
+//
+//            setPositionX(getPositionX() + getSpeedX());
+//            setPositionY(getPositionY() + getSpeedY());
+//
+//            if(getDirection() == LEFT_DIR &&
+//                    getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recLeftWall = getGameWorld().physicalMap.haveCollisionWithLeftWall(getBoundForCollisionWithMap());
+//                setPositionX(recLeftWall.x + 32);
+//            }
+//            if(getDirection() == RIGHT_DIR &&
+//                    getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recRightWall = getGameWorld().physicalMap.haveCollisionWithRightWall(getBoundForCollisionWithMap());
+//                setPositionX(recRightWall.x - 32);
+//            }
+//            if(getDirection() == UP_DIR &&
+//                    getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap()) != null){
+//                Rectangle recTopWall = getGameWorld().physicalMap.haveCollisionWithTopWall(getBoundForCollisionWithMap());
+//                setPositionY(recTopWall.y + 32);
+//            }
+//            if(getDirection() == DOWN_DIR &&
+//                    getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap()) != null) {
+//                Rectangle recDownWall = getGameWorld().physicalMap.haveCollisionWithDownWall(getBoundForCollisionWithMap());
+//                setPositionY(recDownWall.y - 32);
+//            }
+//
+//        }
+//    }
+//
+//
+    @Override
+   public Rectangle getBoundForCollisionWithEnemy() {
+        return null;
+   }
+//
+//    @Override
+//    public Rectangle getBoundForCollisionWithMap() {
+//        Rectangle bound = new Rectangle();
+//        bound.x = (int)(getPositionX());
+//        bound.y = (int)(getPositionY());
+//        bound.width = (int)getWidth();
+//        bound.height = (int)getHeight();
+//        return bound;
+//    }
+ //   public abstract void moving();
+
+}
