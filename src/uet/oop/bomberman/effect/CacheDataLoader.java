@@ -1,12 +1,12 @@
 package uet.oop.bomberman.effect;
 
-import uet.oop.bomberman.entities.ParticularObject.Human.Player;
-import uet.oop.bomberman.entities.GameObject;
-import uet.oop.bomberman.entities.ParticularObject.Enemy.Balloom;
-import uet.oop.bomberman.entities.StaticObject.destroyable.Brick;
-import uet.oop.bomberman.entities.StaticObject.Grass;
-import uet.oop.bomberman.entities.StaticObject.Wall;
-import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
+import uet.oop.bomberman.gameobject.GameObject;
+import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Balloom;
+import uet.oop.bomberman.gameobject.StaticObject.destroyable.Brick;
+import uet.oop.bomberman.gameobject.StaticObject.Grass;
+import uet.oop.bomberman.gameobject.StaticObject.Wall;
+import uet.oop.bomberman.gameobject.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.BufferedReader;

@@ -1,7 +1,7 @@
 package uet.oop.bomberman.effect;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.entities.GameObject;
+import uet.oop.bomberman.gameobject.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;

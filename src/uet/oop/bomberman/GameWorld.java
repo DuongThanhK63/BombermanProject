@@ -6,11 +6,11 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import uet.oop.bomberman.entities.Map;
-import uet.oop.bomberman.entities.ParticularObject.Human.Player;
-import uet.oop.bomberman.entities.ParticularObject.Enemy.Balloom;
-import uet.oop.bomberman.entities.ParticularObject.ParticularObject;
-import uet.oop.bomberman.entities.ObjectManager;
+import uet.oop.bomberman.gameobject.Map;
+import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
+import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Balloom;
+import uet.oop.bomberman.gameobject.ParticularObject.ParticularObject;
+import uet.oop.bomberman.gameobject.ObjectManager;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.FileInputStream;
