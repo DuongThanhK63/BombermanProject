@@ -31,10 +31,10 @@ public class GameWorld {
 
     public GameWorld() {
         objectManager = new ObjectManager(this);
-        map = new Map(0, 1, this);
+        map = new Map(0, 0, this);
         player = new Player(1, 2, Sprite.player_up.getFxImage(), this);
         objectManager.addObject(player);
-        map.setEntity();
+        map.setObjects();
     }
 
     public Map getMap() {
@@ -61,7 +61,7 @@ public class GameWorld {
                 gc.fillRect(0, 0, Sprite.SCALED_SIZE * BombermanGame.WIDTH
                         , Sprite.SCALED_SIZE * BombermanGame.HEIGHT);
                 try {
-                    gc.drawImage(new Image(new FileInputStream("res/game.png")), 130, 10);
+                    gc.drawImage(new Image(new FileInputStream("res/game.png")), 320, 10);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -87,7 +87,7 @@ public class GameWorld {
 
 
     }
-    int a = 1;
+
     public void setKeyboard(Scene scene) {
         scene.setOnKeyPressed(event -> {
             if (getPlayer().getState() == ParticularObject.ALIVE)

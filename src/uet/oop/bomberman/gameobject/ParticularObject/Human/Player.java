@@ -1,15 +1,21 @@
 package uet.oop.bomberman.gameobject.ParticularObject.Human;
 
 import java.awt.Rectangle;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Game;
+import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
 import uet.oop.bomberman.gameobject.GameObject;
-import uet.oop.bomberman.GameWorld;
+import uet.oop.bomberman.gameobject.LayeredEntity;
+import uet.oop.bomberman.gameobject.StaticObject.Grass;
+import uet.oop.bomberman.gameobject.StaticObject.Portal;
 import uet.oop.bomberman.gameobject.bomb.Bomb;
+import uet.oop.bomberman.graphics.Sprite;
 
 
 public class Player extends Human {
@@ -28,10 +34,10 @@ public class Player extends Human {
         playerDownAnim = CacheDataLoader.getInstance().getAnimation("player_down");
         playerDeadAnim = CacheDataLoader.getInstance().getAnimation("player_dead");
 
-        playerRight = CacheDataLoader.getInstance().getEntity("player_right");
-        playerLeft = CacheDataLoader.getInstance().getEntity("player_left");
-        playerUp = CacheDataLoader.getInstance().getEntity("player_up");
-        playerDown = CacheDataLoader.getInstance().getEntity("player_down");
+        playerRight = CacheDataLoader.getInstance().getObject("player_right");
+        playerLeft = CacheDataLoader.getInstance().getObject("player_left");
+        playerUp = CacheDataLoader.getInstance().getObject("player_up");
+        playerDown = CacheDataLoader.getInstance().getObject("player_down");
     }
 
     public Player(Image img) {
@@ -115,55 +121,58 @@ public class Player extends Human {
             }
             setY(rect.y - 32);
         }
-//        clearBombs();
+        clearBombs();
     }
 
-//    public void detectPlaceBomb() {
-//        if(Game.getBombRate() > 0 ) {
-//            placeBomb(getX(),getY());
-//            Game.setBombRate(-1);
-//        }
-//    }
+    public void detectPlaceBomb() {
+        System.out.println(Game.getBombRate());
+        if(Game.getBombRate() > 0 ) {
+            placeBomb();
+            Game.setBombRate(-1);
+        }
+    }
 
-//    public void placeBomb() {
-//        if (Game.getBombRate() > 0) {
-//            Bomb bomb;
-//            System.out.println(getX() + " " + getY());
-//            bomb = new Bomb(this.x,this.y, Sprite.bomb.getFxImage(), getGameWorld(), 1);
-//            getGameWorld().getObjectManager().addBomb(bomb);
-//            Game.setBombRate(-1);
-//        }
-//    }
-//    private void clearBombs()
-//    {
-//        Iterator<Bomb> bs = bombs.iterator();
-//
-//       Bomb b;
-//        while (bs.hasNext())
-//        {
-//            b = bs.next();
-//            if (b.isRemoved())
-//            {
-//                bs.remove();
-//                Game.setBombRate(1);
-//                if (getGameWorld().getObjectManager().getEntityAt(b.getY() - 1, b.getX()) instanceof LayeredEntity)
-//                {
-//                    LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
-//                            .getEntityAt(b.getY() - 1, b.getX());
-//                    if (tmp.getTopEntity() instanceof Portal)
-//                    {
-//
-//                   }
-//               }
-//                else
-//                {
-//                    getGameWorld().getObjectManager().addEntity(b.getY() - 1, b.getX()
-//                            , new Grass(b.getX(), b.getY(), Sprite.grass.getFxImage()));
-//                }
-//            }
-//        }
-//
-//    }
+    public void placeBomb() {
+        if (Game.getBombRate() > 0) {
+            Bomb bomb;
+            System.out.println(getX() + " " + getY());
+            bomb = new Bomb((int) Math.round(getX() / 32.0)
+                    , (int) Math.round(getY() / 32.0), Sprite.bomb.getFxImage(), getGameWorld(), 1);
+            getGameWorld().getObjectManager().addBomb(bomb);
+            Game.setBombRate(-1);
+        }
+    }
+
+    private void clearBombs()
+    {
+        Iterator<Bomb> bs = bombs.iterator();
+
+       Bomb b;
+        while (bs.hasNext())
+        {
+            b = bs.next();
+            if (b.isRemoved())
+            {
+                bs.remove();
+                Game.setBombRate(1);
+                if (getGameWorld().getObjectManager().getObjectAt(b.getY(), b.getX()) instanceof LayeredEntity)
+                {
+                    LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                            .getObjectAt(b.getY(), b.getX());
+                    if (tmp.getTopEntity() instanceof Portal)
+                    {
+
+                   }
+               }
+                else
+                {
+                    getGameWorld().getObjectManager().addObject(b.getY(), b.getX()
+                            , new Grass(b.getX(), b.getY(), Sprite.grass.getFxImage()));
+                }
+            }
+        }
+
+    }
 
 
 }

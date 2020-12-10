@@ -21,7 +21,7 @@ public class FlameSegment extends GameObject {
         setX(x);
         setY(y);
         last = last;
-        grass = CacheDataLoader.getInstance().getEntity("grass");
+        grass = CacheDataLoader.getInstance().getObject("grass");
         switch (direction) {
             case 0:
                 if (!last) {

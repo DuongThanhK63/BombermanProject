@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Animation {
-    private List<GameObject> entities;
+    private List<GameObject> gameObjects;
     private String name;
 
     private boolean isRepeated;
@@ -23,7 +23,7 @@ public class Animation {
 
     public Animation(){
         ignoreFrames = new ArrayList<Boolean>();
-        entities = new ArrayList<>();
+        gameObjects = new ArrayList<>();
         delayFrames = new ArrayList<Double>();
         beginTime = 0;
         currentFrame = 0;
@@ -32,11 +32,9 @@ public class Animation {
     }
 
 
-    public List<GameObject> getEntities() {
-        return entities;
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
-
-
 
     public void setIsRepeated(boolean isRepeated){
         this.isRepeated = isRepeated;
@@ -68,7 +66,7 @@ public class Animation {
     }
 
     public void setCurrentFrame(int currentFrame){
-        if(currentFrame >= 0 && currentFrame < entities.size())
+        if(currentFrame >= 0 && currentFrame < gameObjects.size())
             this.currentFrame = currentFrame;
         else this.currentFrame = 0;
     }
@@ -83,15 +81,11 @@ public class Animation {
 
     public void add(double delay, GameObject... entity){
 
-
         for (GameObject e : entity) {
             ignoreFrames.add(false);
-            entities.add(e);
+            gameObjects.add(e);
             delayFrames.add(new Double(delay));
         }
-
-
-
 
     }
 
@@ -101,7 +95,7 @@ public class Animation {
 
 
     public GameObject getCurrent(){
-        return entities.get(currentFrame);
+        return gameObjects.get(currentFrame);
     }
 
     public void Update(long currentTime){
@@ -118,14 +112,14 @@ public class Animation {
 
 
     public boolean isLastFrame(){
-        if(currentFrame == entities.size() - 1)
+        if(currentFrame == gameObjects.size() - 1)
             return true;
         else return false;
     }
 
     private void nextFrame(){
 
-        if(currentFrame >= entities.size() - 1){
+        if(currentFrame >= gameObjects.size() - 1){
 
             if(isRepeated) currentFrame = 0;
         }
@@ -135,30 +129,9 @@ public class Animation {
 
     }
 
-
-
-//    public void flipAllImage(){
-//
-//        for(int i = 0;i < frameImages.size(); i++){
-//
-//            BufferedImage image = frameImages.get(i).getImage();
-//
-//            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-//            tx.translate(-image.getWidth(), 0);
-//
-//            AffineTransformOp op = new AffineTransformOp(tx,
-//                    AffineTransformOp.TYPE_BILINEAR);
-//            image = op.filter(image, null);
-//
-//            frameImages.get(i).setImage(image);
-//
-//        }
-//
-//    }
-
     public void draw(GraphicsContext gc, int x, int y){
-        GameObject entity = getCurrent();
-        entity.render(gc , x, y);
+        GameObject object = getCurrent();
+        object.render(gc , x, y);
     }
 
 }

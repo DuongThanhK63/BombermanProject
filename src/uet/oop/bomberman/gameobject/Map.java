@@ -27,7 +27,7 @@ public class Map extends GameObject {
         map = CacheDataLoader.getInstance().getBackgroundMap();
     }
 
-    public void setEntity() {
+    public void setObjects() {
         int width = 31;
         int height = 13;
         for (int y = 0; y < height; y++) {
@@ -36,12 +36,12 @@ public class Map extends GameObject {
                     case '#': // Wall
                     {
                         getGameWorld().getObjectManager()
-                                .addEntity(y, x, new Wall(x + getX(), y + getY(), Sprite.wall.getFxImage()));
+                                .addObject(y, x, new Wall(x + getX(), y + getY(), Sprite.wall.getFxImage()));
                         break;
                     }
                     case '*': // Brick
                     {
-                        getGameWorld().getObjectManager().addEntity(y, x,
+                        getGameWorld().getObjectManager().addObject(y, x,
                                 new LayeredEntity(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage())
                                         , new Brick(x + getX(), y + getY(), Sprite.brick.getFxImage())));
@@ -49,7 +49,7 @@ public class Map extends GameObject {
                     }
                     case 'x': // Portal
                     {
-                        getGameWorld().getObjectManager().addEntity(y, x, new LayeredEntity(x, y
+                        getGameWorld().getObjectManager().addObject(y, x, new LayeredEntity(x, y
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new Portal(x + getX(), y + getY(), Sprite.portal.getFxImage(), getGameWorld())
                                 , new Brick(x + getX(), y + getY(), Sprite.brick.getFxImage())));
@@ -61,7 +61,7 @@ public class Map extends GameObject {
                                 .addObject(new Player(x + getX(), y + getY()
                                         , Sprite.player_right.getFxImage(), getGameWorld()));
 
-                        getGameWorld().getObjectManager().addEntity(y, x
+                        getGameWorld().getObjectManager().addObject(y, x
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
                         break;
                     }
@@ -70,7 +70,7 @@ public class Map extends GameObject {
                         getGameWorld().getObjectManager()
                                 .addObject(new Balloom(x + getX(), y + getY()
                                         , Sprite.balloom_right1.getFxImage(), getGameWorld()));
-                        getGameWorld().getObjectManager().addEntity(y, x
+                        getGameWorld().getObjectManager().addObject(y, x
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
                         break;
                     }
@@ -84,7 +84,7 @@ public class Map extends GameObject {
 //                    }
                     case 'b': // Bomb item
                     {
-                        getGameWorld().getObjectManager().addEntity(y , x
+                        getGameWorld().getObjectManager().addObject(y , x
                                 , new LayeredEntity(x + getX(), y + getY(), new Grass(x + getX(), y + getY()
                                         , Sprite.grass.getFxImage()),
                                 new BombItem(x + getX(), y + getY()
@@ -94,7 +94,7 @@ public class Map extends GameObject {
                     }
                     case 'f': // Flame item
                     {
-                        getGameWorld().getObjectManager().addEntity(y, x
+                        getGameWorld().getObjectManager().addObject(y, x
                                 ,  new LayeredEntity(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new FlameItem(x + getX(), y + getY()
@@ -104,7 +104,7 @@ public class Map extends GameObject {
                     }
                     case 's': // Speed item
                     {
-                        getGameWorld().getObjectManager().addEntity(y, x
+                        getGameWorld().getObjectManager().addObject(y, x
                                 , new LayeredEntity(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new SpeedItem(x + getX(), y + getY(), Sprite.powerup_speed.getFxImage(), getGameWorld())
@@ -113,7 +113,7 @@ public class Map extends GameObject {
                     }
                     default: // Grass
                     {
-                        getGameWorld().getObjectManager().addEntity(y, x, new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
+                        getGameWorld().getObjectManager().addObject(y, x, new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
                     }
                 }
             }
@@ -127,9 +127,9 @@ public class Map extends GameObject {
     }
 
     public void draw(GraphicsContext gc) {
-        wall = CacheDataLoader.getInstance().getEntity("wall");
-        brick = CacheDataLoader.getInstance().getEntity("brick");
-        grass = CacheDataLoader.getInstance().getEntity("grass");
+        wall = CacheDataLoader.getInstance().getObject("wall");
+        brick = CacheDataLoader.getInstance().getObject("brick");
+        grass = CacheDataLoader.getInstance().getObject("grass");
 
         for (int i = 0; i < map.length; i++)
             for (int j = 0; j < map[0].length; j++)
@@ -158,7 +158,7 @@ public class Map extends GameObject {
         if (posX2 >= map[0].length) posX2 = map[0].length - 1;
         for (int j = posY1; j < map.length; j++) {
             for (int i = posX1; i <= posX2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getEntityAt(j, i);
+                GameObject e = getGameWorld().getObjectManager().getObjectAt(j, i);
                 if (e instanceof Wall
                         || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
 
@@ -201,7 +201,7 @@ public class Map extends GameObject {
 
         for (int j = posY; j >= 0; j--) {
             for (int i = posX1; i <= posX2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getEntityAt(j, i);
+                GameObject e = getGameWorld().getObjectManager().getObjectAt(j, i);
                 if (e instanceof Wall
                         || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
                     Rectangle r = new Rectangle((getX() + i) * tileSize, (getY() + j) * tileSize, tileSize, tileSize);
@@ -244,7 +244,7 @@ public class Map extends GameObject {
 
         for (int j = posX1; j <= posX2; j++) {
             for (int i = posY1; i <= posY2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getEntityAt(i, j);
+                GameObject e = getGameWorld().getObjectManager().getObjectAt(i, j);
                 if (e instanceof Wall
                         || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
                     Rectangle r = new Rectangle((getX() + j) * tileSize, (getY() + i) * tileSize, tileSize, tileSize);
@@ -288,7 +288,7 @@ public class Map extends GameObject {
 
         for (int j = posX1; j >= posX2; j--) {
             for (int i = posY1; i <= posY2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getEntityAt(i, j);
+                GameObject e = getGameWorld().getObjectManager().getObjectAt(i, j);
                 if (e instanceof Wall
                         || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
                     Rectangle r = new Rectangle((getX() + j) * tileSize, (getY() + i) * tileSize, tileSize, tileSize);

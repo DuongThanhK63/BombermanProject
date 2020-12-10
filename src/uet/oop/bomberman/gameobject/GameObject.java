@@ -64,8 +64,8 @@ public abstract class GameObject {
     }
     public GameObject(int xUnit, int yUnit, Image img, int a) {
 
-        x =xUnit;
-        y =yUnit;
+        x = xUnit;
+        y = yUnit;
         this.img = img;
     }
     public GameObject(int xUnit, int yUnit, GameWorld gameWorld) {

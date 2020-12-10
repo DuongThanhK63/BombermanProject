@@ -2,6 +2,7 @@ package uet.oop.bomberman.gameobject.ParticularObject;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.gameobject.GameObject;
 
 public abstract class ParticularObject extends GameObject {
@@ -35,6 +36,10 @@ public abstract class ParticularObject extends GameObject {
 
     public ParticularObject(Image image) {
         super(image);
+    }
+
+    public ParticularObject(int x, int y, GameWorld gameWorld) {
+        super(x,y,gameWorld);
     }
 
     public int getState() {

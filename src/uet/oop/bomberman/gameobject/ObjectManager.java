@@ -13,10 +13,10 @@ public class ObjectManager {
     private List<ParticularObject> particularObjects;
     private List<Bomb> bombs;
     private GameWorld gameWorld;
-    private GameObject[][] entities = new GameObject[13][31];
+    private GameObject[][] gameObjects = new GameObject[13][31];
 
-    public GameObject[][] getEntities() {
-        return entities;
+    public GameObject[][] getGameObjects() {
+        return gameObjects;
     }
 
     public ObjectManager(GameWorld gameWorld){
@@ -34,13 +34,13 @@ public class ObjectManager {
             particularObjects.add(particularObject);
         }
     }
-    public void addEntity(int x, int y, GameObject e)
+    public void addObject(int x, int y, GameObject e)
     {
-        entities[x][y] = e;
+        gameObjects[x][y] = e;
     }
-    public GameObject getEntityAt(int x, int y)
-    {
-        return entities[x][y];
+
+    public GameObject getObjectAt(int x, int y) {
+        return gameObjects[x][y];
     }
     public void addBomb(Bomb bomb) {
         synchronized(particularObjects){
@@ -60,13 +60,13 @@ public class ObjectManager {
 //    }
 
 
-    public void removeObject(ParticularObject movableObject){
+    public void removeObject(ParticularObject particularObject){
         synchronized(particularObjects){
 
             for(int id = 0; id < particularObjects.size(); id++){
 
                 ParticularObject object = particularObjects.get(id);
-                if(object == movableObject)
+                if(object == particularObject)
                     particularObjects.remove(id);
 
             }
@@ -88,13 +88,28 @@ public class ObjectManager {
         return null;
     }
 
+    public ParticularObject getCollisionWidthFlameObject(ParticularObject object){
+        synchronized(particularObjects){
+            for(int id = 0; id < particularObjects.size(); id++){
+
+                ParticularObject objectInList = particularObjects.get(id);
+
+                if(object.getTeamType() == objectInList.getTeamType() &&
+                        object.getBoundForCollisionWithMap().intersects(objectInList.getBoundForCollisionWithEnemy())){
+                    return objectInList;
+                }
+            }
+        }
+        return null;
+    }
+
 int i = 0;
 
     public void update() {
-        synchronized (entities) {
-            for (int i = 0; i < entities.length; i++) {
-                for (int j = 0; j < entities[i].length; j++) {
-                    entities[i][j].update();
+        synchronized (gameObjects) {
+            for (int i = 0; i < gameObjects.length; i++) {
+                for (int j = 0; j < gameObjects[i].length; j++) {
+                    gameObjects[i][j].update();
                 }
             }
         }
@@ -124,13 +139,10 @@ int i = 0;
     }
 
     public void draw(GraphicsContext gc){
-//        synchronized(movableObjects){
-//            for(Movable object: movableObjects)
-//                object.draw(gc);
-//        }
-        for (int i = 0; i < entities.length; i++) {
-            for (int j = 0; j < entities[i].length; j++) {
-                entities[i][j].render(gc);
+
+        for (int i = 0; i < gameObjects.length; i++) {
+            for (int j = 0; j < gameObjects[i].length; j++) {
+                gameObjects[i][j].render(gc);
             }
         }
         synchronized(bombs){

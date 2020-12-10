@@ -3,6 +3,7 @@ package uet.oop.bomberman.gameobject.ParticularObject.Human;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.gameobject.ParticularObject.ParticularObject;
+import uet.oop.bomberman.gameobject.bomb.Flame;
 
 public class Human extends ParticularObject {
 
@@ -24,7 +25,6 @@ public class Human extends ParticularObject {
                 if(obj != null) {
                     setState(DEATH);
                 }
-                break;
             case DEATH:
                 break;
         }

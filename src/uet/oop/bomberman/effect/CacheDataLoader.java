@@ -17,7 +17,7 @@ import java.util.Hashtable;
 public class CacheDataLoader {
     private static CacheDataLoader instance = null;
     private Hashtable<String, Animation> animations;
-    private Hashtable<String, GameObject> entities;
+    private Hashtable<String, GameObject> gameObjects;
     private String backgroundmapfile = "res/levels/Level1.txt";
     private int[][] background_map;
     private CacheDataLoader() {}
@@ -34,16 +34,16 @@ public class CacheDataLoader {
 
     }
     public void loadFrame() {
-        entities = new Hashtable<String, GameObject>();
-        entities.put("wall", new Wall(Sprite.wall.getFxImage()));
-        entities.put("brick", new Brick( Sprite.brick.getFxImage()));
-        entities.put("grass", new Grass( Sprite.grass.getFxImage()));
-        entities.put("player_up", new Player( Sprite.player_up.getFxImage()));
-        entities.put("player_down", new Player( Sprite.player_down.getFxImage()));
-        entities.put("player_right", new Player( Sprite.player_right.getFxImage()));
-        entities.put("player_left", new Player(Sprite.player_left.getFxImage()));
-        entities.put("balloom_right", new Balloom( Sprite.balloom_right1.getFxImage()));
-        entities.put("balloom_left", new Grass(Sprite.balloom_left1.getFxImage()));
+        gameObjects = new Hashtable<String, GameObject>();
+        gameObjects.put("wall", new Wall(Sprite.wall.getFxImage()));
+        gameObjects.put("brick", new Brick( Sprite.brick.getFxImage()));
+        gameObjects.put("grass", new Grass( Sprite.grass.getFxImage()));
+        gameObjects.put("player_up", new Player( Sprite.player_up.getFxImage()));
+        gameObjects.put("player_down", new Player( Sprite.player_down.getFxImage()));
+        gameObjects.put("player_right", new Player( Sprite.player_right.getFxImage()));
+        gameObjects.put("player_left", new Player(Sprite.player_left.getFxImage()));
+        gameObjects.put("balloom_right", new Balloom( Sprite.balloom_right1.getFxImage()));
+        gameObjects.put("balloom_left", new Grass(Sprite.balloom_left1.getFxImage()));
     }
     public void loadAnimation() throws IOException {
         animations = new Hashtable<String, Animation>();
@@ -93,10 +93,10 @@ public class CacheDataLoader {
         Animation animation = instance.animations.get(name);
         return animation;
     }
-    public GameObject getEntity(String name){
+    public GameObject getObject(String name){
 
-        GameObject entity = instance.entities.get(name);
-        return entity;
+        GameObject gameObject = instance.gameObjects.get(name);
+        return gameObject;
     }
 
     public int[][] getBackgroundMap(){

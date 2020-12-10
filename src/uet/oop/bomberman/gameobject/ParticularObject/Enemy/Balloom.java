@@ -18,8 +18,8 @@ public class Balloom extends Enemy {
         super(x, y, image, gameWorld);
         balloomLeftAnim = CacheDataLoader.getInstance().getAnimation("balloom_left");
         balloomRightAnim = CacheDataLoader.getInstance().getAnimation("balloom_right");
-        balloomLeft = CacheDataLoader.getInstance().getEntity("balloom_left");
-        balloomRight = CacheDataLoader.getInstance().getEntity("balloom_right");
+        balloomLeft = CacheDataLoader.getInstance().getObject("balloom_left");
+        balloomRight = CacheDataLoader.getInstance().getObject("balloom_right");
         ai = new AILow();
     }
 

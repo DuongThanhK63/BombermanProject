@@ -23,7 +23,6 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private Scene scene;
 
-    Animation animation;
     GameWorld gameWorld;
 
 
@@ -47,7 +46,7 @@ public class BombermanGame extends Application {
         // Tao scene
 //        scene = new Scene(root);
 //        gridPane.add(button, 0, 0);
-        gridPane.add(canvas, 0, 0);
+        gridPane.add(canvas, 0, 1);
         Scene scene = new Scene(gridPane);
         // Them scene vao stage
         stage.setScene(scene);
@@ -111,16 +110,14 @@ public class BombermanGame extends Application {
 //    }
 
     public void update() {
-//        entities.forEach(Entity::update);
-        gameWorld.update();
 
+        gameWorld.update();
 
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gameWorld.render(gc);
-//        stillObjects.forEach(g -> g.render(gc));
-//        entities.forEach(g -> g.render(gc));
+
     }
 }

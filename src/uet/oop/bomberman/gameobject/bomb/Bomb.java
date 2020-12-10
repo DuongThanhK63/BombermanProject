@@ -5,11 +5,13 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
-import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.GameWorld;
+
+import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.gameobject.LayeredEntity;
-import uet.oop.bomberman.gameobject.StaticObject.destroyable.Brick;
+import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
 import uet.oop.bomberman.gameobject.StaticObject.Wall;
+import uet.oop.bomberman.gameobject.StaticObject.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends GameObject {
@@ -42,19 +44,15 @@ public class Bomb extends GameObject {
         else {
             if (!exploded) {
                 explode();
-//				exploded.play(0.125);
             } else {
                 if (timeAfter > 0)
                     timeAfter--;
                 else {
-                updateFlames();
+                    updateFlames();
                     remove();
                 }
             }
         }
-//        this.collide(_board.getEntityAt(this._x, this._y));
-//
-//        animate();
     }
 
     @Override
@@ -72,9 +70,9 @@ public class Bomb extends GameObject {
     }
 
     public void renderFlames(GraphicsContext gc) {
-        for (int i = 0; i < flames.length; i++) {
-            flames[i].render(gc);
-        }
+//        for (int i = 0; i < flames.length; i++) {
+//            flames[i].render(gc);
+//        }
     }
 
     public void updateFlames() {
@@ -90,8 +88,8 @@ public class Bomb extends GameObject {
         exploded = true;
         int leftRadius = 0, rightRadius = 0, upRadius = 0, downRadius = 0;
         for (int i = getX() + 1; i <= getX() + Game.getBombRadius(); i++) {
-            if (getGameWorld().getObjectManager().getEntityAt(getY() - 1, i) instanceof LayeredEntity) {
-                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getEntityAt(getY() - 1, i);
+            if (getGameWorld().getObjectManager().getObjectAt(getY(), i) instanceof LayeredEntity) {
+                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getObjectAt(getY(), i);
                 if (tmp.getTopEntity() instanceof Brick) {
                     System.out.println("bcd");
                     Brick b = (Brick) tmp.getTopEntity();
@@ -103,13 +101,13 @@ public class Bomb extends GameObject {
                     break;
                 }
             }
-            if (!(getGameWorld().getObjectManager().getEntityAt(getY() - 1, i) instanceof Wall))
+            if (!(getGameWorld().getObjectManager().getObjectAt(getY(), i) instanceof Wall))
                 rightRadius++;
             else break;
         }
         for (int i = getX() - 1; i >= getX() - Game.getBombRadius(); i--) {
-            if (getGameWorld().getObjectManager().getEntityAt(getY() - 1, i) instanceof LayeredEntity) {
-                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getEntityAt(getY() - 1, i);
+            if (getGameWorld().getObjectManager().getObjectAt(getY(), i) instanceof LayeredEntity) {
+                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getObjectAt(getY(), i);
                 if (tmp.getTopEntity() instanceof Brick) {
                     Brick b = (Brick) tmp.getTopEntity();
                     b.destroy();
@@ -120,13 +118,13 @@ public class Bomb extends GameObject {
                     break;
                 }
             }
-            if (!(getGameWorld().getObjectManager().getEntityAt(getY() - 1, i) instanceof Wall))
+            if (!(getGameWorld().getObjectManager().getObjectAt(getY(), i) instanceof Wall))
                 leftRadius++;
             else break;
         }
         for (int i = getY() + 1; i <= getY() + Game.getBombRadius(); i++) {
-            if (getGameWorld().getObjectManager().getEntityAt(i - 1, getX()) instanceof LayeredEntity) {
-                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getEntityAt(i - 1, getX());
+            if (getGameWorld().getObjectManager().getObjectAt(i, getX()) instanceof LayeredEntity) {
+                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getObjectAt(i, getX());
                 if (tmp.getTopEntity() instanceof Brick) {
                     Brick b = (Brick) tmp.getTopEntity();
                     b.destroy();
@@ -137,13 +135,13 @@ public class Bomb extends GameObject {
                     break;
                 }
             }
-            if (!(getGameWorld().getObjectManager().getEntityAt( i - 1, getX()) instanceof Wall))
+            if (!(getGameWorld().getObjectManager().getObjectAt( i, getX()) instanceof Wall))
                 downRadius++;
             else break;
         }
         for (int i = getY() - 1; i >= getY() - Game.getBombRadius(); i--) {
-            if (getGameWorld().getObjectManager().getEntityAt(i - 1, getX()) instanceof LayeredEntity) {
-                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getEntityAt(i - 1, getX());
+            if (getGameWorld().getObjectManager().getObjectAt(i, getX()) instanceof LayeredEntity) {
+                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getObjectAt(i, getX());
                 if (tmp.getTopEntity() instanceof Brick) {
                     Brick b = (Brick) tmp.getTopEntity();
                     b.destroy();
@@ -154,7 +152,7 @@ public class Bomb extends GameObject {
                     break;
                 }
             }
-            if (!(getGameWorld().getObjectManager().getEntityAt(i - 1, getX()) instanceof Wall))
+            if (!(getGameWorld().getObjectManager().getObjectAt(i, getX()) instanceof Wall))
                 upRadius++;
             else break;
         }
@@ -166,6 +164,10 @@ public class Bomb extends GameObject {
         flames[1] = new Flame((int) this.getX(), (int) this.getY(), 1, rightRadius, getGameWorld());
         flames[2] = new Flame((int) this.getX(), (int) this.getY(), 2, downRadius, getGameWorld());
         flames[3] = new Flame((int) this.getX(), (int) this.getY(), 3, leftRadius, getGameWorld());
+//        getGameWorld().getObjectManager().addObject(flames[0]);
+//        getGameWorld().getObjectManager().addObject(flames[1]);
+//        getGameWorld().getObjectManager().addObject(flames[2]);
+//        getGameWorld().getObjectManager().addObject(flames[3]);
     }
 
     public FlameSegment flameAt(int x, int y)

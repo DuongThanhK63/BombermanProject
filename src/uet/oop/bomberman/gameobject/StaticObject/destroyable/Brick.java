@@ -8,7 +8,7 @@ import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.gameobject.StaticObject.Grass;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Brick extends DestroyableEntity {
+public class Brick extends DestroyableObject {
     GameObject entity;
     Animation brick_exploded;
     int time_disappear = 10;
