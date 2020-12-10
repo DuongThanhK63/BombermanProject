@@ -6,7 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
@@ -22,6 +25,9 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     private Scene scene;
+    private Label time;
+    private Label points;
+    private Label lives;
 
     GameWorld gameWorld;
 
@@ -39,20 +45,29 @@ public class BombermanGame extends Application {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
-        // Tao root container
-//        Group root = new Group();
-//        root.getChildren().add(canvas);
+        time = new Label("Time: ");
+        time.setTextFill(Color.WHITE);
+        time.setLayoutX(50);
+        time.setLayoutY(5);
+        points = new Label("Points: ");
+        points.setTextFill(Color.WHITE);
+        points.setLayoutX(450);
+        points.setLayoutY(5);
+        lives = new Label("Lives: ");
+        lives.setTextFill(Color.WHITE);
+        lives.setLayoutX(850);
+        lives.setLayoutY(5);
 
-        // Tao scene
-//        scene = new Scene(root);
-//        gridPane.add(button, 0, 0);
+        AnchorPane root = new AnchorPane();
+        root.setStyle("-fx-background-color: #000000");
+        root.getChildren().addAll(time,points,lives);
+        gridPane.add(root,0,0);
         gridPane.add(canvas, 0, 1);
         Scene scene = new Scene(gridPane);
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-//        stage.setScene(scene1);
-//        stage.show();
+
         try {
             CacheDataLoader.getInstance().loadData();
         } catch (IOException e) {
@@ -88,29 +103,15 @@ public class BombermanGame extends Application {
         };
         timer.start();
 
-//        createMap();
-
-
 
     }
 
-//    public void createMap() {
-//        for (int i = 0; i < WIDTH; i++) {
-//            for (int j = 0; j < HEIGHT; j++) {
-//                Entity object;
-//                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-//                    object = new Wall(i, j, Sprite.wall.getFxImage());
-//                }
-//                else {
-//                    object = new Grass(i, j, Sprite.grass.getFxImage());
-//                }
-//                stillObjects.add(object);
-//            }
-//        }
-//    }
 
     public void update() {
 
+        time.setText("Time: " + gameWorld.getTime());
+        points.setText("Points: " + gameWorld.getPoints());
+        lives.setText("Lives : " + gameWorld.getLives());
         gameWorld.update();
 
     }

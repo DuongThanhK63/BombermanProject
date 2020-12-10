@@ -15,14 +15,14 @@ import java.util.LinkedList;
 public class LayeredEntity extends GameObject {
     GameObject grass;
 
-    protected LinkedList<GameObject> entities = new LinkedList<>();
+    protected LinkedList<GameObject> gameObjects = new LinkedList<>();
 
     public LayeredEntity(int x, int y, GameObject... entities) {
         setX(x);
         setY(y);
         grass = new Grass(Sprite.grass.getFxImage());
         for (int i = 0; i < entities.length; i++) {
-            this.entities.add(entities[i]);
+            this.gameObjects.add(entities[i]);
             if (i > 1) {
                 if (entities[i] instanceof Brick)
                     ((Brick) entities[i]).addBelowSprite(entities[i - 1].getImg());
@@ -38,17 +38,17 @@ public class LayeredEntity extends GameObject {
 
     @Override
     public void render(GraphicsContext gc) {
-        grass.render(gc, getTopEntity().x, getTopEntity().y);
+        //grass.render(gc, getTopEntity().x, getTopEntity().y);
         getTopEntity().render(gc);
     }
 
     public GameObject getTopEntity() {
-        return entities.getLast();
+        return gameObjects.getLast();
     }
 
     public GameObject getBelowTopEntity() {
         if (this.getLayeredSize() >= 2)
-            return entities.get(this.getLayeredSize() - 2);
+            return gameObjects.get(this.getLayeredSize() - 2);
         return null;
     }
 
@@ -56,20 +56,20 @@ public class LayeredEntity extends GameObject {
         GameObject top = getTopEntity();
 
         if (top.isRemoved()) {
-            entities.removeLast();
+            gameObjects.removeLast();
         }
     }
 
     public int getLayeredSize() {
-        return entities.size();
+        return gameObjects.size();
     }
 
     public void addToTop(GameObject e) {
-        entities.add(e);
+        gameObjects.add(e);
     }
 
     public void addBeforeTop(GameObject e) {
-        entities.add(entities.size() - 1, e);
+        gameObjects.add(gameObjects.size() - 1, e);
     }
 
 //    @Override
