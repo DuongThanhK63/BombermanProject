@@ -91,7 +91,6 @@ public class Bomb extends GameObject {
             if (getGameWorld().getObjectManager().getObjectAt(getY(), i) instanceof LayeredEntity) {
                 LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager().getObjectAt(getY(), i);
                 if (tmp.getTopEntity() instanceof Brick) {
-                    System.out.println("bcd");
                     Brick b = (Brick) tmp.getTopEntity();
                     b.destroy();
                     break;

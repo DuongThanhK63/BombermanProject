@@ -4,22 +4,25 @@ import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.gameobject.LayeredEntity;
+import uet.oop.bomberman.gameobject.ObjectManager;
 import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
 import uet.oop.bomberman.gameobject.ParticularObject.ParticularObject;
 import uet.oop.bomberman.gameobject.StaticObject.Grass;
+import uet.oop.bomberman.gameobject.StaticObject.Item.FlameItem;
 import uet.oop.bomberman.gameobject.StaticObject.Item.Item;
 import uet.oop.bomberman.gameobject.StaticObject.Portal;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Flame extends GameObject {
+public class Flame extends ParticularObject {
     protected int direction;
     private int radius;
     protected int xOrigin, yOrigin;
     protected FlameSegment[] flameSegments;
-    protected Rectangle rectLeft, rectRight, rectUp, rectDown;
-    protected Rectangle rectCenter = rectUp = rectDown = rectLeft = rectRight = this.getBoundForCollisionWithEnemy();
+    private ObjectManager flameManager;
 
     public Flame(int x, int y, int direction, int radius, GameWorld gameWorld) {
         super(x, y, gameWorld);
@@ -27,7 +30,9 @@ public class Flame extends GameObject {
         yOrigin = y;
         this.direction = direction;
         this.radius = radius;
+        setTeamType(LEAGUE_TEAM);
         createFlameSegments();
+        flameManager = new ObjectManager(gameWorld);
     }
 
     private void createFlameSegments() {
@@ -166,35 +171,23 @@ public class Flame extends GameObject {
     public void update() {
         //Kiểm tra va chạm của bom, lửa với các entity khác
 
-        rectCenter.x *= 32;
-        rectCenter.y *= 32;
-        if (rectCenter.intersects(getGameWorld().getPlayer().getBoundForCollisionWithMap())) {
-            getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-        }
 
-        rectLeft.x = rectCenter.x - 32;
-        rectLeft.y = rectCenter.y;
-        if (rectLeft.intersects(getGameWorld().getPlayer().getBoundForCollisionWithMap())) {
-            getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-        }
+//        for(int i = 0; i < getGameWorld().getObjectManager().getParticularObjects().size(); i++){
+//            for (int j = 0; j < flameSegments.length; j++) {
+//                Rectangle r = flameSegments[j].getBoundForCollisionWithEnemy();
+//                r.x *= 32;
+//                r.y *= 32;
+//                if (r.intersects(getGameWorld().getObjectManager().getParticularObjects().get(i).getBoundForCollisionWithEnemy())) {
+//                    getGameWorld().getObjectManager().getParticularObjects().get(i).setState(DEATH);
+//                }
+//                if (r.intersects(getGameWorld().getPlayer().getBoundForCollisionWithEnemy())) {
+//                    getGameWorld().getPlayer().setState(ParticularObject.DEATH);
+//                }
+//            }
+//
+//        }
 
-        rectRight.x = rectCenter.x + 32;
-        rectRight.y = rectCenter.y;
-        if (rectRight.intersects(getGameWorld().getPlayer().getBoundForCollisionWithMap())) {
-            getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-        }
 
-        rectUp.x = rectCenter.x;
-        rectUp.y = rectCenter.y - 32;
-        if (rectUp.intersects(getGameWorld().getPlayer().getBoundForCollisionWithMap())) {
-            getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-        }
-
-        rectDown.x = rectCenter.x ;
-        rectDown.y = rectCenter.y + 32;
-        if (rectDown.intersects(getGameWorld().getPlayer().getBoundForCollisionWithMap())) {
-            getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-        }
 
         // Xóa vết lửa sau khi bom nổ
         for (int i = 0; i < flameSegments.length; i++) {

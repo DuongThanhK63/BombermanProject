@@ -78,6 +78,9 @@ public class CacheDataLoader {
                 , new Balloom(Sprite.balloom_right2.getFxImage()), new Balloom(Sprite.balloom_right3.getFxImage()));
         animations.put("balloom_right", balloom_right);
 
+        Animation balloom_dead = new Animation();
+        balloom_dead.add(0.4, new Balloom(Sprite.balloom_dead.getFxImage()), new Balloom(Sprite.mob_dead1.getFxImage()), new Balloom(Sprite.mob_dead2.getFxImage()), new Balloom(Sprite.mob_dead3.getFxImage()));
+        animations.put("balloom_dead",balloom_dead);
         Animation bomb = new Animation();
         bomb.add(0.4, new Bomb(Sprite.bomb.getFxImage())
                 , new Bomb(Sprite.bomb_1.getFxImage()), new Bomb(Sprite.bomb_2.getFxImage()));

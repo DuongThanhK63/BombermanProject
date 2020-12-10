@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.gameobject.ParticularObject.ParticularObject;
 import uet.oop.bomberman.gameobject.bomb.Bomb;
 import uet.oop.bomberman.GameWorld;
+import uet.oop.bomberman.gameobject.bomb.FlameSegment;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -158,5 +159,9 @@ int i = 0;
             }
         }
 
+    }
+
+    public List<ParticularObject> getParticularObjects() {
+        return particularObjects;
     }
 }

@@ -28,13 +28,15 @@ public class GameWorld {
     public static final int GAME = 2;
     public static final int GAMEOVER = 3;
     public int state = 0;
-    private int lives = 1;
+    private int lives = Game.LIVES;
+    private int tmpLive = lives * 30;
     private int points = Game.POINTS;
     public int previousState = state;
     private int beginTime = 100;
     private long time = Game.TIME;
     private long currentTime;
     private int timeWait  = 30;
+    private double speed = Game.getPlayerSpeed();
 
     public GameWorld() {
         objectManager = new ObjectManager(this);
@@ -86,20 +88,24 @@ public class GameWorld {
                 currentTime = System.currentTimeMillis();
                 break;
             case GAME:
+                if(time <= 0){
+                    switchState(GAMEOVER);
+                }
                 objectManager.draw(gc);
                 if(player.getState() == ParticularObject.DEATH){
+                    //objectManager.removeObject(player);
+                    tmpLive -= 1;
                     if(timeWait > 0){
                         timeWait--;
                     } else {
-                        if(lives <= 0){
+                        if(tmpLive <= 0){
                             switchState(GAMEOVER);
                         } else {
                             switchState(BEGIN);
                             lives -= 1;
-                            objectManager.addObject(player);
+                            player.setState(ParticularObject.ALIVE);
                             player.setX(32);
                             player.setY(32);
-                            player.setState(ParticularObject.ALIVE);
                             timeWait = 30;
                         }
 

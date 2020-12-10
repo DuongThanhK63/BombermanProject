@@ -76,8 +76,8 @@ public class Map extends GameObject {
                     }
 //                    case '2': // Oneal
 //                    {
-////                        _board.addCharacter(new Oneal(Coordinates.tileToPixel(x),
-////                                Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+//                        _board.addCharacter(new Oneal(Coordinates.tileToPixel(x),
+//                                Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
 //                        getGameWorld().getObjectManager().addEntity(y, x
 //                                , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
 //                        break;
