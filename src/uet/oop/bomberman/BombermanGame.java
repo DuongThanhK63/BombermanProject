@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sounds.Sound;
 
 import java.io.IOException;
 
@@ -38,6 +39,8 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+
+        Sound.play("soundtrack");
         GridPane gridPane =new GridPane();
         Button button = new Button();
 

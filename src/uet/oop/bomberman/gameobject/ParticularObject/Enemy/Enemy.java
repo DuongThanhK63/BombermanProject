@@ -41,5 +41,6 @@ public class Enemy extends ParticularObject {
             Rectangle rectLeftWall = getGameWorld().getMap().haveCollisionWithLand(getBoundForCollisionWithEnemy());
             setY(rectLeftWall.y - 32);
         }
+
     }
 }

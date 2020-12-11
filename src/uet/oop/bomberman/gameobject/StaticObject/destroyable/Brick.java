@@ -34,7 +34,13 @@ public class Brick extends DestroyableObject {
             entity.render(gc, getX(), getY());
             brick_exploded.Update(System.nanoTime());
             brick_exploded.draw(gc, getX(), getY());
+            if (brick_exploded.getCurrentFrame() == 2) {
+                brick_exploded.setIgnoreFrame(0);
+                brick_exploded.setIgnoreFrame(1);
+            }
         } else {
+            brick_exploded.unIgnoreFrame(0);
+            brick_exploded.setIgnoreFrame(1);
             super.render(gc);
         }
 

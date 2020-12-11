@@ -3,7 +3,7 @@ package uet.oop.bomberman;
 public class Game {
     private static final int BOMBRATE = 1;
     private static final int BOMBRADIUS = 1;
-    private static final double PLAYERSPEED = 1.0;
+    private static final int PLAYERSPEED = 2;
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
@@ -11,7 +11,22 @@ public class Game {
 
     protected static int bombRate = BOMBRATE;
     protected static int bombRadius = BOMBRADIUS;
-    protected static double playerSpeed = PLAYERSPEED;
+    protected static int playerSpeed = PLAYERSPEED;
+
+    public static int resetBombRate(){
+        bombRate = BOMBRATE;
+        return bombRate;
+    }
+
+    public static int resetBombRadius(){
+        bombRadius = BOMBRADIUS;
+        return bombRadius;
+    }
+
+    public static int resetPlayerSpeed(){
+        playerSpeed = PLAYERSPEED;
+        return playerSpeed;
+    }
 
     public static int getBombRate() {
         return bombRate;
@@ -33,7 +48,7 @@ public class Game {
         return playerSpeed;
     }
 
-    public static void setPlayerSpeed(double playerSpeed) {
-        Game.playerSpeed = playerSpeed;
+    public static void setPlayerSpeed(int playerSpeed) {
+        Game.playerSpeed += playerSpeed;
     }
 }

@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.effect.CacheDataLoader;
 import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Balloom;
+import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Oneal;
 import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
 import uet.oop.bomberman.gameobject.StaticObject.destroyable.Brick;
 import uet.oop.bomberman.gameobject.StaticObject.Grass;
@@ -12,6 +13,7 @@ import uet.oop.bomberman.gameobject.StaticObject.Item.FlameItem;
 import uet.oop.bomberman.gameobject.StaticObject.Item.SpeedItem;
 import uet.oop.bomberman.gameobject.StaticObject.Portal;
 import uet.oop.bomberman.gameobject.StaticObject.Wall;
+import uet.oop.bomberman.gameobject.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.awt.*;
@@ -19,6 +21,8 @@ import java.awt.*;
 public class Map extends GameObject {
     public int[][] map;
     private int tileSize;
+    private int numberOfEnemy = 0;
+    private int numberOfEnemyReal = 0;
     GameObject wall, brick, grass;
 
     public Map(int x, int y, GameWorld gameWorld) {
@@ -42,14 +46,14 @@ public class Map extends GameObject {
                     case '*': // Brick
                     {
                         getGameWorld().getObjectManager().addObject(y, x,
-                                new LayeredEntity(x + getX(), y + getY()
+                                new LayeredObject(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage())
                                         , new Brick(x + getX(), y + getY(), Sprite.brick.getFxImage())));
                         break;
                     }
                     case 'x': // Portal
                     {
-                        getGameWorld().getObjectManager().addObject(y, x, new LayeredEntity(x, y
+                        getGameWorld().getObjectManager().addObject(y, x, new LayeredObject(x, y
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new Portal(x + getX(), y + getY(), Sprite.portal.getFxImage(), getGameWorld())
                                 , new Brick(x + getX(), y + getY(), Sprite.brick.getFxImage())));
@@ -57,9 +61,9 @@ public class Map extends GameObject {
                     }
                     case 'p': // Bomber
                     {
-                        getGameWorld().getObjectManager()
-                                .addObject(new Player(x + getX(), y + getY()
-                                        , Sprite.player_right.getFxImage(), getGameWorld()));
+//                        getGameWorld().getObjectManager()
+//                                .addObject(new Player(x + getX(), y + getY()
+//                                        , Sprite.player_right.getFxImage(), getGameWorld()));
 
                         getGameWorld().getObjectManager().addObject(y, x
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
@@ -72,20 +76,25 @@ public class Map extends GameObject {
                                         , Sprite.balloom_right1.getFxImage(), getGameWorld()));
                         getGameWorld().getObjectManager().addObject(y, x
                                 , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
+                        numberOfEnemy += 1;
+                        numberOfEnemyReal += 1;
                         break;
                     }
-//                    case '2': // Oneal
-//                    {
-//                        _board.addCharacter(new Oneal(Coordinates.tileToPixel(x),
-//                                Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
-//                        getGameWorld().getObjectManager().addEntity(y, x
-//                                , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
-//                        break;
-//                    }
+                    case '2': // Oneal
+                    {
+                        getGameWorld().getObjectManager()
+                                .addObject(new Oneal(x + getX(), y + getY()
+                                        , Sprite.oneal_right1.getFxImage(), getGameWorld()));
+                        getGameWorld().getObjectManager().addObject(y, x
+                                , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()));
+                        numberOfEnemy += 1;
+                        numberOfEnemyReal += 1;
+                        break;
+                    }
                     case 'b': // Bomb item
                     {
                         getGameWorld().getObjectManager().addObject(y , x
-                                , new LayeredEntity(x + getX(), y + getY(), new Grass(x + getX(), y + getY()
+                                , new LayeredObject(x + getX(), y + getY(), new Grass(x + getX(), y + getY()
                                         , Sprite.grass.getFxImage()),
                                 new BombItem(x + getX(), y + getY()
                                         , Sprite.powerup_bombs.getFxImage(), getGameWorld())
@@ -95,7 +104,7 @@ public class Map extends GameObject {
                     case 'f': // Flame item
                     {
                         getGameWorld().getObjectManager().addObject(y, x
-                                ,  new LayeredEntity(x + getX(), y + getY()
+                                ,  new LayeredObject(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new FlameItem(x + getX(), y + getY()
                                         , Sprite.powerup_flames.getFxImage(), getGameWorld())
@@ -105,7 +114,7 @@ public class Map extends GameObject {
                     case 's': // Speed item
                     {
                         getGameWorld().getObjectManager().addObject(y, x
-                                , new LayeredEntity(x + getX(), y + getY()
+                                , new LayeredObject(x + getX(), y + getY()
                                         , new Grass(x + getX(), y + getY(), Sprite.grass.getFxImage()),
                                 new SpeedItem(x + getX(), y + getY(), Sprite.powerup_speed.getFxImage(), getGameWorld())
                                         , new Brick(x + getX(), y + getY(), Sprite.brick.getFxImage())));
@@ -158,9 +167,11 @@ public class Map extends GameObject {
         if (posX2 >= map[0].length) posX2 = map[0].length - 1;
         for (int j = posY1; j < map.length; j++) {
             for (int i = posX1; i <= posX2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getObjectAt(j, i);
-                if (e instanceof Wall
-                        || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
+                GameObject gameObject = getGameWorld().getObjectManager().getObjectAt(j, i);
+                if (gameObject instanceof Wall
+                        || (gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getTopObject() instanceof Brick)
+                        || (getGameWorld().getObjectManager().getBombAt(i, j) != null && !getGameWorld().getObjectManager().getBombAt(i, j).allowedToPass
+                        && gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getFirstObject() instanceof Bomb)) {
 
                     Rectangle r = new Rectangle((getX() + i) * tileSize, (getY() + j) * tileSize, tileSize, tileSize);
                     if (rect.intersects(r)) {
@@ -201,9 +212,11 @@ public class Map extends GameObject {
 
         for (int j = posY; j >= 0; j--) {
             for (int i = posX1; i <= posX2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getObjectAt(j, i);
-                if (e instanceof Wall
-                        || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
+                GameObject gameObject = getGameWorld().getObjectManager().getObjectAt(j, i);
+                if (gameObject instanceof Wall
+                        || (gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getTopObject() instanceof Brick)
+                        || (getGameWorld().getObjectManager().getBombAt(i, j) != null && !getGameWorld().getObjectManager().getBombAt(i, j).allowedToPass
+                        && gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getFirstObject() instanceof Bomb)) {
                     Rectangle r = new Rectangle((getX() + i) * tileSize, (getY() + j) * tileSize, tileSize, tileSize);
                     if (rect.intersects(r)) {
                         if (rect.x > r.x) {
@@ -244,9 +257,12 @@ public class Map extends GameObject {
 
         for (int j = posX1; j <= posX2; j++) {
             for (int i = posY1; i <= posY2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getObjectAt(i, j);
-                if (e instanceof Wall
-                        || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
+                GameObject gameObject = getGameWorld().getObjectManager().getObjectAt(i, j);
+                if (gameObject instanceof Wall
+                        || (gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getTopObject() instanceof Brick)
+                        || (getGameWorld().getObjectManager().getBombAt(j, i) != null
+                        && !getGameWorld().getObjectManager().getBombAt(j, i).allowedToPass
+                        && gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getFirstObject() instanceof Bomb)) {
                     Rectangle r = new Rectangle((getX() + j) * tileSize, (getY() + i) * tileSize, tileSize, tileSize);
                     if (r.y < rect.y + rect.height - 1 && rect.intersects(r)) {
                         if (rect.y > r.y) {
@@ -288,9 +304,11 @@ public class Map extends GameObject {
 
         for (int j = posX1; j >= posX2; j--) {
             for (int i = posY1; i <= posY2; i++) {
-                GameObject e = getGameWorld().getObjectManager().getObjectAt(i, j);
-                if (e instanceof Wall
-                        || (e instanceof LayeredEntity && ((LayeredEntity)e).getTopEntity() instanceof Brick)) {
+                GameObject gameObject = getGameWorld().getObjectManager().getObjectAt(i, j);
+                if (gameObject instanceof Wall
+                        || (gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getTopObject() instanceof Brick)
+                        || (getGameWorld().getObjectManager().getBombAt(j, i) != null && !getGameWorld().getObjectManager().getBombAt(j, i).allowedToPass
+                        && gameObject instanceof LayeredObject && ((LayeredObject)gameObject).getFirstObject() instanceof Bomb)) {
                     Rectangle r = new Rectangle((getX() + j) * tileSize, (getY() + i) * tileSize, tileSize, tileSize);
                     if (r.y < rect.y + rect.height - 1 && rect.intersects(r)) {
                         if (rect.y > r.y) {
@@ -311,6 +329,21 @@ public class Map extends GameObject {
             }
         }
         return null;
+    }
 
+    public int getNumberOfEnemy() {
+        return numberOfEnemy;
+    }
+
+    public void setNumberOfEnemy(int numberOfEnemy) {
+        this.numberOfEnemy = numberOfEnemy;
+    }
+
+    public void setMap(int[][] map) {
+        this.map = map;
+    }
+
+    public int getNumberOfEnemyReal() {
+        return numberOfEnemyReal;
     }
 }

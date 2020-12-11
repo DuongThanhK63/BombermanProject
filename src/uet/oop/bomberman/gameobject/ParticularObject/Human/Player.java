@@ -11,11 +11,12 @@ import uet.oop.bomberman.GameWorld;
 import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
 import uet.oop.bomberman.gameobject.GameObject;
-import uet.oop.bomberman.gameobject.LayeredEntity;
+import uet.oop.bomberman.gameobject.LayeredObject;
 import uet.oop.bomberman.gameobject.StaticObject.Grass;
 import uet.oop.bomberman.gameobject.StaticObject.Portal;
 import uet.oop.bomberman.gameobject.bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sounds.Sound;
 
 
 public class Player extends Human {
@@ -79,8 +80,11 @@ public class Player extends Human {
     @Override
     public void update() {
         super.update();
-        setY(getY() + getSpeedY());
-        setX(getX() + getSpeedX());
+        clearBombs();
+        if (getState() == ALIVE) {
+            setY(getY() + getSpeedY());
+            setX(getX() + getSpeedX());
+        }
         if (getDirection() == RIGHT_DIR &&
                 getGameWorld().getMap().haveCollisionWithRightWall(getBoundForCollisionWithMap()) != null) {
             Rectangle rect = getGameWorld().getMap().haveCollisionWithRightWall(getBoundForCollisionWithMap());
@@ -121,14 +125,8 @@ public class Player extends Human {
             }
             setY(rect.y - 32);
         }
-        clearBombs();
-    }
-
-    public void detectPlaceBomb() {
-        System.out.println(Game.getBombRate());
-        if(Game.getBombRate() > 0 ) {
-            placeBomb();
-            Game.setBombRate(-1);
+        if(getState() == DEATH){
+            Sound.play("endgame3");
         }
     }
 
@@ -139,8 +137,11 @@ public class Player extends Human {
             bomb = new Bomb((int) Math.round(getX() / 32.0)
                     , (int) Math.round(getY() / 32.0), Sprite.bomb.getFxImage(), getGameWorld(), 1);
             getGameWorld().getObjectManager().addBomb(bomb);
+            Sound.play("BOM_SET");
             Game.setBombRate(-1);
         }
+
+
     }
 
     private void clearBombs()
@@ -155,11 +156,11 @@ public class Player extends Human {
             {
                 bs.remove();
                 Game.setBombRate(1);
-                if (getGameWorld().getObjectManager().getObjectAt(b.getY(), b.getX()) instanceof LayeredEntity)
+                if (getGameWorld().getObjectManager().getObjectAt(b.getY(), b.getX()) instanceof LayeredObject)
                 {
-                    LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                             .getObjectAt(b.getY(), b.getX());
-                    if (tmp.getTopEntity() instanceof Portal)
+                    if (tmp.getTopObject() instanceof Portal)
                     {
 
                    }

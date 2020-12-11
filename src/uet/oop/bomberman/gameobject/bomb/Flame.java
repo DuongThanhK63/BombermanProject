@@ -1,20 +1,17 @@
 package uet.oop.bomberman.gameobject.bomb;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.GameWorld;
-import uet.oop.bomberman.gameobject.LayeredEntity;
+import uet.oop.bomberman.gameobject.LayeredObject;
 import uet.oop.bomberman.gameobject.ObjectManager;
-import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
 import uet.oop.bomberman.gameobject.ParticularObject.ParticularObject;
 import uet.oop.bomberman.gameobject.StaticObject.Grass;
-import uet.oop.bomberman.gameobject.StaticObject.Item.FlameItem;
 import uet.oop.bomberman.gameobject.StaticObject.Item.Item;
 import uet.oop.bomberman.gameobject.StaticObject.Portal;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sounds.Sound;
 
 import java.awt.*;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Flame extends ParticularObject {
@@ -53,8 +50,8 @@ public class Flame extends ParticularObject {
                 if (i == flameSegments.length - 1) {
                     flameSegments[i] = new FlameSegment(getX(), getY()- i - 1, direction,
                             true);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt((int) flameSegments[i].getY(), (int) flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -62,8 +59,8 @@ public class Flame extends ParticularObject {
                 } else {
                     flameSegments[i] = new FlameSegment(getX(), getY() - i - 1, direction,
                             false);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -79,8 +76,8 @@ public class Flame extends ParticularObject {
                 if (i == flameSegments.length - 1) {
                     flameSegments[i] = new FlameSegment(getX() + i + 1, getY(), direction,
                             true);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -88,8 +85,8 @@ public class Flame extends ParticularObject {
                 } else {
                     flameSegments[i] = new FlameSegment(getX() + i + 1, getY(), direction,
                             false);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -104,8 +101,8 @@ public class Flame extends ParticularObject {
                 if (i == flameSegments.length - 1) {
                     flameSegments[i] = new FlameSegment((int) this.getX(), (int) this.getY() + i + 1, direction,
                             true);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -113,8 +110,8 @@ public class Flame extends ParticularObject {
                 } else {
                     flameSegments[i] = new FlameSegment((int) this.getX(), (int) this.getY() + i + 1, direction,
                             false);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -129,8 +126,8 @@ public class Flame extends ParticularObject {
                 if (i == flameSegments.length - 1) {
                     flameSegments[i] = new FlameSegment((int) this.getX() - i - 1, (int) this.getY(), direction,
                             true);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -138,8 +135,8 @@ public class Flame extends ParticularObject {
                 } else {
                     flameSegments[i] = new FlameSegment((int) this.getX() - i - 1, (int) this.getY(), direction,
                             false);
-                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                        LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    if (getGameWorld().getObjectManager().getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                        LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                                 .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
                         tmp.addToTop(flameSegments[i]);
                     } else getGameWorld().getObjectManager().addObject(
@@ -172,39 +169,46 @@ public class Flame extends ParticularObject {
         //Kiểm tra va chạm của bom, lửa với các entity khác
 
 
-//        for(int i = 0; i < getGameWorld().getObjectManager().getParticularObjects().size(); i++){
-//            for (int j = 0; j < flameSegments.length; j++) {
-//                Rectangle r = flameSegments[j].getBoundForCollisionWithEnemy();
-//                r.x *= 32;
-//                r.y *= 32;
-//                if (r.intersects(getGameWorld().getObjectManager().getParticularObjects().get(i).getBoundForCollisionWithEnemy())) {
-//                    getGameWorld().getObjectManager().getParticularObjects().get(i).setState(DEATH);
-//                }
-//                if (r.intersects(getGameWorld().getPlayer().getBoundForCollisionWithEnemy())) {
-//                    getGameWorld().getPlayer().setState(ParticularObject.DEATH);
-//                }
-//            }
-//
-//        }
+        List<ParticularObject> list = getGameWorld().getObjectManager().getParticularObjects();
+        for (int i = 0; i < flameSegments.length; i++) {
+            Rectangle r = flameSegments[i].getBoundForCollisionWithEnemy();
+            r.x *= 32;
+            r.y *= 32;
+            for (int j = 1; j < list.size(); j++) {
+                if (r.intersects(list.get(j).getBoundForCollisionWithEnemy())) {
+                    list.get(j).setState(ParticularObject.DEATH);
+                    Sound.play("AA126_11");
+//                    getGameWorld().getMap().setNumberOfEnemy(getGameWorld().getMap().getNumberOfEnemy() - 1);
+                }
+            }
+            if (r.intersects(getGameWorld().getPlayer().getBoundForCollisionWithEnemy())) {
+                getGameWorld().getPlayer().setState(ParticularObject.DEATH);
+                Sound.play("endgame3");
+            }
+            for(int k = 0; k < getGameWorld().getBombList().size(); k++){
+                if(r.intersects(getGameWorld().getBombList().get(k).getBoundForCollisionWithEnemy())){
+                    getGameWorld().getBombList().get(k).explode();
+                }
+            }
 
-
+        }
 
         // Xóa vết lửa sau khi bom nổ
         for (int i = 0; i < flameSegments.length; i++) {
             if (getGameWorld().getObjectManager()
-                    .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredEntity) {
-                LayeredEntity tmp = (LayeredEntity) getGameWorld().getObjectManager()
+                    .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof LayeredObject) {
+                LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager()
                         .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX());
-                if (tmp.getTopEntity() instanceof FlameSegment) {
-                    while (!(tmp.getTopEntity() instanceof Grass) && !(tmp.getTopEntity() instanceof Item)
-                            && !(tmp.getTopEntity() instanceof Portal)) {
-                        tmp.getTopEntity().remove();
+                if (tmp.getTopObject() instanceof FlameSegment) {
+                    while (!(tmp.getTopObject() instanceof Grass) && !(tmp.getTopObject() instanceof Item)
+                            && !(tmp.getTopObject() instanceof Portal)) {
+                        tmp.getTopObject().remove();
                         tmp.update();
                     }
-                } else if (tmp.getTopEntity() instanceof Grass) {
+                } else if (tmp.getTopObject() instanceof Grass) {
                     getGameWorld().getObjectManager().addObject(flameSegments[i].getY(), flameSegments[i].getX()
                             , new Grass(flameSegments[i].getX(), (int) flameSegments[i].getY(),
-                            Sprite.grass.getFxImage()));
+                                    Sprite.grass.getFxImage()));
                 }
             } else if (getGameWorld().getObjectManager()
                     .getObjectAt(flameSegments[i].getY(), flameSegments[i].getX()) instanceof FlameSegment) {
@@ -212,7 +216,19 @@ public class Flame extends ParticularObject {
                         , new Grass(flameSegments[i].getX(), flameSegments[i].getY(), Sprite.grass.getFxImage()));
             }
         }
+
+        if (getGameWorld().getObjectManager().getObjectAt(y, x) instanceof LayeredObject) {
+            LayeredObject tmp = (LayeredObject) getGameWorld().getObjectManager().getObjectAt(y, x);
+            if (tmp.getTopObject() instanceof Portal) {
+                getGameWorld().getObjectManager()
+                        .addObject(y, x, new LayeredObject(x, y, new Grass(x, y, Sprite.grass.getFxImage())
+                                , new Portal(x, y, Sprite.portal.getFxImage(), getGameWorld())));
+            } else {
+                getGameWorld().getObjectManager().addObject(y, x, new Grass(x, y, Sprite.grass.getFxImage()));
+            }
+        }
     }
+
 
 
     @Override

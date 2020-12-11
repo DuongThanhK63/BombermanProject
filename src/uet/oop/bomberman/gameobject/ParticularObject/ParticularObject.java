@@ -11,10 +11,10 @@ public abstract class ParticularObject extends GameObject {
     public static final int LEAGUE_TEAM  = 1;
     public static final int ENEMY_TEAM = 2;
 
-    public static final int LEFT_DIR = 1;
-    public static final int RIGHT_DIR = 0;
-    public static final int UP_DIR = 2;
-    public static final int DOWN_DIR = 3;
+    public static final int LEFT_DIR = 3;
+    public static final int RIGHT_DIR = 1;
+    public static final int UP_DIR = 0;
+    public static final int DOWN_DIR = 2;
 
 
     public static final int ALIVE = 0;

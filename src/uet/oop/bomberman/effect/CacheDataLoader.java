@@ -1,5 +1,7 @@
 package uet.oop.bomberman.effect;
 
+import uet.oop.bomberman.GameWorld;
+import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Oneal;
 import uet.oop.bomberman.gameobject.ParticularObject.Human.Player;
 import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.gameobject.ParticularObject.Enemy.Balloom;
@@ -18,8 +20,9 @@ public class CacheDataLoader {
     private static CacheDataLoader instance = null;
     private Hashtable<String, Animation> animations;
     private Hashtable<String, GameObject> gameObjects;
-    private String backgroundmapfile = "res/levels/Level1.txt";
+    private String backgroundmapfile = "res/levels/Level" + GameWorld.level + ".txt";
     private int[][] background_map;
+    private int level;
     private CacheDataLoader() {}
 
     public static CacheDataLoader getInstance(){
@@ -31,7 +34,6 @@ public class CacheDataLoader {
         loadFrame();
         loadAnimation();
         loadBackgroundMap();
-
     }
     public void loadFrame() {
         gameObjects = new Hashtable<String, GameObject>();
@@ -77,17 +79,31 @@ public class CacheDataLoader {
         balloom_right.add(0.4, new Balloom(Sprite.balloom_right1.getFxImage())
                 , new Balloom(Sprite.balloom_right2.getFxImage()), new Balloom(Sprite.balloom_right3.getFxImage()));
         animations.put("balloom_right", balloom_right);
-
         Animation balloom_dead = new Animation();
-        balloom_dead.add(0.4, new Balloom(Sprite.balloom_dead.getFxImage()), new Balloom(Sprite.mob_dead1.getFxImage()), new Balloom(Sprite.mob_dead2.getFxImage()), new Balloom(Sprite.mob_dead3.getFxImage()));
+        balloom_dead.add(0.4, new Balloom(Sprite.balloom_dead.getFxImage()), new Balloom(Sprite.mob_dead1.getFxImage()),
+                new Balloom(Sprite.mob_dead2.getFxImage()), new Balloom(Sprite.mob_dead3.getFxImage()));
         animations.put("balloom_dead",balloom_dead);
+
+        Animation oneal_left = new Animation();
+        oneal_left.add(0.4, new Oneal(Sprite.oneal_left1.getFxImage()), new Oneal(Sprite.oneal_left2.getFxImage()),
+                new Oneal(Sprite.oneal_left3.getFxImage()));
+        animations.put("oneal_left", oneal_left);
+        Animation oneal_right = new Animation();
+        oneal_right.add(0.4, new Oneal(Sprite.oneal_right1.getFxImage()), new Oneal(Sprite.oneal_right2.getFxImage()),
+                new Oneal(Sprite.oneal_right3.getFxImage()));
+        animations.put("oneal_right", oneal_right);
+        Animation oneal_die = new Animation();
+        oneal_die.add(0.4, new Oneal(Sprite.oneal_dead.getFxImage()), new Oneal(Sprite.mob_dead1.getFxImage()),
+                new Oneal(Sprite.mob_dead2.getFxImage()), new Oneal(Sprite.mob_dead3.getFxImage()));
+        animations.put("oneal_die", oneal_die);
+
         Animation bomb = new Animation();
         bomb.add(0.4, new Bomb(Sprite.bomb.getFxImage())
                 , new Bomb(Sprite.bomb_1.getFxImage()), new Bomb(Sprite.bomb_2.getFxImage()));
         animations.put("bomb", bomb);
 
         Animation brick_explo = new Animation();
-        brick_explo.add(0.4, new Bomb(Sprite.brick_exploded.getFxImage())
+        brick_explo.add(0.2, new Bomb(Sprite.brick_exploded.getFxImage())
                 , new Bomb(Sprite.brick_exploded1.getFxImage()), new Bomb(Sprite.brick_exploded2.getFxImage()));
         animations.put("brick_exploded", brick_explo);
     }
@@ -108,6 +124,7 @@ public class CacheDataLoader {
 
     public void loadBackgroundMap() throws IOException{
 
+        backgroundmapfile = "res/levels/Level" + GameWorld.level + ".txt";
         FileReader fr = new FileReader(backgroundmapfile);
         BufferedReader br = new BufferedReader(fr);
 
@@ -136,5 +153,13 @@ public class CacheDataLoader {
         }
 
         br.close();
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

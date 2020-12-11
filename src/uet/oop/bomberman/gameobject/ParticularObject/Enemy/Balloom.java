@@ -6,9 +6,7 @@ import uet.oop.bomberman.effect.Animation;
 import uet.oop.bomberman.effect.CacheDataLoader;
 import uet.oop.bomberman.gameobject.GameObject;
 import uet.oop.bomberman.GameWorld;
-import uet.oop.bomberman.gameobject.LayeredEntity;
 import uet.oop.bomberman.gameobject.ParticularObject.Enemy.ai.AILow;
-import uet.oop.bomberman.gameobject.bomb.Bomb;
 
 public class Balloom extends Enemy {
     Animation balloomLeftAnim, balloomRightAnim, balloomDieAnim;
@@ -60,7 +58,6 @@ public class Balloom extends Enemy {
         } else {
             balloomDieAnim.Update(System.nanoTime());
             balloomDieAnim.draw(gc,getX(),getY());
-
         }
     }
 
@@ -69,45 +66,37 @@ public class Balloom extends Enemy {
     @Override
     public void update() {
         super.update();
-        timeToChange--;
-        if (timeToChange == 0) {
-            dir = ai.calculateDirection();;
-            timeToChange = 32;
-        }
-        switch (dir) {
-            case 0:
-                if(!(getGameWorld().getObjectManager().getObjectAt(getGameWorld().getPlayer().getY() / 32, getGameWorld().getPlayer().getX() / 32) instanceof LayeredEntity)){
-                        setSpeedX(1);
-                        setX(getX() + getSpeedX());
-                        setDirection(RIGHT_DIR);
-                }
-                break;
-            case 1:
-                if(!(getGameWorld().getObjectManager().getObjectAt(getGameWorld().getPlayer().getY() / 32, getGameWorld().getPlayer().getX() / 32) instanceof LayeredEntity)){
+        if(getState() == ALIVE){
+            timeToChange--;
+            if (timeToChange == 0) {
+                dir = ai.calculateDirection();;
+                timeToChange = 32;
+            }
+            switch (dir) {
+                case 0:
+                    setSpeedX(1);
+                    setX(getX() + getSpeedX());
+                    setDirection(RIGHT_DIR);
+                    break;
+                case 1:
                     setSpeedX(-1);
                     setX(getX() + getSpeedX());
                     setDirection(LEFT_DIR);
-                }
-                break;
+                    break;
 
-            case 2:
-                if(!(getGameWorld().getObjectManager().getObjectAt(getGameWorld().getPlayer().getY() / 32, getGameWorld().getPlayer().getX() / 32) instanceof LayeredEntity)){
+                case 2:
                     setSpeedY(1);
                     setY(getY() + getSpeedY());
                     setDirection(DOWN_DIR);
-                }
-                break;
+                    break;
 
-            case 3:
-                if(!(getGameWorld().getObjectManager().getObjectAt(getGameWorld().getPlayer().getY() / 32, getGameWorld().getPlayer().getX() / 32) instanceof LayeredEntity)){
+                case 3:
                     setSpeedY(-1);
                     setY(getY() + getSpeedY());
                     setDirection(UP_DIR);
-                }
-                break;
+
+                    break;
+            }
         }
-
-
-
     }
 }
